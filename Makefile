@@ -1,47 +1,10 @@
-# NAME = cub3D
-
-# SRC = \
-# main.c
-
-# OBJ = $(SRC:.c=.o)
-
-# LIBFT_DIR = libft/
-# LIBFT = $(LIBFT_DIR)libft.a
-
-# CC = cc -g
-# CFLAGS = -Wall -Wextra -Werror -Iinclude
-# RM = rm -f
-
-# all: $(NAME)
-
-# $(NAME): $(OBJ) $(LIBFT)
-# 	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) $(LFLAG)
-
-# %.o: %.c
-# 	@$(CC) $(CFLAGS) -c $< -o $@
-
-# $(LIBFT):
-# 	@make -C $(LIBFT_DIR)
-
-# clean:
-# 	@make clean -C $(LIBFT_DIR)
-# 	@$(RM) $(OBJ)
-
-# fclean: clean
-# 	@make fclean -C $(LIBFT_DIR)
-# 	@$(RM) $(NAME)
-
-# re: fclean all
-
-# .PHONY: all clean fclean re
-
-
 # Compiler and flags
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror $(INCLUDES) #-fsanitize=address -g #-std=c99
-INCLUDES = -Iinc -I$(LIBFT_DIR) 
+INCLUDES = -Iinc -I$(LIBFT_DIR) -I$(MINILIBX_DIR)
+ 
 # Output executable
-NAME = cub3d 
+NAME = cub3D
 
 # Colors for output
 GREEN = \033[0;32m
@@ -67,7 +30,8 @@ LIBFT_DIR = libft/
 LIBFT_A = $(LIBFT_DIR)libft.a
 
 
-UNAME := $(shell uname)
+MINILIBX_DIR = minilibx-linux/
+LIBRARIES = -L$(LIBFT_DIR) -lft -lm -L$(MINILIBX_DIR) -lmlx_Linux -lXext -lX11 -lm -lz
 
 
 # Build targets
@@ -80,6 +44,7 @@ $(OBJDIR):
 
 $(NAME): $(OBJS)
 	@make -C $(LIBFT_DIR)
+	@make -C $(MINILIBX_DIR)
 	@$(CC) $(LIBFT_A) $(CFLAGS) $(OBJS) -o $(NAME) -L$(LIBFT_DIR) -lft && echo "$(GREEN)$(NAME) was created$(RESET)"
 
 $(OBJDIR)%.o: $(SRCDIR)%.c
@@ -91,6 +56,7 @@ RM = rm -rf
 clean:
 	@$(RM) $(OBJDIR) && echo "$(ORANGE)object files were deleted$(RESET)"
 	@make clean -C $(LIBFT_DIR) && echo "$(ORANGE)libft object files were deleted$(RESET)"
+	@make clean -C $(MINILIBX_DIR) && echo "$(ORANGE)ran make clean in $(MINILIBX_DIR)$(RESET)"
 
 fclean: clean
 	@$(RM) $(NAME) && echo "$(ORANGE)$(NAME) was deleted$(RESET)"
