@@ -3,37 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:33 by etien             #+#    #+#             */
-/*   Updated: 2025/01/03 14:39:58 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/03 15:02:31 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void print_err(char *err_msg)
+int main(void)
 {
-	ft_putendl_fd(err_msg, STDERR_FILENO);
-	exit(1);
-}
-
-int main(int ac, char **av)
-{
-	if (ac != 2)
-		print_err();
-	// if check_extension()
-	// {
-	// 	print_err()
-	// }
-
-	return (0);
+	ft_printf("hello\n");
 }
 
 
-// bool check_extension()
-// {
-
-// }
 
 
