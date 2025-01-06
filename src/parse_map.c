@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:48:19 by etien             #+#    #+#             */
-/*   Updated: 2025/01/06 20:09:36 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/06 20:27:39 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,8 @@ void	store_texture(char *s, t_map *map)
 		map->east_texture = trimmed_path;
 }
 
-// This function will store the floor and ceiling colors in their corresponding fields.
+// This function will store the floor and ceiling colors in their
+// corresponding fields.
 void	store_color(char *s, t_map *map)
 {
 	char	id;
@@ -142,16 +143,16 @@ void	store_color(char *s, t_map *map)
 void	color_str_to_int(char *color_str, int *color_int)
 {
 	char	**color_arr;
-	int		R;
-	int		G;
-	int		B;
+	int		r;
+	int		g;
+	int		b;
 
 	color_arr = ft_split(color_str, ',');
 	if (!check_color_format(color_arr))
 		err_and_exit(COLOR_ERR);
-	R = ft_atoi(color_arr[0]);
-	G = ft_atoi(color_arr[1]);
-	B = ft_atoi(color_arr[2]);
+	r = ft_atoi(color_arr[0]);
+	g = ft_atoi(color_arr[1]);
+	b = ft_atoi(color_arr[2]);
 	*color_int = (R << 16) | (G << 8) | B;
 	free_double_arr(color_arr);
 }
