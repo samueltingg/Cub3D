@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/06 10:35:23 by sting             #+#    #+#             */
-/*   Updated: 2025/01/06 15:52:20 by etien            ###   ########.fr       */
+/*   Created: 2025/01/06 15:54:26 by etien             #+#    #+#             */
+/*   Updated: 2025/01/06 15:55:01 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#include "../inc/cub3d.h"
 
-# include "macros.h"
-# include "mlx.h"
-# include "../libft/libft/libft.h"
-# include "parsing.h"
-# include <fcntl.h>
-# include <limits.h>
-# include <math.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-
-#endif
+// This function will print out the error message to STDERR
+// and exit the program.
+void	err_and_exit(char *err_msg)
+{
+	ft_putendl_fd(err_msg, STDERR_FILENO);
+	exit(1);
+}

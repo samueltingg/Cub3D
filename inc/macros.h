@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   macros.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/06 15:52:30 by etien             #+#    #+#             */
+/*   Updated: 2025/01/06 15:53:12 by etien            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MACROS_H
 # define MACROS_H
 
@@ -18,30 +30,30 @@
 # define ON_DESTROY 17
 
 // Linux KEYCODES
-#  define KEY_ESC 65307
-#  define KEY_UP 65362
-#  define KEY_DOWN 65364
-#  define KEY_LEFT 65361
-#  define KEY_RIGHT 65363
-#  define KEY_MINUS 45
-#  define KEY_PLUS 61
-#  define KEY_W 119
-#  define KEY_S 115
-#  define KEY_A 97
-#  define KEY_D 100
-#  define KEY_J 106
-#  define KEY_L 108
-#  define KEY_P 112
-#  define KEY_R 114
-#  define KEY_U 117
-#  define KEY_I 105
-#  define KEY_K 107
-#  define KEY_O 111
-#  define KEY_Z 122
-#  define KEY_MINUS 45
-#  define KEY_PLUS 61
-#  define KEY_DOT 46
-#  define KEY_4 52
+# define KEY_ESC 65307
+# define KEY_UP 65362
+# define KEY_DOWN 65364
+# define KEY_LEFT 65361
+# define KEY_RIGHT 65363
+# define KEY_MINUS 45
+# define KEY_PLUS 61
+# define KEY_W 119
+# define KEY_S 115
+# define KEY_A 97
+# define KEY_D 100
+# define KEY_J 106
+# define KEY_L 108
+# define KEY_P 112
+# define KEY_R 114
+# define KEY_U 117
+# define KEY_I 105
+# define KEY_K 107
+# define KEY_O 111
+# define KEY_Z 122
+# define KEY_MINUS 45
+# define KEY_PLUS 61
+# define KEY_DOT 46
+# define KEY_4 52
 
 // COLORS
 # define WHITE_PIXEL 0xFFFFFF

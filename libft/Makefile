@@ -35,7 +35,7 @@ GNL_OBJS = $(GNL_SRCS:.c=.o)
 
 # Compiler and flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I.
+CFLAGS = -Wall -Wextra -Werror -fPIC -I.
 
 # Archive and remove commands
 AR = ar -rc
