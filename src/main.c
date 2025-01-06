@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:33 by etien             #+#    #+#             */
-/*   Updated: 2025/01/06 17:14:44 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/06 20:16:37 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,10 @@ int	main(int ac, char **av)
 		printf("%s\n", map->west_texture);
 	if (map->east_texture)
 		printf("%s\n", map->east_texture);
+	if (map->floor_color >= 0)
+		printf("%d\n", map->floor_color);
+	if (map->ceiling_color >= 0)
+		printf("%d\n", map->ceiling_color);
+	free_map(map);
 	return (0);
 }

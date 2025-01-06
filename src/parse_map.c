@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:48:19 by etien             #+#    #+#             */
-/*   Updated: 2025/01/06 17:29:31 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/06 20:09:36 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@ void	parse_line(char *line, t_map *map)
 	else if (!(ft_strncmp(s, "NO", 2) && ft_strncmp(s, "SO", 2)
 			&& ft_strncmp(s, "WE", 2) && ft_strncmp(s, "EA", 2)))
 		store_texture(s, map);
-	// else if (*s == 'F' || *s == 'C')
-	// 	store_color(s, map);
+	else if (*s == 'F' || *s == 'C')
+		store_color(s, map);
 }
 
 // This function will store the texture paths in their corresponding fields.
@@ -100,7 +100,7 @@ void	store_texture(char *s, t_map *map)
 	len = s - path_start;
 	if (len <= 0)
 		err_and_exit(TEXTURE_PATH_ERR);
-	trimmed_path = ft_strtrim(ft_substr(path_start, 0, len), WHITESPACE);
+	trimmed_path = ft_strtrim_mod(ft_substr(path_start, 0, len), WHITESPACE);
 	if (!ft_strncmp(id, "NO", 2))
 		map->north_texture = trimmed_path;
 	else if (!ft_strncmp(id, "SO", 2))
@@ -111,38 +111,74 @@ void	store_texture(char *s, t_map *map)
 		map->east_texture = trimmed_path;
 }
 
-// // This function will store the floor and ceiling colors in their corresponding fields.
-// void	store_color(char *s, t_map *map)
-// {
-// 	char	id;
-// 	char	*color_start;
-// 	int		len;
+// This function will store the floor and ceiling colors in their corresponding fields.
+void	store_color(char *s, t_map *map)
+{
+	char	id;
+	char	*color_start;
+	int		len;
+	char	*trimmed_color;
+	int		color_int;
 
-// 	id = s;
-// 	s += 1;
-// 	skip_characters(WHITESPACE, &s);
-// 	color_start = s;
-// 	while (*s)
-// 		s++;
-// 	len = s - color_start;
-// 	if (len <= 0)
-// 		err_and_exit(COLOR_ERR);
-// 	color_to_integer(ft_substr(color_start, 0, len));
+	id = *s;
+	s += 1;
+	skip_characters(WHITESPACE, &s);
+	color_start = s;
+	while (*s)
+		s++;
+	len = s - color_start;
+	if (len <= 0)
+		err_and_exit(COLOR_ERR);
+	trimmed_color = ft_strtrim_mod(ft_substr(color_start, 0, len), WHITESPACE);
+	color_str_to_int(trimmed_color, &color_int);
+	free(trimmed_color);
+	if (id == 'F')
+		map->floor_color = color_int;
+	else if (id == 'C')
+		map->ceiling_color = color_int;
+}
 
+// This function will convert the color string to its integer representation.
+void	color_str_to_int(char *color_str, int *color_int)
+{
+	char	**color_arr;
+	int		R;
+	int		G;
+	int		B;
 
-// 	if (id == 'F')
-// 		map->floor_color = ;
-// 	else if (id == 'C')
-// 		map->ceiling_color = ;
+	color_arr = ft_split(color_str, ',');
+	if (!check_color_format(color_arr))
+		err_and_exit(COLOR_ERR);
+	R = ft_atoi(color_arr[0]);
+	G = ft_atoi(color_arr[1]);
+	B = ft_atoi(color_arr[2]);
+	*color_int = (R << 16) | (G << 8) | B;
+	free_double_arr(color_arr);
+}
 
+// This function checks that the color has been correctly formatted:
+// - composed of three values
+// - each value has a maximum of three digits
+//   (additional check to avoid integer overflow)
+// - each value must be between 0 and 255
+bool	check_color_format(char **color_arr)
+{
+	int		i;
 
-
-// }
-
-// color_to_integer(char *color_str)
-// {
-// 	int		R;
-// 	int		G;
-// 	int		B;
-
-// }
+	i = 0;
+	while (color_arr[i])
+		i++;
+	if (i != 3)
+		return (false);
+	i = 0;
+	while (color_arr[i])
+	{
+		color_arr[i] = ft_strtrim_mod(color_arr[i], WHITESPACE);
+		if (ft_strlen(color_arr[i]) > 3
+			|| ft_atoi(color_arr[i]) < 0
+			|| ft_atoi(color_arr[i]) > 255)
+			return (false);
+		i++;
+	}
+	return (true);
+}

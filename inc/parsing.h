@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:24 by etien             #+#    #+#             */
-/*   Updated: 2025/01/06 17:19:02 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/06 20:07:09 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ typedef struct s_map
 }	t_map;
 
 void	err_and_exit(char *err_msg);
+void	free_map(t_map *map);
+void	free_double_arr(char **arr);
 
 t_map	*map_init(void);
 
@@ -44,7 +46,11 @@ void	parse_map(char *map_file, t_map *map);
 bool	check_file_extension(const char *filename);
 void	parse_line(char *line, t_map *map);
 void	store_texture( char *s, t_map *map);
+void	store_color(char *s, t_map *map);
+void	color_str_to_int(char *color_str, int *color_int);
+bool	check_color_format(char **color_arr);
 
+char	*ft_strtrim_mod(char *s1, char const *set);
 void	skip_characters(char *characters, char **s);
 
 #endif
