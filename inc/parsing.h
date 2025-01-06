@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:24 by etien             #+#    #+#             */
-/*   Updated: 2025/01/03 15:05:39 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/06 10:49:20 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 # include "../libft/libft/libft.h"
 
+# include <stdbool.h>
+
 // error messages
-# define INCORRECT_ARGS "Incorrect number of arguments"
-
-
-
+# define ARGS_ERR "Error: Incorrect number of arguments."
+# define EXTENSION_ERR "Error: Filename should end with .cub extension."
 
 typedef struct s_map
 {
@@ -31,5 +31,8 @@ typedef struct s_map
 	int		ceiling_color;
 	char	**grid;
 }	t_map;
+
+void	print_err(char *err_msg);
+bool	check_file_extension(const char *filename);
 
 #endif
