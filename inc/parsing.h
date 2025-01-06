@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:24 by etien             #+#    #+#             */
-/*   Updated: 2025/01/06 15:55:59 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/06 17:19:02 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,15 @@
 
 # include <stdbool.h>
 
-# define WHITESPACE " \t"
+# define WHITESPACE " \t\n"
 
 // error messages
 # define ARGS_ERR "Error: Incorrect number of arguments."
+# define COLOR_ERR "Error: Invalid color."
 # define EXTENSION_ERR "Error: File name should end with .cub extension."
 # define FILE_OPEN_ERR "Error: File could not be opened."
 # define MAP_MALLOC_ERR "Error: Map malloc failure."
-# define TEXTURE_PATH_ERR "Error: No texture path."
+# define TEXTURE_PATH_ERR "Error: Invalid texture path."
 
 typedef struct s_map
 {
@@ -40,8 +41,10 @@ void	err_and_exit(char *err_msg);
 t_map	*map_init(void);
 
 void	parse_map(char *map_file, t_map *map);
+bool	check_file_extension(const char *filename);
 void	parse_line(char *line, t_map *map);
 void	store_texture( char *s, t_map *map);
-bool	check_file_extension(const char *filename);
+
+void	skip_characters(char *characters, char **s);
 
 #endif

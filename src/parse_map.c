@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:48:19 by etien             #+#    #+#             */
-/*   Updated: 2025/01/06 16:00:54 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/06 17:29:31 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,49 +52,6 @@ void	parse_map(char *map_file, t_map *map)
 	close(fd);
 }
 
-// This function will parse the line and call the relevant function
-// depending on the data type to be stored.
-void	parse_line(char *line, t_map *map)
-{
-	char	*s;
-
-	s = line;
-	while (*s && ft_strchr(WHITESPACE, *s))
-		s++;
-	if (!*s || !ft_strcmp(s, "\n"))
-		return ;
-	if (!(ft_strncmp(s, "NO", 2) && ft_strncmp(s, "SO", 2)
-			&& ft_strncmp(s, "WE", 2) && ft_strncmp(s, "EA", 2)))
-		store_texture(s, map);
-}
-
-// This function will store the texture paths in their corresponding fields.
-void	store_texture(char *s, t_map *map)
-{
-	char	*direction;
-	char	*path_start;
-	int		len;
-
-	direction = s;
-	s += 2;
-	while (ft_strchr(WHITESPACE, *s))
-		s++;
-	path_start = s;
-	while (*s && !ft_strchr(" \t\n", *s))
-		s++;
-	len = s - path_start;
-	if (len <= 0)
-		err_and_exit(TEXTURE_PATH_ERR);
-	if (!ft_strncmp(direction, "NO", 2))
-		map->north_texture = ft_substr(path_start, 0, len);
-	else if (!ft_strncmp(direction, "SO", 2))
-		map->south_texture = ft_substr(path_start, 0, len);
-	else if (!ft_strncmp(direction, "WE", 2))
-		map->west_texture = ft_substr(path_start, 0, len);
-	else if (!ft_strncmp(direction, "EA", 2))
-		map->east_texture = ft_substr(path_start, 0, len);
-}
-
 // This function checks that the filename ends with the .cub extension.
 bool	check_file_extension(const char *filename)
 {
@@ -108,3 +65,84 @@ bool	check_file_extension(const char *filename)
 		&& ft_strncmp(filename + (len_filename - len_extension),
 			extension, len_extension) == 0);
 }
+
+// This function will parse the line and call the relevant function
+// depending on the data type to be stored.
+void	parse_line(char *line, t_map *map)
+{
+	char	*s;
+
+	s = line;
+	skip_characters(WHITESPACE, &s);
+	if (!*s)
+		return ;
+	else if (!(ft_strncmp(s, "NO", 2) && ft_strncmp(s, "SO", 2)
+			&& ft_strncmp(s, "WE", 2) && ft_strncmp(s, "EA", 2)))
+		store_texture(s, map);
+	// else if (*s == 'F' || *s == 'C')
+	// 	store_color(s, map);
+}
+
+// This function will store the texture paths in their corresponding fields.
+void	store_texture(char *s, t_map *map)
+{
+	char	*id;
+	char	*path_start;
+	int		len;
+	char	*trimmed_path;
+
+	id = s;
+	s += 2;
+	skip_characters(WHITESPACE, &s);
+	path_start = s;
+	while (*s)
+		s++;
+	len = s - path_start;
+	if (len <= 0)
+		err_and_exit(TEXTURE_PATH_ERR);
+	trimmed_path = ft_strtrim(ft_substr(path_start, 0, len), WHITESPACE);
+	if (!ft_strncmp(id, "NO", 2))
+		map->north_texture = trimmed_path;
+	else if (!ft_strncmp(id, "SO", 2))
+		map->south_texture = trimmed_path;
+	else if (!ft_strncmp(id, "WE", 2))
+		map->west_texture = trimmed_path;
+	else if (!ft_strncmp(id, "EA", 2))
+		map->east_texture = trimmed_path;
+}
+
+// // This function will store the floor and ceiling colors in their corresponding fields.
+// void	store_color(char *s, t_map *map)
+// {
+// 	char	id;
+// 	char	*color_start;
+// 	int		len;
+
+// 	id = s;
+// 	s += 1;
+// 	skip_characters(WHITESPACE, &s);
+// 	color_start = s;
+// 	while (*s)
+// 		s++;
+// 	len = s - color_start;
+// 	if (len <= 0)
+// 		err_and_exit(COLOR_ERR);
+// 	color_to_integer(ft_substr(color_start, 0, len));
+
+
+// 	if (id == 'F')
+// 		map->floor_color = ;
+// 	else if (id == 'C')
+// 		map->ceiling_color = ;
+
+
+
+// }
+
+// color_to_integer(char *color_str)
+// {
+// 	int		R;
+// 	int		G;
+// 	int		B;
+
+// }
