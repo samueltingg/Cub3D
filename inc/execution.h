@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:12:33 by sting             #+#    #+#             */
-/*   Updated: 2025/01/07 15:33:08 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/07 16:07:25 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,6 @@ typedef struct s_img
 	int		endian;
 }			t_img;
 
-typedef struct s_vars
-{
-	void	*mlx_ptr;
-	void	*win_ptr;
-	t_img	img;
-
-
-	int		line_count;
-	int		wc;
-	double	gap;
-
-	t_cord	**cord_bottom;
-	t_cord	**cord_left;
-	t_cord	**cord_right;
-}			t_vars;
 
 typedef struct s_line_cord
 {
@@ -89,8 +74,18 @@ typedef struct s_rect
 	double height;
 	int color;
 }			t_rect;
-
 //---------------------------
+
+typedef struct s_vars
+{
+	void	*mlx_ptr;
+	void	*win_ptr;
+	t_img	img;
+
+	// coordinate of player
+	int		p_x;
+	int		p_y;
+}			t_vars;
 
 
 // * RENDERING
