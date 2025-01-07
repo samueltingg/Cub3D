@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:54:26 by etien             #+#    #+#             */
-/*   Updated: 2025/01/06 20:04:48 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/07 11:23:12 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	free_map(t_map *map)
 			free(map->west_texture);
 		if (map->east_texture)
 			free(map->east_texture);
-		if (map->grid)
-			free_double_arr(map->grid);
+		if (map->map)
+			free_double_arr(map->map);
 		free(map);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:33 by etien             #+#    #+#             */
-/*   Updated: 2025/01/06 20:16:37 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/07 11:06:35 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(int ac, char **av)
 	if (ac != 2)
 		err_and_exit(ARGS_ERR);
 	map = map_init();
-	parse_map(av[1], map);
+	parse_cub_file(av[1], map);
 	if (map->north_texture)
 		printf("%s\n", map->north_texture);
 	if (map->south_texture)
