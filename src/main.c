@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:33 by etien             #+#    #+#             */
-/*   Updated: 2025/01/07 11:30:21 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/07 14:11:27 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	close_window(void *params)
 	t_vars	*vars;
 
 	vars = (t_vars *)params;
-	// mlx_destroy_image(vars->mlx_ptr, vars->img.img_ptr);
+	mlx_destroy_image(vars->mlx_ptr, vars->img.img_ptr);
 	mlx_destroy_window(vars->mlx_ptr, vars->win_ptr);
 	// free_all_cord(vars);
 	exit(0);

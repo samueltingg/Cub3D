@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:43:32 by sting             #+#    #+#             */
-/*   Updated: 2025/01/07 11:45:26 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/07 13:40:40 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,16 +83,17 @@ void	render_background(t_img *img, int color)
 	}
 }
 
-# define IMG_W 200
-# define IMG_H 200
+#define IMG_W 100 
+#define IMG_H 100
+
 void	render_square(t_img *img, int start_x, int start_y, int color)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
-	y = start_y;	
+	y = start_y;
 	while (y <= IMG_H + start_y)
-	{	
+	{
 		x = start_x;
 		while (x <= IMG_W + start_x)
 		{
@@ -100,38 +101,83 @@ void	render_square(t_img *img, int start_x, int start_y, int color)
 			x++;
 		}
 		y++;
-	}	
+	}
 }
 
-
-
-void	render_map(t_img *img)
+void	render_grid_lines(t_img *img, int map_width, int map_height)
 {
-	// example
-	int map_height = IMG_H * 3;
-	int map_width = IMG_W * 3;
-
-	// example map
-	char **map = {
-		"111",
-		"101",
-		"111"
-	}
-
 	int x;
 	int y;
-
-	y = 0;	
-	while (y < map_height) // !  < or <= ??
+	
+	// Draw vertical lines
+	x = IMG_W;
+	while (x < map_width)
+	{
+		y = 0;
+		while (y < map_height)
+		{
+			img_pix_put(img, x, y, 0xA1A1A1); // Black grid line
+			y++;
+		}
+		x += IMG_W;
+	}
+	// Draw horizontal lines
+	y = IMG_H;
+	while (y < map_height)
 	{
 		x = 0;
-		while (x < map_width) // !  < or <= ??
+		while (x < map_width)
 		{
-			render_square(img, x, y, GREEN_PIXEL);
-			x += IMG_W;	
+			img_pix_put(img, x, y, 0xA1A1A1); // Black grid line
+			x++;
 		}
 		y += IMG_H;
 	}
+}
+
+void	render_map(t_img *img)
+{
+	int		map_height;
+	int		map_width;
+	char	*map[] = {
+		"1111111", 
+		"1001001", 
+		"1001001", 
+		"1001001", 
+		"1000001",
+		"1000001", 
+		"1111111", 
+		NULL};
+	int		x;
+	int		y;
+	int		i;
+	int		j;
+
+	// example
+	map_height = IMG_H * 7;
+	map_width = IMG_W * 7;
+	// example map
+	y = 0;
+	j = 0;
+	while (y < map_height) // !  < or <= ??
+	{
+		x = 0;
+		i = 0;
+		while (x < map_width) // !  < or <= ??
+		{
+			printf("j=%i, i=%i\n", j, i);
+			printf("map[3]: %s\n", map[3]);
+			if (map[j][i] == '1')
+				render_square(img, x, y, 0xFFFFFF);
+			else if (map[j][i] == '0')
+				render_square(img, x, y, 0x0);
+			x += IMG_W;
+			i++;
+		}
+		y += IMG_H;
+		j++;
+	}
+	render_grid_lines(img, map_width, map_height);
 }
 
 int	render(void *param)
@@ -142,7 +188,6 @@ int	render(void *param)
 	if (vars->win_ptr == NULL)
 		return (1);
 	render_background(&vars->img, 0xA1A1A1);
-	render_square(&vars->img, WINDOW_WIDTH/2, WINDOW_WIDTH/2, BLUE_PIXEL);
 	render_map(&vars->img);
 	mlx_put_image_to_window(vars->mlx_ptr, vars->win_ptr, vars->img.img_ptr, 0,
 		0);
