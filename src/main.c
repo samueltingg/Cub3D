@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:33 by etien             #+#    #+#             */
-/*   Updated: 2025/01/07 11:06:35 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/07 13:16:12 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(int ac, char **av)
 	t_map	*map;
 
 	if (ac != 2)
-		err_and_exit(ARGS_ERR);
+		err_free_exit(ARGS_ERR, NULL, NULL);
 	map = map_init();
 	parse_cub_file(av[1], map);
 	if (map->north_texture)

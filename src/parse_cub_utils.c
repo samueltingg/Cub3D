@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:32:22 by etien             #+#    #+#             */
-/*   Updated: 2025/01/07 11:43:36 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/07 13:58:46 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ bool	check_file_extension(const char *filename)
 }
 
 // This function will convert the color string to its integer representation.
-void	color_str_to_int(char *color_str, int *color_int)
+int	color_str_to_int(char *color_str, char *line, t_map *map)
 {
 	char	**color_arr;
 	int		r;
@@ -36,12 +36,16 @@ void	color_str_to_int(char *color_str, int *color_int)
 
 	color_arr = ft_split(color_str, ',');
 	if (!check_color_format(color_arr))
-		err_and_exit(COLOR_ERR);
+	{
+		free(color_str);
+		free_double_arr(color_arr);
+		err_free_exit(COLOR_ERR, map, line);
+	}
 	r = ft_atoi(color_arr[0]);
 	g = ft_atoi(color_arr[1]);
 	b = ft_atoi(color_arr[2]);
-	*color_int = (r << 16) | (g << 8) | b;
 	free_double_arr(color_arr);
+	return ((r << 16) | (g << 8) | b);
 }
 
 // This function checks that the color has been correctly formatted:
@@ -77,8 +81,8 @@ bool	check_color_format(char **color_arr)
 bool	check_completeness(t_map *map, int check_all)
 {
 	if (!map->north_texture || !map->south_texture
-	|| !map->west_texture || !map->east_texture
-	|| map->floor_color < 0 || map->ceiling_color < 0)
+		|| !map->west_texture || !map->east_texture
+		|| map->floor_color < 0 || map->ceiling_color < 0)
 		return (false);
 	if (check_all && !map->map)
 		return (false);

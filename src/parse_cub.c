@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:48:19 by etien             #+#    #+#             */
-/*   Updated: 2025/01/07 11:45:23 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/07 13:50:53 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ void	parse_cub_file(char *map_file, t_map *map)
 
 	map_detected = false;
 	if (!check_file_extension(map_file))
-		err_and_exit(EXTENSION_ERR);
+		err_free_exit(EXTENSION_ERR, map, NULL);
 	fd = open(map_file, O_RDONLY);
 	if (fd < 0)
-		err_and_exit(FILE_OPEN_ERR);
+		err_free_exit(FILE_OPEN_ERR, map, NULL);
 	line = get_next_line(fd);
 	while (line)
 	{
@@ -33,8 +33,8 @@ void	parse_cub_file(char *map_file, t_map *map)
 		free(line);
 		line = get_next_line(fd);
 	}
-	if (!check_completeness(map), 1)
-		err_and_exit(INCOMPLETE_DATA_ERR);
+	if (!check_completeness(map, 1))
+		err_free_exit(INCOMPLETE_DATA_ERR, map, NULL);
 	close(fd);
 }
 
@@ -50,15 +50,15 @@ void	parse_line(char *line, t_map *map, bool *map_detected)
 		return ;
 	else if (!(ft_strncmp(s, "NO", 2) && ft_strncmp(s, "SO", 2)
 			&& ft_strncmp(s, "WE", 2) && ft_strncmp(s, "EA", 2)))
-		parse_texture(s, map);
+		parse_texture(s, line, map);
 	else if (*s == 'F' || *s == 'C')
-		parse_color(s, map);
+		parse_color(s, line, map);
 	else if (detect_map(line) || *map_detected)
 		parse_map(line, map);
 }
 
 // This function will store the texture paths in their corresponding fields.
-void	parse_texture(char *s, t_map *map)
+void	parse_texture(char *s, char *line, t_map *map)
 {
 	char	*id;
 	char	*path_start;
@@ -73,7 +73,7 @@ void	parse_texture(char *s, t_map *map)
 		s++;
 	len = s - path_start;
 	if (len <= 0)
-		err_and_exit(TEXTURE_PATH_ERR);
+		err_free_exit(TEXTURE_PATH_ERR, map, line);
 	trimmed_path = ft_strtrim_mod(ft_substr(path_start, 0, len), WHITESPACE);
 	if (!ft_strncmp(id, "NO", 2) && !map->north_texture)
 		map->north_texture = trimmed_path;
@@ -87,13 +87,12 @@ void	parse_texture(char *s, t_map *map)
 
 // This function will store the floor and ceiling colors in their
 // corresponding fields.
-void	parse_color(char *s, t_map *map)
+void	parse_color(char *s, char *line, t_map *map)
 {
 	char	id;
 	char	*color_start;
 	int		len;
 	char	*trimmed_color;
-	int		color_int;
 
 	id = *s;
 	s += 1;
@@ -103,12 +102,11 @@ void	parse_color(char *s, t_map *map)
 		s++;
 	len = s - color_start;
 	if (len <= 0)
-		err_and_exit(COLOR_ERR);
+		err_free_exit(COLOR_ERR, map, line);
 	trimmed_color = ft_strtrim_mod(ft_substr(color_start, 0, len), WHITESPACE);
-	color_str_to_int(trimmed_color, &color_int);
-	free(trimmed_color);
 	if (id == 'F' && map->floor_color < 0)
-		map->floor_color = color_int;
+		map->floor_color = color_str_to_int(trimmed_color, line, map);
 	else if (id == 'C' && map->ceiling_color < 0)
-		map->ceiling_color = color_int;
+		map->ceiling_color = color_str_to_int(trimmed_color, line, map);
+	free(trimmed_color);
 }

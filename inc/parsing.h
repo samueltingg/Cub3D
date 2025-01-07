@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:24 by etien             #+#    #+#             */
-/*   Updated: 2025/01/07 11:43:43 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/07 13:58:12 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,17 @@
 # define MAP_ORDER_ERR "Error: Map should be the last element."
 # define EXTENSION_ERR "Error: File name should end with .cub extension."
 # define FILE_OPEN_ERR "Error: File could not be opened."
-# define INCOMPLETE_DATA_ERR " Error: Incomplete data."
+# define INCOMPLETE_DATA_ERR "Error: Incomplete data."
 # define MAP_MALLOC_ERR "Error: Map malloc failure."
 # define TEXTURE_PATH_ERR "Error: Invalid texture path."
 
-typedef enum
+typedef enum e_direction
 {
 	NORTH,
 	SOUTH,
 	WEST,
 	EAST
-} t_direction;
+}	t_direction;
 
 typedef struct s_map
 {
@@ -48,21 +48,23 @@ typedef struct s_map
 	char	**map;
 }	t_map;
 
-void	err_and_exit(char *err_msg);
+void	err_free_exit(char *err_msg, t_map *map, char *line);
 void	free_map(t_map *map);
 void	free_double_arr(char **arr);
 
 t_map	*map_init(void);
 
 void	parse_cub_file(char *map_file, t_map *map);
-void	parse_line(char *line, t_map *map);
-void	parse_texture( char *s, t_map *map);
-void	parse_color(char *s, t_map *map);
+void	parse_line(char *line, t_map *map, bool *map_detected);
+void	parse_texture( char *s, char *line, t_map *map);
+void	parse_color(char *s, char *line, t_map *map);
 bool	check_file_extension(const char *filename);
-void	color_str_to_int(char *color_str, int *color_int);
+int		color_str_to_int(char *color_str, char *line, t_map *map);
 bool	check_color_format(char **color_arr);
-bool	detect_map(char *line);
 bool	check_completeness(t_map *map, int check_all);
+
+void	parse_map(char *line, t_map *map);
+bool	detect_map(char *line);
 
 char	*ft_strtrim_mod(char *s1, char const *set);
 void	skip_characters(char *characters, char **s);

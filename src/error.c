@@ -6,17 +6,21 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:54:26 by etien             #+#    #+#             */
-/*   Updated: 2025/01/07 11:23:12 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/07 13:16:12 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-// This function will print out the error message to STDERR
-// and exit the program.
-void	err_and_exit(char *err_msg)
+// This function will print out the error message to STDERR,
+// free dynamically-allocated memory and exit the program.
+void	err_free_exit(char *err_msg, t_map *map, char *line)
 {
 	ft_putendl_fd(err_msg, STDERR_FILENO);
+	if (map)
+		free_map(map);
+	if (line)
+		free(line);
 	exit(1);
 }
 
