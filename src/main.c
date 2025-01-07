@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:33 by etien             #+#    #+#             */
-/*   Updated: 2025/01/06 16:08:07 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/07 11:30:21 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void mlx(t_vars *vars)
 {
 	vars->mlx_ptr = mlx_init();
 	vars->win_ptr = mlx_new_window(vars->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT,
-			"FDF");
+			"Cub3D");
 	vars->img.img_ptr = mlx_new_image(vars->mlx_ptr, WINDOW_WIDTH,
 			WINDOW_HEIGHT);
 	vars->img.addr = mlx_get_data_addr(vars->img.img_ptr,
