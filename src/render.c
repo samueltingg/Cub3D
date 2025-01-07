@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:43:32 by sting             #+#    #+#             */
-/*   Updated: 2025/01/07 14:14:51 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/07 15:28:22 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,18 +86,36 @@ void	render_background(t_img *img, int color)
 #define IMG_W 100 
 #define IMG_H 100
 
-void	render_square(t_img *img, int start_x, int start_y, int color)
+// void	render_square(t_img *img, int start_x, int start_y, int color)
+// {
+// 	int	x;
+// 	int	y;
+
+// 	y = start_y;
+// 	while (y <= IMG_H + start_y)
+// 	{
+// 		x = start_x;
+// 		while (x <= IMG_W + start_x)
+// 		{
+// 			img_pix_put(img, x, y, color);
+// 			x++;
+// 		}
+// 		y++;
+// 	}
+// }
+
+void	render_square(t_img *img, t_rect rect)
 {
 	int	x;
 	int	y;
 
-	y = start_y;
-	while (y <= IMG_H + start_y)
+	y = rect.y;
+	while (y <= rect.height + rect.y)
 	{
-		x = start_x;
-		while (x <= IMG_W + start_x)
+		x = rect.x;
+		while (x <= rect.width + rect.x)
 		{
-			img_pix_put(img, x, y, color);
+			img_pix_put(img, x, y, rect.color);
 			x++;
 		}
 		y++;
@@ -166,9 +184,11 @@ void	render_map(t_img *img)
 		while (x < map_width) // !  < or <= ??
 		{
 			if (map[j][i] == '1')
-				render_square(img, x, y, 0xFFFFFF);
+				// render_square(img, x, y, 0xFFFFFF);
+				render_square(img, (t_rect){x, y, IMG_W, IMG_H, 0xffffff});
 			else if (map[j][i] == '0')
-				render_square(img, x, y, 0x0);
+				// render_square(img, x, y, 0x0);
+				render_square(img, (t_rect){x, y, IMG_W, IMG_H, 0x0});
 			x += IMG_W;
 			i++;
 		}
@@ -176,6 +196,11 @@ void	render_map(t_img *img)
 		j++;
 	}
 	render_grid_lines(img, map_width, map_height);
+}
+
+void render_player(t_img *img)
+{
+	render_square(img, (t_rect){0, 0, 50, 50, RED_PIXEL}); 
 }
 
 int	render(void *param)
@@ -187,6 +212,7 @@ int	render(void *param)
 		return (1);
 	render_background(&vars->img, 0xA1A1A1);
 	render_map(&vars->img);
+	render_player(&vars->img);
 	mlx_put_image_to_window(vars->mlx_ptr, vars->win_ptr, vars->img.img_ptr, 0,
 		0);
 	return (0);

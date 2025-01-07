@@ -20,7 +20,7 @@ SRCS_FIL = \
 			gradient.c \
 			bresenham.c \
 			render.c \
-			
+			handle_key_event.c \
 			\
 
 SRCS = $(addprefix $(SRCDIR), $(SRCS_FIL))

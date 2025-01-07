@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:12:33 by sting             #+#    #+#             */
-/*   Updated: 2025/01/06 16:14:48 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/07 15:33:08 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,20 @@ typedef struct s_angle
 	double	z;
 }			t_angle;
 
+// -------Newly added--------
+
+typedef struct s_rect
+{
+	double x; // origin (top left)
+	double y; // origin (top left)
+	double width;
+	double height;
+	int color;
+}			t_rect;
+
+//---------------------------
+
+
 // * RENDERING
 void	img_pix_put(t_img *img, int x, int y, int color);
 void	render_background(t_img *img, int color);
@@ -91,6 +105,10 @@ void	render_line_low(t_img *img, t_line_cord line);
 
 // * COLOR
 int		gradient(int startcolor, int endcolor, int len, int pix);
+
+// Handle Key Event
+int	close_window(void *params);
+int	handle_key_event(int keycode, void *param);
 
 
 # endif

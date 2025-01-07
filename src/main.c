@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:33 by etien             #+#    #+#             */
-/*   Updated: 2025/01/07 14:11:27 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/07 15:30:37 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void mlx(t_vars *vars)
 	vars->img.addr = mlx_get_data_addr(vars->img.img_ptr,
 			&vars->img.bits_per_pixel, &vars->img.line_len, &vars->img.endian);
 	mlx_loop_hook(vars->mlx_ptr, &render, vars);
+	mlx_hook(vars->win_ptr, ON_KEYDOWN, 1L << 0, &handle_key_event, vars);
 	mlx_hook(vars->win_ptr, ON_DESTROY, 0, &close_window, vars);
 	mlx_loop(vars->mlx_ptr);
 }
