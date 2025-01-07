@@ -16,7 +16,11 @@ ORANGE = \033[0;38;5;166m
 SRCDIR = src/
 
 SRCS_FIL = \
-			main.c
+			main.c \
+			gradient.c \
+			bresenham.c \
+			render.c \
+			
 			\
 
 SRCS = $(addprefix $(SRCDIR), $(SRCS_FIL))
