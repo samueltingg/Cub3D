@@ -6,67 +6,67 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:43:32 by sting             #+#    #+#             */
-/*   Updated: 2025/01/07 13:40:40 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/07 14:14:51 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	render_horizontal_lines(t_vars *vars, t_cord ***grid)
-{
-	int			j;
-	int			i;
-	t_line_cord	line;
+// void	render_horizontal_lines(t_vars *vars, t_cord ***grid)
+// {
+// 	int			j;
+// 	int			i;
+// 	t_line_cord	line;
 
-	j = 0;
-	while (j < vars->line_count)
-	{
-		i = 0;
-		while (i < vars->wc - 1)
-		{
-			line.x1 = round((*grid)[j][i].x);
-			line.y1 = round((*grid)[j][i].y);
-			line.x2 = round((*grid)[j][i + 1].x);
-			line.y2 = round((*grid)[j][i + 1].y);
-			line.color1 = (*grid)[j][i].color;
-			line.color2 = (*grid)[j][i + 1].color;
-			render_line_bresenham(&vars->img, line);
-			i++;
-		}
-		j++;
-	}
-}
+// 	j = 0;
+// 	while (j < vars->line_count)
+// 	{
+// 		i = 0;
+// 		while (i < vars->wc - 1)
+// 		{
+// 			line.x1 = round((*grid)[j][i].x);
+// 			line.y1 = round((*grid)[j][i].y);
+// 			line.x2 = round((*grid)[j][i + 1].x);
+// 			line.y2 = round((*grid)[j][i + 1].y);
+// 			line.color1 = (*grid)[j][i].color;
+// 			line.color2 = (*grid)[j][i + 1].color;
+// 			render_line_bresenham(&vars->img, line);
+// 			i++;
+// 		}
+// 		j++;
+// 	}
+// }
 
-void	render_vertical_lines(t_vars *vars, t_cord ***grid)
-{
-	int			i;
-	int			j;
-	t_line_cord	line;
+// void	render_vertical_lines(t_vars *vars, t_cord ***grid)
+// {
+// 	int			i;
+// 	int			j;
+// 	t_line_cord	line;
 
-	i = 0;
-	while (i < vars->wc)
-	{
-		j = 0;
-		while (j < vars->line_count - 1)
-		{
-			line.x1 = round((*grid)[j][i].x);
-			line.y1 = round((*grid)[j][i].y);
-			line.x2 = round((*grid)[j + 1][i].x);
-			line.y2 = round((*grid)[j + 1][i].y);
-			line.color1 = (*grid)[j][i].color;
-			line.color2 = (*grid)[j + 1][i].color;
-			render_line_bresenham(&vars->img, line);
-			j++;
-		}
-		i++;
-	}
-}
+// 	i = 0;
+// 	while (i < vars->wc)
+// 	{
+// 		j = 0;
+// 		while (j < vars->line_count - 1)
+// 		{
+// 			line.x1 = round((*grid)[j][i].x);
+// 			line.y1 = round((*grid)[j][i].y);
+// 			line.x2 = round((*grid)[j + 1][i].x);
+// 			line.y2 = round((*grid)[j + 1][i].y);
+// 			line.color1 = (*grid)[j][i].color;
+// 			line.color2 = (*grid)[j + 1][i].color;
+// 			render_line_bresenham(&vars->img, line);
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// }
 
-void	render_grid(t_vars *vars, t_cord ***grid)
-{
-	render_horizontal_lines(vars, grid);
-	render_vertical_lines(vars, grid);
-}
+// void	render_grid(t_vars *vars, t_cord ***grid)
+// {
+// 	render_horizontal_lines(vars, grid);
+// 	render_vertical_lines(vars, grid);
+// }
 
 void	render_background(t_img *img, int color)
 {
@@ -165,8 +165,6 @@ void	render_map(t_img *img)
 		i = 0;
 		while (x < map_width) // !  < or <= ??
 		{
-			printf("j=%i, i=%i\n", j, i);
-			printf("map[3]: %s\n", map[3]);
 			if (map[j][i] == '1')
 				render_square(img, x, y, 0xFFFFFF);
 			else if (map[j][i] == '0')
