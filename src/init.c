@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:30:37 by etien             #+#    #+#             */
-/*   Updated: 2025/01/07 13:16:12 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/08 13:13:47 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ t_map	*map_init(void)
 	map->east_texture = NULL;
 	map->floor_color = -1;
 	map->ceiling_color = -1;
+	map->map_height = -1;
+	map->map_width = -1;
 	map->map = NULL;
 	return (map);
 }

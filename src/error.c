@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:54:26 by etien             #+#    #+#             */
-/*   Updated: 2025/01/07 13:16:12 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/08 14:06:29 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,10 @@ void	free_double_arr(char **arr)
 	int	i;
 
 	i = -1;
-	while (arr[++i])
-		free(arr[i]);
-	free(arr);
+	if (arr)
+	{
+		while (arr[++i])
+			free(arr[i]);
+		free(arr);
+	}
 }

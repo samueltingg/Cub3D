@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:32:22 by etien             #+#    #+#             */
-/*   Updated: 2025/01/08 11:10:20 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/08 15:46:12 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,21 @@ bool	check_completeness(t_map *map, int check_all)
 	if (!map->north_texture || !map->south_texture
 		|| !map->west_texture || !map->east_texture
 		|| map->floor_color < 0 || map->ceiling_color < 0)
+	{
+		if (!map->north_texture)
+			printf("North texture field is empty.\n");
+		if (!map->south_texture)
+			printf("South texture field is empty.\n");
+		if (!map->west_texture)
+			printf("West texture field is empty.\n");
+		if (!map->east_texture)
+			printf("East texture field is empty.\n");
+		if (map->floor_color < 0)
+			printf("Floor color field is empty.\n");
+		if (map->ceiling_color < 0)
+			printf("Ceiling color field is empty.\n");
 		return (false);
+	}
 	if (check_all && !map->map)
 		return (false);
 	return (true);

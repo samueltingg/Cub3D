@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 11:08:26 by etien             #+#    #+#             */
-/*   Updated: 2025/01/07 11:12:29 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/08 15:28:22 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,60 @@
 
 // This function will detect for the map by skipping over
 // whitespace and checking that the first character is one
-// of the map elements.
-bool	detect_map(char *line)
+// of the map elements. It will also toggle the map_detected
+// boolean when the map is detected.
+bool	detect_map(char *line, bool *map_detected)
 {
 	char	*s;
 
 	s = line;
 	skip_characters(WHITESPACE, &s);
 	if (ft_strchr(MAP_ELEMENTS, *s))
+	{
+		*map_detected = true;
 		return (true);
+	}
 	else
 		return (false);
+}
+
+// This function will check whether a line is empty,
+// i.e. composed entirely of whitespace.
+bool	line_is_empty(char *s)
+{
+	while (*s)
+	{
+		if (!ft_strchr(WHITESPACE, *s))
+			return (false);
+		s++;
+	}
+	return (true);
+}
+
+void	remove_trailing_empty_lines(t_list **tmp)
+{
+	t_list	*current;
+	t_list	*last_non_empty;
+	t_list	*previous;
+
+	current = *tmp;
+	last_non_empty = NULL;
+	previous = NULL;
+	while (current)
+	{
+		if (!line_is_empty(current->content))
+			last_non_empty = current;
+		current = current->next;
+	}
+	if (!last_non_empty->next)
+		return ;
+	current = last_non_empty->next;
+	last_non_empty->next = NULL;
+	while (current)
+	{
+		previous = current;
+		current = current->next;
+		free(previous->content);
+		free(previous);
+	}
 }

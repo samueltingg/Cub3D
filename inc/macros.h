@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:52:30 by etien             #+#    #+#             */
-/*   Updated: 2025/01/06 15:53:12 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/08 15:54:11 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@
 # define YELLOW_PIXEL 0xFFFFCC
 # define ORANGE_PIXEL 0xFFA500
 
-# define RADIAN(angle_degrees) ((angle_degrees)*PI / 180)
-# define R(a) (a) >> 16
-# define G(a) ((a) >> 8) & 0xFF
-# define B(a) (a) & 0xFF
-# define RGB(r, g, b) ((r) << 16) + ((g) << 8) + (b)
+// # define RADIAN(angle_degrees) ((angle_degrees)*PI / 180)
+// # define R(a) (a) >> 16
+// # define G(a) ((a) >> 8) & 0xFF
+// # define B(a) (a) & 0xFF
+// # define RGB(r, g, b) ((r) << 16) + ((g) << 8) + (b)
 
 #endif

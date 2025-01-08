@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:48:19 by etien             #+#    #+#             */
-/*   Updated: 2025/01/08 11:27:08 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/08 15:52:25 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ void	parse_cub_file(char *map_file, t_map *map)
 	bool	map_detected;
 	int		fd;
 	char	*line;
+	t_list	*tmp;
 
 	map_detected = false;
+	tmp = NULL;
 	if (!check_file_extension(map_file))
 		err_free_exit(EXTENSION_ERR, map, NULL);
 	fd = open(map_file, O_RDONLY);
@@ -29,18 +31,19 @@ void	parse_cub_file(char *map_file, t_map *map)
 	line = get_next_line(fd);
 	while (line)
 	{
-		parse_line(line, map, &map_detected);
+		parse_line(line, map, &map_detected, &tmp);
 		free(line);
 		line = get_next_line(fd);
 	}
+	parse_map(&tmp, map);
 	if (!check_completeness(map, 1))
-		err_free_exit(INCOMPLETE_DATA_ERR, map, NULL);
+		err_free_exit(INCOMPLETE_FIELD_ERR, map, NULL);
 	close(fd);
 }
 
 // This function will parse the line and call the relevant function
 // depending on the data type to be stored.
-void	parse_line(char *line, t_map *map, bool *map_detected)
+void	parse_line(char *line, t_map *map, bool *map_detected, t_list **tmp)
 {
 	char	*s;
 
@@ -53,8 +56,8 @@ void	parse_line(char *line, t_map *map, bool *map_detected)
 		parse_texture(s, map);
 	else if (*s == 'F' || *s == 'C')
 		parse_color(s, line, map);
-	else if (detect_map(line) || *map_detected)
-		parse_map(line, map);
+	else if (detect_map(line, map_detected) || *map_detected)
+		parse_map_line(line, tmp, map);
 }
 
 // This function will store the texture paths in their corresponding fields.
