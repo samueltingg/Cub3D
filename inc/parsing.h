@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:24 by etien             #+#    #+#             */
-/*   Updated: 2025/01/07 13:58:12 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/08 11:34:42 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # define FILE_OPEN_ERR "Error: File could not be opened."
 # define INCOMPLETE_DATA_ERR "Error: Incomplete data."
 # define MAP_MALLOC_ERR "Error: Map malloc failure."
-# define TEXTURE_PATH_ERR "Error: Invalid texture path."
 
 typedef enum e_direction
 {
@@ -56,7 +55,7 @@ t_map	*map_init(void);
 
 void	parse_cub_file(char *map_file, t_map *map);
 void	parse_line(char *line, t_map *map, bool *map_detected);
-void	parse_texture( char *s, char *line, t_map *map);
+void	parse_texture( char *s, t_map *map);
 void	parse_color(char *s, char *line, t_map *map);
 bool	check_file_extension(const char *filename);
 int		color_str_to_int(char *color_str, char *line, t_map *map);

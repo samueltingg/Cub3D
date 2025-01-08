@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:48:19 by etien             #+#    #+#             */
-/*   Updated: 2025/01/07 13:50:53 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/08 11:27:08 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	parse_line(char *line, t_map *map, bool *map_detected)
 		return ;
 	else if (!(ft_strncmp(s, "NO", 2) && ft_strncmp(s, "SO", 2)
 			&& ft_strncmp(s, "WE", 2) && ft_strncmp(s, "EA", 2)))
-		parse_texture(s, line, map);
+		parse_texture(s, map);
 	else if (*s == 'F' || *s == 'C')
 		parse_color(s, line, map);
 	else if (detect_map(line) || *map_detected)
@@ -58,7 +58,7 @@ void	parse_line(char *line, t_map *map, bool *map_detected)
 }
 
 // This function will store the texture paths in their corresponding fields.
-void	parse_texture(char *s, char *line, t_map *map)
+void	parse_texture(char *s, t_map *map)
 {
 	char	*id;
 	char	*path_start;
@@ -68,12 +68,12 @@ void	parse_texture(char *s, char *line, t_map *map)
 	id = s;
 	s += 2;
 	skip_characters(WHITESPACE, &s);
+	if (!(*s))
+		return ;
 	path_start = s;
 	while (*s)
 		s++;
 	len = s - path_start;
-	if (len <= 0)
-		err_free_exit(TEXTURE_PATH_ERR, map, line);
 	trimmed_path = ft_strtrim_mod(ft_substr(path_start, 0, len), WHITESPACE);
 	if (!ft_strncmp(id, "NO", 2) && !map->north_texture)
 		map->north_texture = trimmed_path;
@@ -97,12 +97,12 @@ void	parse_color(char *s, char *line, t_map *map)
 	id = *s;
 	s += 1;
 	skip_characters(WHITESPACE, &s);
+	if (!(*s))
+		return ;
 	color_start = s;
 	while (*s)
 		s++;
 	len = s - color_start;
-	if (len <= 0)
-		err_free_exit(COLOR_ERR, map, line);
 	trimmed_color = ft_strtrim_mod(ft_substr(color_start, 0, len), WHITESPACE);
 	if (id == 'F' && map->floor_color < 0)
 		map->floor_color = color_str_to_int(trimmed_color, line, map);

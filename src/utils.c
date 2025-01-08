@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 16:46:05 by etien             #+#    #+#             */
-/*   Updated: 2025/01/06 20:26:04 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/08 11:25:29 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ char	*ft_strtrim_mod(char *s1, char const *set)
 // A helper function for skipping over the specified characters.
 void	skip_characters(char *characters, char **s)
 {
-	while (ft_strchr(characters, **s))
+	while (**s && ft_strchr(characters, **s))
 		(*s)++;
 }
