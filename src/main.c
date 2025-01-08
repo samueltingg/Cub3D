@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:33 by etien             #+#    #+#             */
-/*   Updated: 2025/01/07 15:30:37 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/08 10:48:43 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@ int	close_window(void *params)
 	mlx_destroy_window(vars->mlx_ptr, vars->win_ptr);
 	// free_all_cord(vars);
 	exit(0);
+}
+
+void init_vars(t_vars *vars)
+{
+	vars->p_x = 0; // tmp
+	vars->p_y = 0; // tmp
 }
 
 void mlx(t_vars *vars)

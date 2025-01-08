@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:43:32 by sting             #+#    #+#             */
-/*   Updated: 2025/01/07 15:28:22 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/08 10:49:28 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	render_background(t_img *img, int color)
 	}
 }
 
-#define IMG_W 100 
+#define IMG_W 100
 #define IMG_H 100
 
 // void	render_square(t_img *img, int start_x, int start_y, int color)
@@ -126,7 +126,7 @@ void	render_grid_lines(t_img *img, int map_width, int map_height)
 {
 	int x;
 	int y;
-	
+
 	// Draw vertical lines
 	x = IMG_W;
 	while (x < map_width)
@@ -158,13 +158,13 @@ void	render_map(t_img *img)
 	int		map_height;
 	int		map_width;
 	char	*map[] = {
-		"1111111", 
-		"1001001", 
-		"1001001", 
-		"1001001", 
+		"1111111",
+		"1001001",
+		"1001001",
+		"1001001",
 		"1000001",
-		"1000001", 
-		"1111111", 
+		"1000001",
+		"1111111",
 		NULL};
 	int		x;
 	int		y;
@@ -198,9 +198,9 @@ void	render_map(t_img *img)
 	render_grid_lines(img, map_width, map_height);
 }
 
-void render_player(t_img *img)
+void render_player(t_vars *vars)
 {
-	render_square(img, (t_rect){0, 0, 50, 50, RED_PIXEL}); 
+	render_square(&vars->img, (t_rect){vars->p_x, vars->p_y, 50, 50, RED_PIXEL});
 }
 
 int	render(void *param)
@@ -212,7 +212,7 @@ int	render(void *param)
 		return (1);
 	render_background(&vars->img, 0xA1A1A1);
 	render_map(&vars->img);
-	render_player(&vars->img);
+	render_player(vars);
 	mlx_put_image_to_window(vars->mlx_ptr, vars->win_ptr, vars->img.img_ptr, 0,
 		0);
 	return (0);
