@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 16:46:05 by etien             #+#    #+#             */
-/*   Updated: 2025/01/08 11:25:29 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/08 16:31:28 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,10 @@ void	skip_characters(char *characters, char **s)
 {
 	while (**s && ft_strchr(characters, **s))
 		(*s)++;
+}
+
+// The content deletion function for clearing a t_list.
+void	del(void *content)
+{
+	free(content);
 }

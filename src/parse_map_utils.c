@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 11:08:26 by etien             #+#    #+#             */
-/*   Updated: 2025/01/08 15:28:22 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/08 16:58:49 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ bool	detect_map(char *line, bool *map_detected)
 		return (false);
 }
 
-// This function will check whether a line is empty,
+// This function will return true if a line is empty,
 // i.e. composed entirely of whitespace.
 bool	line_is_empty(char *s)
 {
@@ -44,13 +44,16 @@ bool	line_is_empty(char *s)
 	return (true);
 }
 
-void	remove_trailing_empty_lines(t_list **tmp)
+// This function will trim trailing empty lines from
+// the temporary linked list by marking where the last
+// non-empty line is and freeing all subsequent lines.
+void	remove_trailing_empty_lines(t_list *tmp)
 {
 	t_list	*current;
 	t_list	*last_non_empty;
 	t_list	*previous;
 
-	current = *tmp;
+	current = tmp;
 	last_non_empty = NULL;
 	previous = NULL;
 	while (current)
@@ -70,4 +73,33 @@ void	remove_trailing_empty_lines(t_list **tmp)
 		free(previous->content);
 		free(previous);
 	}
+}
+
+// This function traverses the temporary linked list and checks that
+// there are no empty lines in the middle of the map.
+bool	check_empty_lines(t_list *tmp)
+{
+	t_list	*current;
+
+	current = tmp;
+	while (current)
+	{
+		if (line_is_empty(current->content))
+			return (true);
+		current = current->next;
+	}
+	return (false);
+}
+
+// This function will check that the map elements in a line
+// are all valid.
+bool	check_map_elements(char *s)
+{
+	while (*s)
+	{
+		if (!ft_strchr(MAP_ELEMENTS, *s))
+			return (false);
+		s++;
+	}
+	return (true);
 }

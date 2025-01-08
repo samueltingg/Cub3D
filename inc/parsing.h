@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:24 by etien             #+#    #+#             */
-/*   Updated: 2025/01/08 15:52:17 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/08 18:19:25 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,19 @@
 # include <stdbool.h>
 
 # define WHITESPACE " \t\n"
-# define MAP_ELEMENTS "01NSEW"
+# define MAP_ELEMENTS "01NSEW "
 
 // error messages
 # define ARGS_ERR "Error: Incorrect number of arguments."
 # define COLOR_ERR "Error: Invalid color."
-# define MAP_LINE_ERR "Error: Map should not contain empty lines."
-# define MAP_ORDER_ERR "Error: Map should be the last element."
 # define EXTENSION_ERR "Error: File name should end with .cub extension."
 # define FILE_OPEN_ERR "Error: File could not be opened."
 # define INCOMPLETE_FIELD_ERR "Error: Incomplete field."
-# define MAP_MALLOC_ERR "Error: Map malloc failure."
+# define MAP_ARR_MALLOC_ERR "Error: Map array malloc failure."
+# define MAP_EMPTY_LINE_ERR "Error: Map should not contain empty lines."
+# define MAP_ELEMENT_ERR "Error: Invalid map element."
+# define MAP_MALLOC_ERR "Error: Map struct malloc failure."
+# define MAP_ORDER_ERR "Error: Map should be the last element."
 
 typedef enum e_direction
 {
@@ -52,6 +54,7 @@ typedef struct s_map
 void	err_free_exit(char *err_msg, t_map *map, char *line);
 void	free_map(t_map *map);
 void	free_double_arr(char **arr);
+void	map_malloc_exit(t_list **tmp, t_map *map);
 
 t_map	*map_init(void);
 
@@ -66,12 +69,17 @@ bool	check_completeness(t_map *map, int check_all);
 
 void	parse_map_line(char *line, t_list **tmp, t_map *map);
 void	parse_map(t_list **tmp, t_map *map);
+void	store_map(t_list **tmp, t_map *map);
+void	pad_map(t_map *map, t_list *current, int i);
 
 bool	detect_map(char *line, bool *map_detected);
 bool	line_is_empty(char *s);
-void	remove_trailing_empty_lines(t_list **tmp);
+void	remove_trailing_empty_lines(t_list *tmp);
+bool	check_empty_lines(t_list *tmp);
+bool	check_map_elements(char *s);
 
 char	*ft_strtrim_mod(char *s1, char const *set);
 void	skip_characters(char *characters, char **s);
+void	del(void *content);
 
 #endif

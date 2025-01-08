@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:48:19 by etien             #+#    #+#             */
-/*   Updated: 2025/01/08 15:52:25 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/08 16:24:47 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	parse_cub_file(char *map_file, t_map *map)
 		line = get_next_line(fd);
 	}
 	parse_map(&tmp, map);
-	if (!check_completeness(map, 1))
+	if (!check_completeness(map, 0))
 		err_free_exit(INCOMPLETE_FIELD_ERR, map, NULL);
 	close(fd);
 }

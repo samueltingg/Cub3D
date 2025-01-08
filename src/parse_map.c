@@ -6,37 +6,101 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 11:08:29 by etien             #+#    #+#             */
-/*   Updated: 2025/01/08 15:55:29 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/08 18:22:25 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-// Store extracted map lines in a temporary linked list.
+// This function stores extracted map lines in a temporary linked list.
+// line[ft_strlen(line) - 1] = 0 changes the newline character
+// to a null terminator.
 void	parse_map_line(char *line, t_list **tmp, t_map *map)
 {
 	t_list	*node;
 
 	if (!check_completeness(map, 0))
 		err_free_exit(MAP_ORDER_ERR, map, line);
+	line[ft_strlen(line) - 1] = 0;
 	node = malloc(sizeof(t_list));
 	node->content = ft_strdup(line);
 	node->next = NULL;
 	ft_lstadd_back(tmp, node);
 }
 
-// void	parse_map(t_list **tmp, t_map *map)
-// {
-
-// }
-
+// This function will parse the temporary linked list before
+// creating the 2D array for the map.
+// The workflow is:
+// - remove trailing empty lines from the linked list
+// - check that the linked list does not have empty lines in between
+// - extract map height
+// - extract map width
+// - iterate through each line and check for invalid map elements
 void	parse_map(t_list **tmp, t_map *map)
 {
-	(void) map;
-	remove_trailing_empty_lines(tmp);
-	while (*tmp)
+	t_list	*current;
+	int		max_width;
+
+	remove_trailing_empty_lines(*tmp);
+	if (check_empty_lines(*tmp))
 	{
-		printf("%s", (char *)(*tmp)->content);
-		*tmp = (*tmp)->next;
+		ft_lstclear(tmp, del);
+		err_free_exit(MAP_EMPTY_LINE_ERR, map, NULL);
+	}
+	map->map_height = ft_lstsize(*tmp);
+	current = *tmp;
+	max_width = -1;
+	while (current)
+	{
+		if (!check_map_elements(current->content))
+		{
+			ft_lstclear(tmp, del);
+			err_free_exit(MAP_ELEMENT_ERR, map, NULL);
+		}
+		if ((int)ft_strlen(current->content) > max_width)
+			max_width = (int)ft_strlen(current->content);
+		current = current->next;
+	}
+	map->map_width = max_width;
+	store_map(tmp, map);
+}
+
+// This function will malloc a 2D array to store the map from
+// the temporary linked list, then free the linked list.
+void	store_map(t_list **tmp, t_map *map)
+{
+	t_list	*current;
+	int		i;
+
+	current = *tmp;
+	map->map = malloc(sizeof(char *) * (map->map_height + 1));
+	map_malloc_exit(tmp, map);
+	map->map[map->map_height] = 0;
+	i = -1;
+	while (current)
+	{
+		map->map[++i] = malloc(sizeof(char) * (map->map_width + 1));
+		map_malloc_exit(tmp, map);
+		map->map[i][map->map_width] = 0;
+		strcpy(map->map[i], current->content);
+		pad_map(map, current, i);
+		current = current->next;
+	}
+	ft_lstclear(tmp, del);
+}
+
+// This function will pad the map so that all rows have equal width.
+void	pad_map(t_map *map, t_list *current, int i)
+{
+	int	len;
+	int	padding_width;
+
+	len = (int)ft_strlen(current->content);
+	padding_width = map->map_width - len;
+	while (padding_width > 0)
+	{
+		map->map[i][len] = ' ';
+		len++;
+		padding_width--;
 	}
 }
