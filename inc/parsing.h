@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:24 by etien             #+#    #+#             */
-/*   Updated: 2025/01/08 18:19:25 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/09 14:05:39 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 # define WHITESPACE " \t\n"
 # define MAP_ELEMENTS "01NSEW "
+# define DIRECTIONS "NSEW"
 
 // error messages
 # define ARGS_ERR "Error: Incorrect number of arguments."
@@ -29,6 +30,15 @@
 # define MAP_ELEMENT_ERR "Error: Invalid map element."
 # define MAP_MALLOC_ERR "Error: Map struct malloc failure."
 # define MAP_ORDER_ERR "Error: Map should be the last element."
+# define MAP_BOUNDARIES_ERR "Error: Map boundaries are unclosed."
+# define PLAYER_COUNT_ERR "Error: Only one player is allowed."
+# define PLAYER_MISSING_ERR "Error: No player found in the map."
+
+typedef enum e_completeness_check
+{
+	MAP_IS_LAST,
+	ALL
+}	t_completeness_check;
 
 typedef enum e_direction
 {
@@ -49,16 +59,19 @@ typedef struct s_map
 	int		map_height;
 	int		map_width;
 	char	**map;
+	int		player_x;
+	int		player_y;
+	int		player_dir;
 }	t_map;
 
 void	err_free_exit(char *err_msg, t_map *map, char *line);
 void	free_map(t_map *map);
 void	free_double_arr(char **arr);
-void	map_malloc_exit(t_list **tmp, t_map *map);
+void	tmp_exit(char *err_msg, t_map *map, t_list **tmp);
 
 t_map	*map_init(void);
 
-void	parse_cub_file(char *map_file, t_map *map);
+void	parse_cub(char *map_file, t_map *map);
 void	parse_line(char *line, t_map *map, bool *map_detected, t_list **tmp);
 void	parse_texture( char *s, t_map *map);
 void	parse_color(char *s, char *line, t_map *map);
@@ -78,8 +91,18 @@ void	remove_trailing_empty_lines(t_list *tmp);
 bool	check_empty_lines(t_list *tmp);
 bool	check_map_elements(char *s);
 
+void	validate_map(t_map *map);
+void	store_player(t_map *map);
+void	validate_boundaries(t_map *map);
+bool	check_left_right_edge(t_map *map);
+bool	check_top_bottom_rows(t_map *map);
+bool	only_walls(char *s);
+
+
+
 char	*ft_strtrim_mod(char *s1, char const *set);
-void	skip_characters(char *characters, char **s);
+void	skip_whitespace(char **s);
+void	skip_whitespace_rev(char **s);
 void	del(void *content);
 
 #endif

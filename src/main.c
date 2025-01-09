@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:33 by etien             #+#    #+#             */
-/*   Updated: 2025/01/08 18:20:31 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/09 11:08:33 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@ void	print_map(t_map *map)
 		printf("Map height: \n%d\n", map->map_height);
 	if (map->map_width >= 0)
 		printf("Map width: \n%d\n", map->map_width);
+	if (map->player_dir >= 0)
+		printf("Player direction: \n%d\n", map->player_dir);
+	if (map->player_x >= 0)
+		printf("Player x: \n%d\n", map->player_x);
+	if (map->player_y >= 0)
+		printf("Player y: \n%d\n", map->player_y);
 	i = -1;
 	if (map->map)
 		while (map->map[++i])
@@ -45,7 +51,8 @@ int	main(int ac, char **av)
 	if (ac != 2)
 		err_free_exit(ARGS_ERR, NULL, NULL);
 	map = map_init();
-	parse_cub_file(av[1], map);
+	parse_cub(av[1], map);
+	validate_map(map);
 	print_map(map);
 	free_map(map);
 	return (0);

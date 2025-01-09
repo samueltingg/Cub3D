@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 11:08:26 by etien             #+#    #+#             */
-/*   Updated: 2025/01/08 16:58:49 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/09 13:44:24 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ bool	detect_map(char *line, bool *map_detected)
 	char	*s;
 
 	s = line;
-	skip_characters(WHITESPACE, &s);
+	skip_whitespace(&s);
 	if (ft_strchr(MAP_ELEMENTS, *s))
 	{
 		*map_detected = true;

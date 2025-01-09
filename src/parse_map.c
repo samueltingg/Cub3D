@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 11:08:29 by etien             #+#    #+#             */
-/*   Updated: 2025/01/08 18:22:25 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/09 10:59:50 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	parse_map_line(char *line, t_list **tmp, t_map *map)
 {
 	t_list	*node;
 
-	if (!check_completeness(map, 0))
+	if (!check_completeness(map, MAP_IS_LAST))
 		err_free_exit(MAP_ORDER_ERR, map, line);
 	line[ft_strlen(line) - 1] = 0;
 	node = malloc(sizeof(t_list));
@@ -43,20 +43,14 @@ void	parse_map(t_list **tmp, t_map *map)
 
 	remove_trailing_empty_lines(*tmp);
 	if (check_empty_lines(*tmp))
-	{
-		ft_lstclear(tmp, del);
-		err_free_exit(MAP_EMPTY_LINE_ERR, map, NULL);
-	}
+		tmp_exit(MAP_EMPTY_LINE_ERR, map, tmp);
 	map->map_height = ft_lstsize(*tmp);
 	current = *tmp;
 	max_width = -1;
 	while (current)
 	{
 		if (!check_map_elements(current->content))
-		{
-			ft_lstclear(tmp, del);
-			err_free_exit(MAP_ELEMENT_ERR, map, NULL);
-		}
+			tmp_exit(MAP_ELEMENT_ERR, map, tmp);
 		if ((int)ft_strlen(current->content) > max_width)
 			max_width = (int)ft_strlen(current->content);
 		current = current->next;
@@ -74,13 +68,15 @@ void	store_map(t_list **tmp, t_map *map)
 
 	current = *tmp;
 	map->map = malloc(sizeof(char *) * (map->map_height + 1));
-	map_malloc_exit(tmp, map);
+	if (!map->map)
+		tmp_exit(MAP_ARR_MALLOC_ERR, map, tmp);
 	map->map[map->map_height] = 0;
 	i = -1;
 	while (current)
 	{
 		map->map[++i] = malloc(sizeof(char) * (map->map_width + 1));
-		map_malloc_exit(tmp, map);
+		if (!map->map[i])
+			tmp_exit(MAP_ARR_MALLOC_ERR, map, tmp);
 		map->map[i][map->map_width] = 0;
 		strcpy(map->map[i], current->content);
 		pad_map(map, current, i);

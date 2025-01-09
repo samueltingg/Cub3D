@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:48:19 by etien             #+#    #+#             */
-/*   Updated: 2025/01/08 16:24:47 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/09 13:44:19 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // This function will extract the lines from the .cub file and
 // pass them to parse_line.
-void	parse_cub_file(char *map_file, t_map *map)
+void	parse_cub(char *map_file, t_map *map)
 {
 	bool	map_detected;
 	int		fd;
@@ -36,7 +36,7 @@ void	parse_cub_file(char *map_file, t_map *map)
 		line = get_next_line(fd);
 	}
 	parse_map(&tmp, map);
-	if (!check_completeness(map, 0))
+	if (!check_completeness(map, ALL))
 		err_free_exit(INCOMPLETE_FIELD_ERR, map, NULL);
 	close(fd);
 }
@@ -48,7 +48,7 @@ void	parse_line(char *line, t_map *map, bool *map_detected, t_list **tmp)
 	char	*s;
 
 	s = line;
-	skip_characters(WHITESPACE, &s);
+	skip_whitespace(&s);
 	if (!*s && !(*map_detected))
 		return ;
 	else if (!(ft_strncmp(s, "NO", 2) && ft_strncmp(s, "SO", 2)
@@ -70,7 +70,7 @@ void	parse_texture(char *s, t_map *map)
 
 	id = s;
 	s += 2;
-	skip_characters(WHITESPACE, &s);
+	skip_whitespace(&s);
 	if (!(*s))
 		return ;
 	path_start = s;
@@ -99,7 +99,7 @@ void	parse_color(char *s, char *line, t_map *map)
 
 	id = *s;
 	s += 1;
-	skip_characters(WHITESPACE, &s);
+	skip_whitespace(&s);
 	if (!(*s))
 		return ;
 	color_start = s;

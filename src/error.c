@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:54:26 by etien             #+#    #+#             */
-/*   Updated: 2025/01/08 18:21:28 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/09 10:41:21 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,11 @@ void	free_double_arr(char **arr)
 	}
 }
 
-// This is a special exit path when map malloc fails in
-// store_map(). It will free the both the temporary linked list
-// and the map struct.
-void	map_malloc_exit(t_list **tmp, t_map *map)
+// This is a modified version of err_free_exit.
+// It will free both the temporary linked list and
+// the map struct.
+void	tmp_exit(char *err_msg, t_map *map, t_list **tmp)
 {
-	if (!map->map)
-	{
 		ft_lstclear(tmp, del);
-		err_free_exit(MAP_ARR_MALLOC_ERR, map, NULL);
-	}
+		err_free_exit(err_msg, map, NULL);
 }
