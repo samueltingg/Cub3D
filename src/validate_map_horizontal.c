@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validate_map_utils.c                               :+:      :+:    :+:   */
+/*   validate_map_horizontal.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 16:23:23 by etien             #+#    #+#             */
-/*   Updated: 2025/01/09 18:24:11 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/09 18:44:57 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 // This function checks that the left and right edge of each
 // row are walls after skipping over the leading and trailing
-// whitespaces.
+// whitespaces. It will then check that the edges in the middle
+// rows have vertical neighbours to ensure that there are no holes
+// in the walls.
 bool	check_left_right_edge(t_map *map)
 {
 	char	*left_edge;
@@ -37,6 +39,9 @@ bool	check_left_right_edge(t_map *map)
 	return (true);
 }
 
+// This function will check the vertical neighbours of the edges in
+// the middle rows. An edge needs to have two vertical neighbours
+// (one top, one bottom) to be considered valid.
 bool	check_vertical_neighbours(t_map *map, char *edge, int y, int dir)
 {
 	int	valid_neighbours;
@@ -59,6 +64,15 @@ bool	check_vertical_neighbours(t_map *map, char *edge, int y, int dir)
 	return (false);
 }
 
+// The vertical neighbours of an edge will be checked separately:
+// Top: Either top left, top, top right is a wall
+// Bottom: Either bottom left, bottom, bottom right is a wall
+// Visualization where E: edge and 1: wall:
+//     111 (TL, T, TR)
+//      E
+//     111 (BL, B, BR)
+// Different logic will apply if x is on the edge of the map to prevent
+// out-of-bounds access.
 void	valid_vertical_neighbours(t_map *map, int y, int x,
 			int *valid_neighbours)
 {
@@ -87,28 +101,3 @@ void	valid_vertical_neighbours(t_map *map, int y, int x,
 	}
 }
 
-// This function checks that the top and bottom rows are only composed
-// of walls after trimming leading and trailing whitespaces.
-bool	check_top_bottom_rows(t_map *map)
-{
-	char	*trimmed_top;
-	char	*trimmed_bottom;
-
-	trimmed_top = ft_strtrim(map->map[0], WHITESPACE);
-	trimmed_bottom = ft_strtrim(map->map[map->map_height - 1], WHITESPACE);
-	if (!only_walls(trimmed_top) || !only_walls(trimmed_bottom))
-		return (free(trimmed_top), free(trimmed_bottom), false);
-	return (free(trimmed_top), free(trimmed_bottom), true);
-}
-
-// This function checks that the string is composed entirely of '1's.
-bool	only_walls(char *s)
-{
-	while (*s)
-	{
-		if (*s != '1')
-			return (false);
-		s++;
-	}
-	return (true);
-}
