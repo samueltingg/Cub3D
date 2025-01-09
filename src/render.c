@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:43:32 by sting             #+#    #+#             */
-/*   Updated: 2025/01/08 10:49:28 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/09 12:47:28 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,24 +85,6 @@ void	render_background(t_img *img, int color)
 
 #define IMG_W 100
 #define IMG_H 100
-
-// void	render_square(t_img *img, int start_x, int start_y, int color)
-// {
-// 	int	x;
-// 	int	y;
-
-// 	y = start_y;
-// 	while (y <= IMG_H + start_y)
-// 	{
-// 		x = start_x;
-// 		while (x <= IMG_W + start_x)
-// 		{
-// 			img_pix_put(img, x, y, color);
-// 			x++;
-// 		}
-// 		y++;
-// 	}
-// }
 
 void	render_square(t_img *img, t_rect rect)
 {
@@ -184,10 +166,8 @@ void	render_map(t_img *img)
 		while (x < map_width) // !  < or <= ??
 		{
 			if (map[j][i] == '1')
-				// render_square(img, x, y, 0xFFFFFF);
 				render_square(img, (t_rect){x, y, IMG_W, IMG_H, 0xffffff});
 			else if (map[j][i] == '0')
-				// render_square(img, x, y, 0x0);
 				render_square(img, (t_rect){x, y, IMG_W, IMG_H, 0x0});
 			x += IMG_W;
 			i++;
@@ -200,7 +180,7 @@ void	render_map(t_img *img)
 
 void render_player(t_vars *vars)
 {
-	render_square(&vars->img, (t_rect){vars->p_x, vars->p_y, 50, 50, RED_PIXEL});
+	render_square(&vars->img, (t_rect){vars->p_x, vars->p_y, 25, 25, RED_PIXEL});
 }
 
 int	render(void *param)

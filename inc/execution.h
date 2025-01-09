@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:12:33 by sting             #+#    #+#             */
-/*   Updated: 2025/01/07 16:07:25 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/09 12:56:56 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,25 @@ typedef struct s_vars
 	// coordinate of player
 	int		p_x;
 	int		p_y;
+	int		p_angle; //? in radians?
 }			t_vars;
+
+enum wall_side {
+	NORTH,
+	SOUTH,
+	EAST,
+	WEST
+};
+
+typedef struct s_ray
+{
+	enum wall_side;
+	
+	// end position of ray
+	int r_x;
+	int r_y;
+	int r_dist;
+}			t_ray;
 
 
 // * RENDERING
