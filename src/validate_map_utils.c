@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 16:23:23 by etien             #+#    #+#             */
-/*   Updated: 2025/01/09 17:31:52 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/09 18:01:03 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,48 +39,64 @@ bool	check_left_right_edge(t_map *map)
 
 bool	check_vertical_neighbours(t_map *map, char *edge, int y, int dir)
 {
-	bool	valid_neighbours;
+	bool	top;
+	bool	bottom;
 	int		x;
 
+	top = false;
+	bottom = false;
 	x = edge - map->map[y];
 	if (y == 0 || y == map->map_height - 1)
 		return (true);
 	while (map->map[y][x] == '1')
 	{
-		if ((x - 1) >= 0 && (x + 1) < map->map_width)
-			valid_neighbours = valid_vertical_neighbours(map, y, x);
-		if (valid_neighbours)
-			return (true);
-		else
+		printf("Checking: y: %d, x: %d\n", y, x);
+		valid_vertical_neighbours(map, y, x, &top, &bottom);
+		if (top && bottom)
 		{
-			if (dir == LEFT)
-				x++;
-			else if (dir == RIGHT)
-				x--;
+			printf("True: y: %d, x: %d", y, x);
+			return (true);
 		}
+		if (dir == LEFT)
+			x++;
+		else if (dir == RIGHT)
+			x--;
 	}
-	printf("y: %d, x: %d", y, x);
+	printf("False: y: %d, x: %d\n", y, x);
 	return (false);
 }
 
-bool	valid_vertical_neighbours(t_map *map, int y, int x)
+void	valid_vertical_neighbours(t_map *map, int y, int x, bool *top, bool *bottom)
 {
-	bool	top;
-	bool	bottom;
-
-	top = false;
-	bottom = false;
-	if (map->map[y - 1][x - 1] == '1'
-		|| map->map[y - 1][x] == '1'
-		|| map->map[y - 1][x + 1] == '1')
-		top = true;
-	if (map->map[y + 1][x - 1] == '1'
-		|| map->map[y + 1][x] == '1'
-		|| map->map[y + 1][x + 1] == '1')
-		bottom = true;
-	if (top && bottom)
-		return (true);
-	return (false);
+	if (x == 0)
+	{
+		if (map->map[y - 1][x] == '1'
+			|| map->map[y - 1][x + 1] == '1')
+			*top = true;
+		if (map->map[y + 1][x] == '1'
+			|| map->map[y + 1][x + 1] == '1')
+			*bottom = true;
+	}
+	else if (x == map->map_width - 1)
+	{
+		if (map->map[y - 1][x - 1] == '1'
+			|| map->map[y - 1][x] == '1')
+			*top = true;
+		if (map->map[y + 1][x - 1] == '1'
+			|| map->map[y + 1][x] == '1')
+			*bottom = true;
+	}
+	else
+	{
+		if (map->map[y - 1][x - 1] == '1'
+			|| map->map[y - 1][x] == '1'
+			|| map->map[y - 1][x + 1] == '1')
+			*top = true;
+		if (map->map[y + 1][x - 1] == '1'
+			|| map->map[y + 1][x] == '1'
+			|| map->map[y + 1][x + 1] == '1')
+			*bottom = true;
+	}
 }
 
 // This function checks that the top and bottom rows are only composed
