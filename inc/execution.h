@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:12:33 by sting             #+#    #+#             */
-/*   Updated: 2025/01/09 12:56:56 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/09 13:15:24 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ typedef struct s_vars
 	int		p_angle; //? in radians?
 }			t_vars;
 
-enum wall_side {
+enum e_wall_side {
 	NORTH,
 	SOUTH,
 	EAST,
@@ -97,7 +97,7 @@ enum wall_side {
 
 typedef struct s_ray
 {
-	enum wall_side;
+	enum e_wall_side wall_side;
 	
 	// end position of ray
 	int r_x;

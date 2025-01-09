@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:43:32 by sting             #+#    #+#             */
-/*   Updated: 2025/01/09 12:47:28 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/09 14:05:02 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ void	render_map(t_img *img)
 		NULL};
 	int		x;
 	int		y;
-	int		i;
+	int		i; 
 	int		j;
 
 	// example
@@ -183,6 +183,11 @@ void render_player(t_vars *vars)
 	render_square(&vars->img, (t_rect){vars->p_x, vars->p_y, 25, 25, RED_PIXEL});
 }
 
+void render_rays(t_vars *vars)
+{
+	render_line_bresenham(&vars->img, (t_line_cord){vars->p_x, vars->p_y, 150, 120, GREEN_PIXEL, GREEN_PIXEL});
+}
+
 int	render(void *param)
 {
 	t_vars	*vars;
@@ -193,6 +198,7 @@ int	render(void *param)
 	render_background(&vars->img, 0xA1A1A1);
 	render_map(&vars->img);
 	render_player(vars);
+	render_rays(vars);
 	mlx_put_image_to_window(vars->mlx_ptr, vars->win_ptr, vars->img.img_ptr, 0,
 		0);
 	return (0);
