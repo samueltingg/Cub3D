@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:24 by etien             #+#    #+#             */
-/*   Updated: 2025/01/09 14:05:39 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/09 17:32:02 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,18 @@ typedef enum e_direction
 	WEST,
 	EAST
 }	t_direction;
+
+typedef enum e_horizontal
+{
+	LEFT,
+	RIGHT
+}	t_horizontal;
+
+typedef enum e_vertical
+{
+	TOP,
+	BOTTOM
+}	t_vertical;
 
 typedef struct s_map
 {
@@ -92,13 +104,15 @@ bool	check_empty_lines(t_list *tmp);
 bool	check_map_elements(char *s);
 
 void	validate_map(t_map *map);
-void	store_player(t_map *map);
+void	validate_player(t_map *map);
+void	store_player(t_map *map, int y, int x);
+
 void	validate_boundaries(t_map *map);
 bool	check_left_right_edge(t_map *map);
+bool	check_vertical_neighbours(t_map *map, char *edge, int y, int edge_dir);
+bool	valid_vertical_neighbours(t_map *map, int y, int x);
 bool	check_top_bottom_rows(t_map *map);
 bool	only_walls(char *s);
-
-
 
 char	*ft_strtrim_mod(char *s1, char const *set);
 void	skip_whitespace(char **s);

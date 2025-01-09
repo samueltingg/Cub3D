@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:33 by etien             #+#    #+#             */
-/*   Updated: 2025/01/09 11:08:33 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/09 15:25:09 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	print_map(t_map *map)
 {
-	int	i;
+	int	y;
 
 	if (map->north_texture)
 		printf("North texture: \n%s\n", map->north_texture);
@@ -38,10 +38,10 @@ void	print_map(t_map *map)
 		printf("Player x: \n%d\n", map->player_x);
 	if (map->player_y >= 0)
 		printf("Player y: \n%d\n", map->player_y);
-	i = -1;
+	y = -1;
 	if (map->map)
-		while (map->map[++i])
-			printf("%s\n", map->map[i]);
+		while (map->map[++y])
+			printf("%s\n", map->map[y]);
 }
 
 int	main(int ac, char **av)

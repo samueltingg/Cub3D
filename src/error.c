@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:54:26 by etien             #+#    #+#             */
-/*   Updated: 2025/01/09 10:41:21 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/09 16:18:26 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,6 @@ void	free_double_arr(char **arr)
 // the map struct.
 void	tmp_exit(char *err_msg, t_map *map, t_list **tmp)
 {
-		ft_lstclear(tmp, del);
-		err_free_exit(err_msg, map, NULL);
+	ft_lstclear(tmp, del);
+	err_free_exit(err_msg, map, NULL);
 }

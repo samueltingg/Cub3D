@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 11:08:29 by etien             #+#    #+#             */
-/*   Updated: 2025/01/09 10:59:50 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/09 15:25:27 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,29 +64,29 @@ void	parse_map(t_list **tmp, t_map *map)
 void	store_map(t_list **tmp, t_map *map)
 {
 	t_list	*current;
-	int		i;
+	int		y;
 
 	current = *tmp;
 	map->map = malloc(sizeof(char *) * (map->map_height + 1));
 	if (!map->map)
 		tmp_exit(MAP_ARR_MALLOC_ERR, map, tmp);
 	map->map[map->map_height] = 0;
-	i = -1;
+	y = -1;
 	while (current)
 	{
-		map->map[++i] = malloc(sizeof(char) * (map->map_width + 1));
-		if (!map->map[i])
+		map->map[++y] = malloc(sizeof(char) * (map->map_width + 1));
+		if (!map->map[y])
 			tmp_exit(MAP_ARR_MALLOC_ERR, map, tmp);
-		map->map[i][map->map_width] = 0;
-		strcpy(map->map[i], current->content);
-		pad_map(map, current, i);
+		map->map[y][map->map_width] = 0;
+		strcpy(map->map[y], current->content);
+		pad_map(map, current, y);
 		current = current->next;
 	}
 	ft_lstclear(tmp, del);
 }
 
 // This function will pad the map so that all rows have equal width.
-void	pad_map(t_map *map, t_list *current, int i)
+void	pad_map(t_map *map, t_list *current, int y)
 {
 	int	len;
 	int	padding_width;
@@ -95,7 +95,7 @@ void	pad_map(t_map *map, t_list *current, int i)
 	padding_width = map->map_width - len;
 	while (padding_width > 0)
 	{
-		map->map[i][len] = ' ';
+		map->map[y][len] = ' ';
 		len++;
 		padding_width--;
 	}
