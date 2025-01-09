@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 16:23:23 by etien             #+#    #+#             */
-/*   Updated: 2025/01/09 18:01:03 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/09 18:24:11 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,63 +39,51 @@ bool	check_left_right_edge(t_map *map)
 
 bool	check_vertical_neighbours(t_map *map, char *edge, int y, int dir)
 {
-	bool	top;
-	bool	bottom;
-	int		x;
+	int	valid_neighbours;
+	int	x;
 
-	top = false;
-	bottom = false;
+	valid_neighbours = 0;
 	x = edge - map->map[y];
 	if (y == 0 || y == map->map_height - 1)
 		return (true);
 	while (map->map[y][x] == '1')
 	{
-		printf("Checking: y: %d, x: %d\n", y, x);
-		valid_vertical_neighbours(map, y, x, &top, &bottom);
-		if (top && bottom)
-		{
-			printf("True: y: %d, x: %d", y, x);
+		valid_vertical_neighbours(map, y, x, &valid_neighbours);
+		if (valid_neighbours == 2)
 			return (true);
-		}
 		if (dir == LEFT)
 			x++;
 		else if (dir == RIGHT)
 			x--;
 	}
-	printf("False: y: %d, x: %d\n", y, x);
 	return (false);
 }
 
-void	valid_vertical_neighbours(t_map *map, int y, int x, bool *top, bool *bottom)
+void	valid_vertical_neighbours(t_map *map, int y, int x,
+			int *valid_neighbours)
 {
 	if (x == 0)
 	{
-		if (map->map[y - 1][x] == '1'
-			|| map->map[y - 1][x + 1] == '1')
-			*top = true;
-		if (map->map[y + 1][x] == '1'
-			|| map->map[y + 1][x + 1] == '1')
-			*bottom = true;
+		if (map->map[y - 1][x] == '1' || map->map[y - 1][x + 1] == '1')
+			*valid_neighbours += 1;
+		if (map->map[y + 1][x] == '1' || map->map[y + 1][x + 1] == '1')
+			*valid_neighbours += 1;
 	}
 	else if (x == map->map_width - 1)
 	{
-		if (map->map[y - 1][x - 1] == '1'
-			|| map->map[y - 1][x] == '1')
-			*top = true;
-		if (map->map[y + 1][x - 1] == '1'
-			|| map->map[y + 1][x] == '1')
-			*bottom = true;
+		if (map->map[y - 1][x - 1] == '1' || map->map[y - 1][x] == '1')
+			*valid_neighbours += 1;
+		if (map->map[y + 1][x - 1] == '1' || map->map[y + 1][x] == '1')
+			*valid_neighbours += 1;
 	}
 	else
 	{
-		if (map->map[y - 1][x - 1] == '1'
-			|| map->map[y - 1][x] == '1'
+		if (map->map[y - 1][x - 1] == '1' || map->map[y - 1][x] == '1'
 			|| map->map[y - 1][x + 1] == '1')
-			*top = true;
-		if (map->map[y + 1][x - 1] == '1'
-			|| map->map[y + 1][x] == '1'
+			*valid_neighbours += 1;
+		if (map->map[y + 1][x - 1] == '1' || map->map[y + 1][x] == '1'
 			|| map->map[y + 1][x + 1] == '1')
-			*bottom = true;
+			*valid_neighbours += 1;
 	}
 }
 

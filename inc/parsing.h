@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:24 by etien             #+#    #+#             */
-/*   Updated: 2025/01/09 17:38:18 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/09 18:22:50 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,8 @@ void	store_player(t_map *map, int y, int x);
 void	validate_boundaries(t_map *map);
 bool	check_left_right_edge(t_map *map);
 bool	check_vertical_neighbours(t_map *map, char *edge, int y, int edge_dir);
-void	valid_vertical_neighbours(t_map *map, int y, int x, bool *top, bool *bottom);
+void	valid_vertical_neighbours(t_map *map, int y, int x,
+			int *valid_neighbours);
 bool	check_top_bottom_rows(t_map *map);
 bool	only_walls(char *s);
 
