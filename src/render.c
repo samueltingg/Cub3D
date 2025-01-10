@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:43:32 by sting             #+#    #+#             */
-/*   Updated: 2025/01/09 14:05:02 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/10 13:04:22 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,13 +180,10 @@ void	render_map(t_img *img)
 
 void render_player(t_vars *vars)
 {
-	render_square(&vars->img, (t_rect){vars->p_x, vars->p_y, 25, 25, RED_PIXEL});
+	render_square(&vars->img, (t_rect){vars->p_x, vars->p_y, P_WIDTH, P_HEIGHT, RED_PIXEL});
 }
 
-void render_rays(t_vars *vars)
-{
-	render_line_bresenham(&vars->img, (t_line_cord){vars->p_x, vars->p_y, 150, 120, GREEN_PIXEL, GREEN_PIXEL});
-}
+
 
 int	render(void *param)
 {

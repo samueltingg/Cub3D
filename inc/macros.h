@@ -58,4 +58,8 @@
 # define B(a) (a) & 0xFF
 # define RGB(r, g, b) ((r) << 16) + ((g) << 8) + (b)
 
+// Player
+# define P_WIDTH 25
+# define P_HEIGHT 25
+
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:33 by etien             #+#    #+#             */
-/*   Updated: 2025/01/08 10:48:43 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/10 14:14:00 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ void init_vars(t_vars *vars)
 {
 	vars->p_x = 0; // tmp
 	vars->p_y = 0; // tmp
+
+	vars->dir_x = -1;
+	vars->dir_y = 0;
+	vars->plane_x = 0;
+	vars->plane_y = 0.66;
 }
 
 void mlx(t_vars *vars)
@@ -48,5 +53,7 @@ int main(void)
 {
 	t_vars vars;
 
+	init_vars(&vars);	
 	mlx(&vars);
+	
 }
