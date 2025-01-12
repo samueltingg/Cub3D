@@ -6,154 +6,119 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 18:30:03 by etien             #+#    #+#             */
-/*   Updated: 2025/01/09 19:25:50 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/12 17:28:22 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-// This function checks that the left and right edge of each
-// row are walls after skipping over the leading and trailing
+// This function checks that the top and bottom edge of each
+// column are walls after skipping over the leading/trailing
 // whitespaces. It will then check that the edges in the middle
-// rows have vertical neighbours to ensure that there are no holes
+// rows have horizontal neighbours to ensure that there are no holes
 // in the walls.
 bool	check_top_bottom_edge(t_map *map)
 {
-	if (!check_top_edge(map))
-		return (false);
-	if (!check_bottom_edge(map))
-		return (false);
-
+	int	top_edge_y;
+	int	bottom_edge_y;
+	int	x;
 
 	x = -1;
-	while (map->map[++x])
+	while (++x < map->map_width)
 	{
-		if (*top_edge != '1' || *bottom_edge != '1')
+		top_edge_y = get_top_bottom_edge(map, 0, x, TOP);
+		bottom_edge_y = get_top_bottom_edge(map, map->map_height - 1,
+				x, BOTTOM);
+		if (top_edge_y < 0 || bottom_edge_y < 0
+			|| map->map[top_edge_y][x] != '1'
+			|| map->map[bottom_edge_y][x] != '1')
 			return (false);
-		if (!check_horizontal_neighbours(map, top_edge, y, LEFT)
-			|| !check_horizontal_neighbours(map, bottom_edge, y, RIGHT))
+		if (!check_horizontal_neighbours(map, top_edge_y, x, TOP)
+			|| !check_horizontal_neighbours(map, bottom_edge_y, x, BOTTOM))
 			return (false);
 	}
 	return (true);
 }
 
-
-bool	check_top_edge(t_map *map)
+// This function will return the y-coordinate of the top/bottom edge.
+// It works in a similar way to get_top_bottom_edge() but is adapted
+// for column traversal. If the return value is -1, it means that the
+// column is composed entirely of spaces, hence invalid (similar
+// treatment as empty line in the map).
+int	get_top_bottom_edge(t_map *map, int y, int x, int edge_dir)
 {
-	char	*top_edge;
-	int		top_right_x;
-
-	top_edge = map->map[0][0];
-	skip_whitespace(&top_edge);
-
-
-
-
-
-}
-
-
-
-bool	check_bottom_edge(t_map *map)
-{
-	int		y;
-	int		x;
-	char	*bottom_edge;
-	int		bottom_right_x;
-
-	y = map->map_height - 1;
-	bottom_edge = map->map[y][0];
-	skip_whitespace_rev(&bottom_edge);
-	while (map->map[][])
-
-
+	while (y >= 0 && y < map->map_height)
+	{
+		if (ft_strchr(WHITESPACE, map->map[y][x]))
+		{
+			if (edge_dir == TOP)
+				y++;
+			else if (edge_dir == BOTTOM)
+				y--;
+		}
+		else
+			return (y);
+	}
+	return (-1);
 }
 
 // This function will check the horizontal neighbours of the edges in
 // the middle rows. An edge needs to have two horizontal neighbours
-// (one top, one bottom) to be considered valid.
-bool	check_horizontal_neighbours(t_map *map, char *edge, int y, int dir)
+// (one left, one right) to be considered valid.
+bool	check_horizontal_neighbours(t_map *map, int y, int x, int edge_dir)
 {
-	int	valid_neighbours;
-	int	x;
+	t_horizontal_neighbour	valid_neighbour;
 
-	valid_neighbours = 0;
-	x = edge - map->map[y];
-	if (y == 0 || y == map->map_height - 1)
+	valid_neighbour.left = false;
+	valid_neighbour.right = false;
+	if (x == 0 || x == map->map_width - 1 || is_a_corner(map, y, x, edge_dir))
 		return (true);
 	while (map->map[y][x] == '1')
 	{
-		valid_horizontal_neighbours(map, y, x, &valid_neighbours);
-		if (valid_neighbours == 2)
+		valid_horizontal_neighbours(map, y, x, &valid_neighbour);
+		if (valid_neighbour.left && valid_neighbour.right)
 			return (true);
-		if (dir == LEFT)
-			x++;
-		else if (dir == RIGHT)
-			x--;
+		if (edge_dir == TOP)
+			y++;
+		else if (edge_dir == BOTTOM)
+			y--;
 	}
 	return (false);
 }
 
-// The vertical neighbours of an edge will be checked separately:
-// Top: Either top left, top, top right is a wall
-// Bottom: Either bottom left, bottom, bottom right is a wall
+// The horizontal neighbours of an edge will be checked separately:
+// Left: Either top left, left, top left is a wall
+// Right: Either top right, right, bottom right is a wall
 // Visualization where E: edge and 1: wall:
-//     111 (TL, T, TR)
-//      E
-//     111 (BL, B, BR)
-// Different logic will apply if x is on the edge of the map to prevent
+//     1 1 (TL, TR)
+//     1E1 (L, R)
+//     1 1 (BL, BR)
+// Different logic will apply if y is on the edge of the map to prevent
 // out-of-bounds access.
 void	valid_horizontal_neighbours(t_map *map, int y, int x,
-			int *valid_neighbours)
+			t_horizontal_neighbour *valid_neighbour)
 {
-	if (x == 0)
+	if (y == 0)
 	{
-		if (map->map[y - 1][x] == '1' || map->map[y - 1][x + 1] == '1')
-			*valid_neighbours += 1;
-		if (map->map[y + 1][x] == '1' || map->map[y + 1][x + 1] == '1')
-			*valid_neighbours += 1;
+		if (map->map[y][x - 1] == '1' || map->map[y + 1][x - 1] == '1')
+			valid_neighbour->left = true;
+		if (map->map[y][x + 1] == '1' || map->map[y + 1][x + 1] == '1')
+			valid_neighbour->right = true;
 	}
-	else if (x == map->map_width - 1)
+	else if (y == map->map_height - 1)
 	{
-		if (map->map[y - 1][x - 1] == '1' || map->map[y - 1][x] == '1')
-			*valid_neighbours += 1;
-		if (map->map[y + 1][x - 1] == '1' || map->map[y + 1][x] == '1')
-			*valid_neighbours += 1;
+		if (map->map[y - 1][x - 1] == '1' || map->map[y][x - 1] == '1')
+			valid_neighbour->left = true;
+		if (map->map[y - 1][x + 1] == '1' || map->map[y][x + 1] == '1')
+			valid_neighbour->right = true;
 	}
 	else
 	{
-		if (map->map[y - 1][x - 1] == '1' || map->map[y - 1][x] == '1'
-			|| map->map[y - 1][x + 1] == '1')
-			*valid_neighbours += 1;
-		if (map->map[y + 1][x - 1] == '1' || map->map[y + 1][x] == '1'
+		if (map->map[y - 1][x - 1] == '1' || map->map[y][x - 1] == '1'
+			|| map->map[y + 1][x - 1] == '1')
+			valid_neighbour->left = true;
+		if (map->map[y - 1][x + 1] == '1' || map->map[y][x + 1] == '1'
 			|| map->map[y + 1][x + 1] == '1')
-			*valid_neighbours += 1;
+			valid_neighbour->right = true;
 	}
 }
-
-
-// // This function checks that the top and bottom rows are only composed
-// // of walls after trimming leading and trailing whitespaces.
-// bool	check_top_bottom_rows(t_map *map)
-// {
-// 	char	*trimmed_top;
-// 	char	*trimmed_bottom;
-
-// 	trimmed_top = ft_strtrim(map->map[0], WHITESPACE);
-// 	trimmed_bottom = ft_strtrim(map->map[map->map_height - 1], WHITESPACE);
-// 	if (!only_walls(trimmed_top) || !only_walls(trimmed_bottom))
-// 		return (free(trimmed_top), free(trimmed_bottom), false);
-// 	return (free(trimmed_top), free(trimmed_bottom), true);
-// }
-
-// // This function checks that the string is composed entirely of '1's.
-// bool	only_walls(char *s)
-// {
-// 	while (*s)
-// 	{
-// 		if (*s != '1')
-// 			return (false);
-// 		s++;
-// 	}
-// 	return (true);
-// }

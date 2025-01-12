@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 16:46:05 by etien             #+#    #+#             */
-/*   Updated: 2025/01/09 13:54:42 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/12 17:04:32 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,6 @@ void	skip_whitespace(char **s)
 {
 	while (**s && ft_strchr(WHITESPACE, **s))
 		(*s)++;
-}
-
-// A helper function for skipping over trailing whitespace.
-void	skip_whitespace_rev(char **s)
-{
-	int	len;
-
-	len = ft_strlen(*s);
-	*s += (len - 1);
-	while (len > 0 && ft_strchr(WHITESPACE, **s))
-	{
-		len--;
-		(*s)--;
-	}
 }
 
 // The content deletion function for clearing a t_list.

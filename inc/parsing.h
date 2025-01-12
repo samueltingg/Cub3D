@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:24 by etien             #+#    #+#             */
-/*   Updated: 2025/01/09 18:22:50 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/12 17:32:10 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,25 @@ typedef enum e_direction
 	EAST
 }	t_direction;
 
-typedef enum e_horizontal
+typedef enum e_edge_dir
 {
 	LEFT,
-	RIGHT
-}	t_horizontal;
-
-typedef enum e_vertical
-{
+	RIGHT,
 	TOP,
 	BOTTOM
-}	t_vertical;
+}	t_edge_dir;
+
+typedef struct s_vertical_neighbour
+{
+	bool	top;
+	bool	bottom;
+}	t_vertical_neighbour;
+
+typedef struct s_horizontal_neighbour
+{
+	bool	left;
+	bool	right;
+}	t_horizontal_neighbour;
 
 typedef struct s_map
 {
@@ -87,6 +95,7 @@ void	parse_cub(char *map_file, t_map *map);
 void	parse_line(char *line, t_map *map, bool *map_detected, t_list **tmp);
 void	parse_texture( char *s, t_map *map);
 void	parse_color(char *s, char *line, t_map *map);
+
 bool	check_file_extension(const char *filename);
 int		color_str_to_int(char *color_str, char *line, t_map *map);
 bool	check_color_format(char **color_arr);
@@ -106,18 +115,23 @@ bool	check_map_elements(char *s);
 void	validate_map(t_map *map);
 void	validate_player(t_map *map);
 void	store_player(t_map *map, int y, int x);
-
 void	validate_boundaries(t_map *map);
+
 bool	check_left_right_edge(t_map *map);
-bool	check_vertical_neighbours(t_map *map, char *edge, int y, int edge_dir);
+int		get_left_right_edge(t_map *map, int y, int x, int edge_dir);
+bool	check_vertical_neighbours(t_map *map, int y, int x, int edge_dir);
 void	valid_vertical_neighbours(t_map *map, int y, int x,
-			int *valid_neighbours);
-bool	check_top_bottom_rows(t_map *map);
-bool	only_walls(char *s);
+			t_vertical_neighbour *valid_neighbour);
+bool	is_a_corner(t_map *map, int y, int x, int dir);
+
+bool	check_top_bottom_edge(t_map *map);
+int		get_top_bottom_edge(t_map *map, int y, int x, int edge_dir);
+bool	check_horizontal_neighbours(t_map *map, int y, int x, int edge_dir);
+void	valid_horizontal_neighbours(t_map *map, int y, int x,
+			t_horizontal_neighbour *valid_neighbour);
 
 char	*ft_strtrim_mod(char *s1, char const *set);
 void	skip_whitespace(char **s);
-void	skip_whitespace_rev(char **s);
 void	del(void *content);
 
 #endif
