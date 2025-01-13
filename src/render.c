@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:43:32 by sting             #+#    #+#             */
-/*   Updated: 2025/01/10 13:04:22 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/13 15:37:44 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ void	render_map(t_img *img)
 	int		i; 
 	int		j;
 
+	
 	// example
 	map_height = IMG_H * 7;
 	map_width = IMG_W * 7;

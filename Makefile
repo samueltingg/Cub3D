@@ -21,6 +21,7 @@ SRCS_FIL = \
 			bresenham.c \
 			render.c \
 			handle_key_event.c \
+			raycasting.c \
 			\
 
 SRCS = $(addprefix $(SRCDIR), $(SRCS_FIL))

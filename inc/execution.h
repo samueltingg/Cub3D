@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:12:33 by sting             #+#    #+#             */
-/*   Updated: 2025/01/10 14:13:27 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/13 15:59:51 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ typedef struct s_vars
 	t_img				img;
 
 	// coordinate of player
-	int					p_x;
+	double					p_x;
 	int					p_y;
 	// int		p_angle; //? in radians?
 
