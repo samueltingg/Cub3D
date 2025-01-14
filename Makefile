@@ -16,7 +16,8 @@ ORANGE = \033[0;38;5;166m
 SRCDIR = src/
 
 SRCS_FIL = \
-			error.c init.c main.c parse_cub_utils.c parse_cub.c parse_map_utils.c parse_map.c utils.c validate_map_horizontal.c validate_map_vertical.c validate_map.c
+			error.c init.c main.c parse_cub_utils.c parse_cub.c parse_map_utils.c parse_map.c \
+			print.c utils.c validate_map_horizontal.c validate_map_utils.c validate_map_vertical.c validate_map.c
 			\
 
 SRCS = $(addprefix $(SRCDIR), $(SRCS_FIL))

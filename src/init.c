@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:30:37 by etien             #+#    #+#             */
-/*   Updated: 2025/01/09 10:24:46 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/14 18:59:51 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ t_map	*map_init(void)
 	map->map_height = -1;
 	map->map_width = -1;
 	map->map = NULL;
+	map->player_dir = -1;
 	map->player_x = -1;
 	map->player_y = -1;
-	map->player_dir = -1;
 	return (map);
 }

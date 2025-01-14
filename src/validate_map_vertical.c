@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 18:30:03 by etien             #+#    #+#             */
-/*   Updated: 2025/01/12 17:28:22 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/14 19:21:15 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ bool	check_top_bottom_edge(t_map *map)
 		bottom_edge_y = get_top_bottom_edge(map, map->map_height - 1,
 				x, BOTTOM);
 		if (top_edge_y < 0 || bottom_edge_y < 0
-			|| map->map[top_edge_y][x] != '1'
-			|| map->map[bottom_edge_y][x] != '1')
+			|| !is_a_wall(map, top_edge_y, x, TOP)
+			|| !is_a_wall(map, bottom_edge_y, x, BOTTOM))
 			return (false);
 		if (!check_horizontal_neighbours(map, top_edge_y, x, TOP)
 			|| !check_horizontal_neighbours(map, bottom_edge_y, x, BOTTOM))
@@ -83,6 +83,7 @@ bool	check_horizontal_neighbours(t_map *map, int y, int x, int edge_dir)
 		else if (edge_dir == BOTTOM)
 			y--;
 	}
+	print_unclosed_map(map, y, x, edge_dir);
 	return (false);
 }
 

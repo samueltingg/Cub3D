@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:24 by etien             #+#    #+#             */
-/*   Updated: 2025/01/12 17:32:10 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/14 19:17:26 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,14 @@ typedef struct s_map
 	int		map_height;
 	int		map_width;
 	char	**map;
+	int		player_dir;
 	int		player_x;
 	int		player_y;
-	int		player_dir;
 }	t_map;
+
+void	print_map_data(t_map *map);
+void	print_map(t_map *map);
+void	print_unclosed_map(t_map *map, int y, int x, int edge_dir);
 
 void	err_free_exit(char *err_msg, t_map *map, char *line);
 void	free_map(t_map *map);
@@ -117,12 +121,14 @@ void	validate_player(t_map *map);
 void	store_player(t_map *map, int y, int x);
 void	validate_boundaries(t_map *map);
 
+bool	is_a_wall(t_map *map, int y, int x, int edge_dir);
+bool	is_a_corner(t_map *map, int y, int x, int edge_dir);
+
 bool	check_left_right_edge(t_map *map);
 int		get_left_right_edge(t_map *map, int y, int x, int edge_dir);
 bool	check_vertical_neighbours(t_map *map, int y, int x, int edge_dir);
 void	valid_vertical_neighbours(t_map *map, int y, int x,
 			t_vertical_neighbour *valid_neighbour);
-bool	is_a_corner(t_map *map, int y, int x, int dir);
 
 bool	check_top_bottom_edge(t_map *map);
 int		get_top_bottom_edge(t_map *map, int y, int x, int edge_dir);

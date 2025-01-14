@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 16:23:23 by etien             #+#    #+#             */
-/*   Updated: 2025/01/12 17:31:24 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/14 19:19:54 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ bool	check_left_right_edge(t_map *map)
 		right_edge_x = get_left_right_edge(map, y,
 				map->map_width - 1, RIGHT);
 		if (left_edge_x < 0 || right_edge_x < 0
-			|| map->map[y][left_edge_x] != '1'
-			|| map->map[y][right_edge_x] != '1')
+			|| !is_a_wall(map, y, left_edge_x, LEFT)
+			|| !is_a_wall(map, y, right_edge_x, RIGHT))
 			return (false);
 		if (!check_vertical_neighbours(map, y, left_edge_x, LEFT)
 			|| !check_vertical_neighbours(map, y, right_edge_x, RIGHT))
@@ -79,6 +79,7 @@ bool	check_vertical_neighbours(t_map *map, int y, int x, int edge_dir)
 		else if (edge_dir == RIGHT)
 			x--;
 	}
+	print_unclosed_map(map, y, x, edge_dir);
 	return (false);
 }
 
@@ -117,31 +118,4 @@ void	valid_vertical_neighbours(t_map *map, int y, int x,
 			|| map->map[y + 1][x + 1] == '1')
 			valid_neighbour->bottom = true;
 	}
-}
-
-// A corner is a coordinate that is both a horizontal edge and a vertical edge.
-bool	is_a_corner(t_map *map, int y, int x, int dir)
-{
-	int	top_edge_y;
-	int	bottom_edge_y;
-	int	left_edge_x;
-	int	right_edge_x;
-
-	if (dir == LEFT || dir == RIGHT)
-	{
-		top_edge_y = get_top_bottom_edge(map, 0, x, TOP);
-		bottom_edge_y = get_top_bottom_edge(map, map->map_height - 1,
-				x, BOTTOM);
-		if (y == top_edge_y || y == bottom_edge_y)
-			return (true);
-	}
-	else if (dir == TOP || dir == BOTTOM)
-	{
-		left_edge_x = get_left_right_edge(map, y, 0, LEFT);
-		right_edge_x = get_left_right_edge(map, y,
-				map->map_width - 1, RIGHT);
-		if (x == left_edge_x || x == right_edge_x)
-			return (true);
-	}
-	return (false);
 }
