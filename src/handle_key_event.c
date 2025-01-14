@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_key_event.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:31:06 by sting             #+#    #+#             */
-/*   Updated: 2025/01/08 10:51:50 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/14 11:34:04 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ void	handle_translation(int keycode, t_vars *vars)
 	ty = 0;
 	tx = 0;
 	if (keycode == KEY_D)
-		tx = 10;
+		tx = 1;
 	else if (keycode == KEY_A)
-		tx = -10;
+		tx = -1;
 	else if (keycode == KEY_W)
-		ty = -10;
+		ty = -1;
 	else if (keycode == KEY_S)
-		ty = 10;
+		ty = 1;
 	else
 		return ;
 	vars->p_x += tx;

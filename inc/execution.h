@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:12:33 by sting             #+#    #+#             */
-/*   Updated: 2025/01/13 15:59:51 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/14 11:13:35 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,13 @@ typedef struct s_rect
 
 typedef struct s_vars
 {
+	char				**map;
 	void				*mlx_ptr;
 	void				*win_ptr;
 	t_img				img;
 
 	// coordinate of player
-	double					p_x;
+	double				p_x;
 	int					p_y;
 	// int		p_angle; //? in radians?
 
@@ -132,5 +133,6 @@ int						gradient(int startcolor, int endcolor, int len,
 // Handle Key Event
 int						close_window(void *params);
 int						handle_key_event(int keycode, void *param);
+void					raycasting(t_vars *vars);
 
 #endif

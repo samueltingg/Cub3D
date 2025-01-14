@@ -62,4 +62,11 @@
 # define P_WIDTH 25
 # define P_HEIGHT 25
 
+// Wall Side
+# define EW 0
+# define NS 1
+
+#define BLOCK_W 100 
+#define BLOCK_H 100
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:33 by etien             #+#    #+#             */
-/*   Updated: 2025/01/10 14:14:00 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/14 14:58:12 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ int	close_window(void *params)
 
 void init_vars(t_vars *vars)
 {
-	vars->p_x = 0; // tmp
-	vars->p_y = 0; // tmp
+	vars->p_x = 200; // tmp
+	vars->p_y = 200; // tmp
 
-	vars->dir_x = -1;
+	vars->dir_x = 1;
 	vars->dir_y = 0;
 	vars->plane_x = 0;
 	vars->plane_y = 0.66;
@@ -51,8 +51,20 @@ void mlx(t_vars *vars)
 
 int main(void)
 {
+	char	*eg_map[] = {
+		"1111111",
+		"1001001",
+		"1001001",
+		"1001001",
+		"1000001",
+		"1000001",
+		"1111111",
+		NULL};
 	t_vars vars;
 
+
+	vars.map = eg_map; // ! example map
+	printf("map[2][3]: %c\n", vars.map[2][3]);
 	init_vars(&vars);	
 	mlx(&vars);
 	
