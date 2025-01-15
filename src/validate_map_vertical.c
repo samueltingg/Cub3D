@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 18:30:03 by etien             #+#    #+#             */
-/*   Updated: 2025/01/14 19:21:15 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/15 12:47:51 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ bool	check_top_bottom_edge(t_map *map)
 			|| !is_a_wall(map, top_edge_y, x, TOP)
 			|| !is_a_wall(map, bottom_edge_y, x, BOTTOM))
 			return (false);
-		if (!check_horizontal_neighbours(map, top_edge_y, x, TOP)
-			|| !check_horizontal_neighbours(map, bottom_edge_y, x, BOTTOM))
+		if (!check_horizontal_neighbours(map, top_edge_y, x, TOP, false)
+			|| !check_horizontal_neighbours(map, bottom_edge_y, x, BOTTOM, false))
 			return (false);
 	}
 	return (true);
@@ -65,19 +65,28 @@ int	get_top_bottom_edge(t_map *map, int y, int x, int edge_dir)
 // This function will check the horizontal neighbours of the edges in
 // the middle rows. An edge needs to have two horizontal neighbours
 // (one left, one right) to be considered valid.
-bool	check_horizontal_neighbours(t_map *map, int y, int x, int edge_dir)
+bool	check_horizontal_neighbours(t_map *map, int y, int x, int edge_dir, bool checked_corner)
 {
 	t_horizontal_neighbour	valid_neighbour;
+	int						corner_dir;
 
 	valid_neighbour.left = false;
 	valid_neighbour.right = false;
-	if (x == 0 || x == map->map_width - 1 || is_a_corner(map, y, x, edge_dir))
+	corner_dir = is_a_corner(map, y, x, edge_dir);
+	printf("corner_dir: %d\n", corner_dir);
+	if (x == 0 || x == map->map_width - 1)
 		return (true);
 	while (map->map[y][x] == '1')
 	{
+		printf("Inspecting (y: %d, x: %d)\n", y, x);
 		valid_horizontal_neighbours(map, y, x, &valid_neighbour);
 		if (valid_neighbour.left && valid_neighbour.right)
 			return (true);
+		if (!checked_corner && corner_dir >= 0)
+		{
+			printf("check vertical has been called\n");
+			return (check_vertical_neighbours(map, y, x, corner_dir, true));
+		}
 		if (edge_dir == TOP)
 			y++;
 		else if (edge_dir == BOTTOM)

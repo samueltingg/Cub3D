@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:24 by etien             #+#    #+#             */
-/*   Updated: 2025/01/14 19:17:26 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/15 12:00:57 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,17 +122,17 @@ void	store_player(t_map *map, int y, int x);
 void	validate_boundaries(t_map *map);
 
 bool	is_a_wall(t_map *map, int y, int x, int edge_dir);
-bool	is_a_corner(t_map *map, int y, int x, int edge_dir);
+int		is_a_corner(t_map *map, int y, int x, int edge_dir);
 
 bool	check_left_right_edge(t_map *map);
 int		get_left_right_edge(t_map *map, int y, int x, int edge_dir);
-bool	check_vertical_neighbours(t_map *map, int y, int x, int edge_dir);
+bool	check_vertical_neighbours(t_map *map, int y, int x, int edge_dir, bool checked_corner);
 void	valid_vertical_neighbours(t_map *map, int y, int x,
 			t_vertical_neighbour *valid_neighbour);
 
 bool	check_top_bottom_edge(t_map *map);
 int		get_top_bottom_edge(t_map *map, int y, int x, int edge_dir);
-bool	check_horizontal_neighbours(t_map *map, int y, int x, int edge_dir);
+bool	check_horizontal_neighbours(t_map *map, int y, int x, int edge_dir, bool checked_corner);
 void	valid_horizontal_neighbours(t_map *map, int y, int x,
 			t_horizontal_neighbour *valid_neighbour);
 
