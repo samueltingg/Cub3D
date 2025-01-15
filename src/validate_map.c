@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 10:25:29 by etien             #+#    #+#             */
-/*   Updated: 2025/01/15 20:58:49 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/15 21:26:04 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,11 @@ void	store_player(t_map *map, int y, int x)
 	}
 }
 
+// A minimum valid map would have to be at least 3x3.
 void	validate_boundaries(t_map *map)
 {
+	if (map->map_width < 3 || map->map_height < 3)
+		err_free_exit(MAP_BOUNDARIES_ERR, map, NULL);
 	if (!check_horizontal_edges(map) || !check_vertical_edges(map))
 		err_free_exit(MAP_BOUNDARIES_ERR, map, NULL);
 }

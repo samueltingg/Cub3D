@@ -6,17 +6,14 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 16:23:23 by etien             #+#    #+#             */
-/*   Updated: 2025/01/15 20:51:37 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/15 21:16:19 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-// This function checks that the left and right edge of each
-// row are walls after skipping over the leading/trailing
-// whitespaces. It will then check that the edges in the middle
-// rows have vertical neighbours to ensure that there are no holes
-// in the walls.
+// This function checks the horizontal (left and right) edges
+// for all middle rows in the map.
 bool	check_horizontal_edges(t_map *map)
 {
 	int	left_edge_x;
@@ -33,15 +30,19 @@ bool	check_horizontal_edges(t_map *map)
 			return (false);
 		if (!valid_horizontal_edge(map, y, left_edge_x, LEFT)
 			|| !valid_horizontal_edge(map, y, right_edge_x, RIGHT))
-				return (false);
+			return (false);
 	}
 	return (true);
 }
 
-
+// This function checks that the horizontal edge is valid:
+// 1) Is not a wall
+// 2) If it is a corner - has neighbours along at least one axis.
+// 3) If not a corner - has vertical neighbours.
+// Checks 2 and 3 ensure that there are no holes in the walls.
 bool	valid_horizontal_edge(t_map *map, int y, int x, int edge_dir)
 {
-	int corner_dir;
+	int	corner_dir;
 
 	corner_dir = is_a_corner(map, y, x, edge_dir);
 	if (!is_a_wall(map, y, x))
@@ -49,7 +50,7 @@ bool	valid_horizontal_edge(t_map *map, int y, int x, int edge_dir)
 	if (corner_dir == TOP || corner_dir == BOTTOM)
 	{
 		if (!check_horizontal_neighbours(map, y, x, corner_dir)
-		&& !check_vertical_neighbours(map, y, x, edge_dir))
+			&& !check_vertical_neighbours(map, y, x, edge_dir))
 			return (false);
 	}
 	else

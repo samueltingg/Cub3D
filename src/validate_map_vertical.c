@@ -6,17 +6,14 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 18:30:03 by etien             #+#    #+#             */
-/*   Updated: 2025/01/15 20:51:46 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/15 21:18:36 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-// This function checks that the top and bottom edge of each
-// column are walls after skipping over the leading/trailing
-// whitespaces. It will then check that the edges in the middle
-// rows have horizontal neighbours to ensure that there are no holes
-// in the walls.
+// This function checks the vertical (top and bottom) edges
+// for all middle columns in the map.
 bool	check_vertical_edges(t_map *map)
 {
 	int	top_edge_y;
@@ -38,6 +35,11 @@ bool	check_vertical_edges(t_map *map)
 	return (true);
 }
 
+// This function checks that the vertical edge is valid:
+// 1) Is not a wall
+// 2) If it is a corner - has neighbours along at least one axis.
+// 3) If not a corner - has horizontal neighbours.
+// Checks 2 and 3 ensure that there are no holes in the walls.
 bool	valid_vertical_edge(t_map *map, int y, int x, int edge_dir)
 {
 	int	corner_dir;
@@ -48,7 +50,7 @@ bool	valid_vertical_edge(t_map *map, int y, int x, int edge_dir)
 	if (corner_dir == LEFT || corner_dir == RIGHT)
 	{
 		if (!check_vertical_neighbours(map, y, x, corner_dir)
-		&& !check_horizontal_neighbours(map, y, x, edge_dir))
+			&& !check_horizontal_neighbours(map, y, x, edge_dir))
 			return (false);
 	}
 	else
