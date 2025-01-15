@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 16:23:23 by etien             #+#    #+#             */
-/*   Updated: 2025/01/15 13:11:45 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/15 17:36:54 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,11 @@ bool	check_left_right_edge(t_map *map)
 			|| !is_a_wall(map, y, left_edge_x, LEFT)
 			|| !is_a_wall(map, y, right_edge_x, RIGHT))
 			return (false);
-		if (!check_vertical_neighbours(map, y, left_edge_x, LEFT, false)
-			|| !check_vertical_neighbours(map, y, right_edge_x, RIGHT, false))
+		if (!check_corners(map, y, left_edge_x, LEFT)
+			|| !check_corners(map, y, right_edge_x, RIGHT))
+			return (false);
+		if (!check_vertical_neighbours(map, y, left_edge_x, LEFT)
+			|| !check_vertical_neighbours(map, y, right_edge_x, RIGHT))
 			return (false);
 	}
 	return (true);
@@ -61,15 +64,12 @@ int	get_left_right_edge(t_map *map, int y, int x, int edge_dir)
 // This function will check the vertical neighbours of the edges in
 // the middle rows. An edge needs to have two vertical neighbours
 // (one top, one bottom) to be considered valid.
-bool	check_vertical_neighbours(t_map *map, int y, int x, int edge_dir, bool checked_corner)
+bool	check_vertical_neighbours(t_map *map, int y, int x, int edge_dir)
 {
 	t_vertical_neighbour	valid_neighbour;
-	// int						corner_dir;
 
 	valid_neighbour.top = false;
 	valid_neighbour.bottom = false;
-	// corner_dir = is_a_corner(map, y, x, edge_dir);
-	(void) checked_corner;
 	if (y == 0 || y == map->map_height - 1)
 		return (true);
 	while (map->map[y][x] == '1')
@@ -77,8 +77,6 @@ bool	check_vertical_neighbours(t_map *map, int y, int x, int edge_dir, bool chec
 		valid_vertical_neighbours(map, y, x, &valid_neighbour);
 		if (valid_neighbour.top && valid_neighbour.bottom)
 			return (true);
-		// if (!checked_corner && corner_dir >= 0)
-		// 	return (check_horizontal_neighbours(map, y, x, corner_dir, true));
 		if (edge_dir == LEFT)
 			x++;
 		else if (edge_dir == RIGHT)

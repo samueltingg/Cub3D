@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 19:10:17 by etien             #+#    #+#             */
-/*   Updated: 2025/01/15 11:19:19 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/15 18:16:37 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,20 @@ int	is_a_corner(t_map *map, int y, int x, int edge_dir)
 			return (RIGHT);
 	}
 	return (-1);
+}
+
+// This function check that corners fulfill the neighbour check
+// along at least one axes.
+bool check_corners(t_map *map, int y, int x, int edge_dir)
+{
+	int	corner_dir;
+
+	corner_dir = is_a_corner(map, y, x, edge_dir);
+	if (edge_dir == LEFT || edge_dir == RIGHT)
+		return (check_horizontal_neighbours(map, y, x, corner_dir)
+		|| check_vertical_neighbours(map, y, x, edge_dir));
+	else if (edge_dir == TOP || edge_dir == BOTTOM)
+		return (check_vertical_neighbours(map, y, x, corner_dir)
+		|| check_horizontal_neighbours(map, y, x, edge_dir));
+	return (true);
 }
