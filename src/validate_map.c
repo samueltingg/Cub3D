@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 10:25:29 by etien             #+#    #+#             */
-/*   Updated: 2025/01/15 13:13:46 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/15 20:58:49 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,6 @@ void	store_player(t_map *map, int y, int x)
 
 void	validate_boundaries(t_map *map)
 {
-	bool	horizontal_edges;
-	bool	vertical_edges;
-
-	horizontal_edges = check_left_right_edge(map);
-	vertical_edges = check_top_bottom_edge(map);
-	if (!horizontal_edges || !vertical_edges)
+	if (!check_horizontal_edges(map) || !check_vertical_edges(map))
 		err_free_exit(MAP_BOUNDARIES_ERR, map, NULL);
 }

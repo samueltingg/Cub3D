@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 16:23:23 by etien             #+#    #+#             */
-/*   Updated: 2025/01/15 17:36:54 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/15 20:51:37 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 // whitespaces. It will then check that the edges in the middle
 // rows have vertical neighbours to ensure that there are no holes
 // in the walls.
-bool	check_left_right_edge(t_map *map)
+bool	check_horizontal_edges(t_map *map)
 {
 	int	left_edge_x;
 	int	right_edge_x;
@@ -26,25 +26,40 @@ bool	check_left_right_edge(t_map *map)
 	y = -1;
 	while (++y < map->map_height)
 	{
-		left_edge_x = get_left_right_edge(map, y, 0, LEFT);
-		right_edge_x = get_left_right_edge(map, y,
+		left_edge_x = get_horizontal_edge(map, y, 0, LEFT);
+		right_edge_x = get_horizontal_edge(map, y,
 				map->map_width - 1, RIGHT);
-		if (left_edge_x < 0 || right_edge_x < 0
-			|| !is_a_wall(map, y, left_edge_x, LEFT)
-			|| !is_a_wall(map, y, right_edge_x, RIGHT))
+		if (left_edge_x < 0 || right_edge_x < 0)
 			return (false);
-		if (!check_corners(map, y, left_edge_x, LEFT)
-			|| !check_corners(map, y, right_edge_x, RIGHT))
-			return (false);
-		if (!check_vertical_neighbours(map, y, left_edge_x, LEFT)
-			|| !check_vertical_neighbours(map, y, right_edge_x, RIGHT))
-			return (false);
+		if (!valid_horizontal_edge(map, y, left_edge_x, LEFT)
+			|| !valid_horizontal_edge(map, y, right_edge_x, RIGHT))
+				return (false);
 	}
 	return (true);
 }
 
+
+bool	valid_horizontal_edge(t_map *map, int y, int x, int edge_dir)
+{
+	int corner_dir;
+
+	corner_dir = is_a_corner(map, y, x, edge_dir);
+	if (!is_a_wall(map, y, x))
+		return (false);
+	if (corner_dir == TOP || corner_dir == BOTTOM)
+	{
+		if (!check_horizontal_neighbours(map, y, x, corner_dir)
+		&& !check_vertical_neighbours(map, y, x, edge_dir))
+			return (false);
+	}
+	else
+		if (!check_vertical_neighbours(map, y, x, edge_dir))
+			return (false);
+	return (true);
+}
+
 // This function will return the x-coordinate of the left/right edge.
-int	get_left_right_edge(t_map *map, int y, int x, int edge_dir)
+int	get_horizontal_edge(t_map *map, int y, int x, int edge_dir)
 {
 	while (x >= 0 && x < map->map_width)
 	{
@@ -82,7 +97,6 @@ bool	check_vertical_neighbours(t_map *map, int y, int x, int edge_dir)
 		else if (edge_dir == RIGHT)
 			x--;
 	}
-	print_unclosed_map(map, y, x, edge_dir);
 	return (false);
 }
 
