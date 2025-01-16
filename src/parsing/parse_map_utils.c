@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 11:08:26 by etien             #+#    #+#             */
-/*   Updated: 2025/01/09 13:44:24 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/16 10:59:04 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@
 // whitespace and checking that the first character is one
 // of the map elements. It will also toggle the map_detected
 // boolean when the map is detected.
-bool	detect_map(char *line, bool *map_detected)
+bool	detect_map(t_map *map, char *line, bool *map_detected)
 {
 	char	*s;
 
 	s = line;
+	if (!check_completeness(map, MAP_IS_LAST))
+		err_free_exit(MAP_ORDER_ERR, map, line);
 	skip_whitespace(&s);
 	if (ft_strchr(MAP_ELEMENTS, *s))
 	{

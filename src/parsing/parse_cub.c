@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:48:19 by etien             #+#    #+#             */
-/*   Updated: 2025/01/09 13:44:19 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/16 11:01:30 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,16 @@ void	parse_cub(char *map_file, t_map *map)
 	if (fd < 0)
 		err_free_exit(FILE_OPEN_ERR, map, NULL);
 	line = get_next_line(fd);
+	if (!line)
+		err_free_exit(EMPTY_FILE_ERR, map, NULL);
 	while (line)
 	{
 		parse_line(line, map, &map_detected, &tmp);
 		free(line);
 		line = get_next_line(fd);
 	}
-	parse_map(&tmp, map);
+	if (tmp)
+		parse_map(&tmp, map);
 	if (!check_completeness(map, ALL))
 		err_free_exit(INCOMPLETE_FIELD_ERR, map, NULL);
 	close(fd);
@@ -56,8 +59,8 @@ void	parse_line(char *line, t_map *map, bool *map_detected, t_list **tmp)
 		parse_texture(s, map);
 	else if (*s == 'F' || *s == 'C')
 		parse_color(s, line, map);
-	else if (detect_map(line, map_detected) || *map_detected)
-		parse_map_line(line, tmp, map);
+	else if (detect_map(map, line, map_detected) || *map_detected)
+		parse_map_line(line, tmp);
 }
 
 // This function will store the texture paths in their corresponding fields.

@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:54:26 by etien             #+#    #+#             */
-/*   Updated: 2025/01/09 16:18:26 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/16 10:40:30 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 // free dynamically-allocated memory and exit the program.
 void	err_free_exit(char *err_msg, t_map *map, char *line)
 {
+	ft_putstr_fd("Error\n", STDERR_FILENO);
 	ft_putendl_fd(err_msg, STDERR_FILENO);
 	if (map)
 		free_map(map);

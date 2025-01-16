@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 11:08:29 by etien             #+#    #+#             */
-/*   Updated: 2025/01/09 15:25:27 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/16 10:59:56 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,10 @@
 // This function stores extracted map lines in a temporary linked list.
 // line[ft_strlen(line) - 1] = 0 changes the newline character
 // to a null terminator.
-void	parse_map_line(char *line, t_list **tmp, t_map *map)
+void	parse_map_line(char *line, t_list **tmp)
 {
 	t_list	*node;
 
-	if (!check_completeness(map, MAP_IS_LAST))
-		err_free_exit(MAP_ORDER_ERR, map, line);
 	line[ft_strlen(line) - 1] = 0;
 	node = malloc(sizeof(t_list));
 	node->content = ft_strdup(line);

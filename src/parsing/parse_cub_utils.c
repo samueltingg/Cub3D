@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:32:22 by etien             #+#    #+#             */
-/*   Updated: 2025/01/08 15:46:12 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/16 10:51:55 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,11 @@ bool	check_completeness(t_map *map, int check_all)
 			printf("Ceiling color field is empty.\n");
 		return (false);
 	}
-	if (check_all && !map->map)
-		return (false);
+	if (check_all)
+		if (!map->map)
+		{
+			printf("No map was detected.\n");
+			return (false);
+		}
 	return (true);
 }
