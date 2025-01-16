@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:31:06 by sting             #+#    #+#             */
-/*   Updated: 2025/01/16 12:30:50 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/16 16:17:51 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,32 +50,6 @@ void	handle_translation(int keycode, t_vars *vars)
 	}
 }
 
-// void	handle_translation(int keycode, t_vars *vars)
-// {
-// 	int	tx;
-// 	int	ty;
-
-// 	ty = 0;
-// 	tx = 0;
-// 	if (keycode == KEY_D)
-// 		vars->p_x += (double)1 * vars->dir_x;
-// 	else if (keycode == KEY_A)
-// 		vars->p_x -= (1 * vars->dir_x);
-// 	else if (keycode == KEY_W)
-// 		vars->p_y += (1 * vars->dir_y);
-// 	else if (keycode == KEY_S)
-// 		vars->p_y -= (1 * vars->dir_y);
-// 	else
-// 		return ;
-// 	// printf("p_x: %f, p_y: %f\n", vars->p_x, vars->p_y);
-// 	if (vars->map[(int)((vars->p_y + ty) / BLOCK_W)][(int)((vars->p_x + tx)
-// 			/ BLOCK_H)] != '1')
-// 	{
-// 		// vars->p_x += tx;
-// 		// vars->p_y += ty;
-// 	}
-// }
-
 void	multiply_dir_vec_to_rot_matrix(t_vars *vars, double rot_amt)
 {
 	double	x;
@@ -91,9 +65,9 @@ void	multiply_dir_vec_to_rot_matrix(t_vars *vars, double rot_amt)
 void	handle_rotate(int keycode, t_vars *vars)
 {
 	if (keycode == KEY_LEFT)
-		multiply_dir_vec_to_rot_matrix(vars, RADIAN(-10));
+		multiply_dir_vec_to_rot_matrix(vars, RADIAN(-1));
 	else if (keycode == KEY_RIGHT)
-		multiply_dir_vec_to_rot_matrix(vars, RADIAN(10));
+		multiply_dir_vec_to_rot_matrix(vars, RADIAN(1));
 }
 
 int	handle_key_event(int keycode, void *param)

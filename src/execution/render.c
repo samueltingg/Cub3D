@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:43:32 by sting             #+#    #+#             */
-/*   Updated: 2025/01/16 11:21:42 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/16 16:04:49 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ int	render(void *param)
 	vars = (t_vars *)param;
 	if (vars->win_ptr == NULL)
 		return (1);
-	render_map(vars, vars->map);
+	ft_bzero(vars->img.addr, WINDOW_HEIGHT * WINDOW_WIDTH * (vars->img.bits_per_pixel / 8));
 	raycasting(vars);
+	render_map(vars, vars->map);
 	mlx_put_image_to_window(vars->mlx_ptr, vars->win_ptr, vars->img.img_ptr, 0,
 		0);
 	return (0);

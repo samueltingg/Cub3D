@@ -6,12 +6,16 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 13:03:57 by sting             #+#    #+#             */
-/*   Updated: 2025/01/16 11:28:50 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/16 16:05:15 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "cub3d.h"
 
+// void    render_vertical_line(int x, int draw_start, int draw_end, int color)
+// {
+//     while ()
+// }
 
 /*
 *camera_x
@@ -37,8 +41,8 @@ void raycasting(t_vars *vars)
     double delta_dist_y;
     int step_x;
     int step_y;
-    // int hit_side;
-    // double perp_wall_dist;
+    int hit_side;
+    double perp_wall_dist;
     
     pos_x = vars->p_x / BLOCK_W;
     pos_y = vars->p_y / BLOCK_H;
@@ -86,7 +90,7 @@ void raycasting(t_vars *vars)
             step_y = 1;
             side_dist_y = (map_y + 1.0 - pos_y) * delta_dist_y;
         }
-
+        // printf("side_dist_x: %f, side_dist_y: %f\n", side_dist_x, side_dist_x);
         
         //perform DDA
         while (1)
@@ -96,27 +100,46 @@ void raycasting(t_vars *vars)
             {
                 side_dist_x += delta_dist_x;
                 map_x += step_x;
-                // hit_side = EW;
+                hit_side = EW;
             }
             else        
             {
                 side_dist_y += delta_dist_y;
                 map_y += step_y;
-                // hit_side = NS;
+                hit_side = NS;
             }
             //Check if ray has hit a wall
             if (vars->map[map_y][map_x] == '1') // todo: store map in t_vars?
             {
                 // todo: draw a line from p_x/y to map_x/y
-                render_line_bresenham(&vars->img, (t_line_cord){vars->p_x, vars->p_y, map_x*BLOCK_W, map_y*BLOCK_H, GREEN_PIXEL, GREEN_PIXEL});
+                // render_line_bresenham(&vars->img, (t_line_cord){vars->p_x, vars->p_y, map_x*BLOCK_W, map_y*BLOCK_H, GREEN_PIXEL, GREEN_PIXEL});
                 break;
             }
         } 
 
         // Calculate distance projected on camera direction (Euclidean distance would give fisheye effect!)
-        // if(hit_side == 0) 
-        //     perp_wall_dist = (side_dist_x - delta_dist_x);
-        // else
-        //     perp_wall_dist = (side_dist_y - delta_dist_y);
+        if(hit_side == EW) 
+            perp_wall_dist = (side_dist_x - delta_dist_x);
+        else if (hit_side == NS)
+            perp_wall_dist = (side_dist_y - delta_dist_y);
+        // printf("side_dist_x: %f, delta_dist_x: %f\n", side_dist_x, delta_dist_x);
+        // printf("perp_wall_dist: %f\n", perp_wall_dist);
+
+        int line_height;
+        int draw_start;
+        int draw_end;
+
+        line_height = (int)(WINDOW_HEIGHT / perp_wall_dist);
+        // printf("line_height: %i\n", line_height);
+        draw_start = -line_height / 2 + WINDOW_HEIGHT / 2;
+        if (draw_start < 0)
+            draw_start = 0;
+        draw_end = line_height / 2 + WINDOW_HEIGHT / 2;
+        if (draw_end >= WINDOW_HEIGHT)
+            draw_end = WINDOW_HEIGHT - 1;        
+        
+        // draw vertical line
+        render_line_bresenham(&vars->img, (t_line_cord){x, draw_start, x, draw_end, BLUE_PIXEL, BLUE_PIXEL});
+
     }
 }

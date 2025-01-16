@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:33 by etien             #+#    #+#             */
-/*   Updated: 2025/01/16 10:23:09 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/16 15:37:59 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int	close_window(void *params)
 
 void init_vars(t_vars *vars)
 {
-	vars->p_x = 200; // tmp
-	vars->p_y = 200; // tmp
+	vars->p_x = 1 * BLOCK_W; // tmp
+	vars->p_y = 5 * BLOCK_H; // tmp
 
 	vars->dir_x = 1;
 	vars->dir_y = 0;

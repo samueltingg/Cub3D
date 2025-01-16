@@ -59,14 +59,14 @@
 # define RGB(r, g, b) ((r) << 16) + ((g) << 8) + (b)
 
 // Player
-# define P_WIDTH 25
-# define P_HEIGHT 25
+# define P_WIDTH 12
+# define P_HEIGHT 12
 
 // Wall Side
 # define EW 0
 # define NS 1
 
-#define BLOCK_W 100 
-#define BLOCK_H 100
+#define BLOCK_W 50 
+#define BLOCK_H 50
 
 #endif
