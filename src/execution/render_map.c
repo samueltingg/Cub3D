@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 09:38:32 by sting             #+#    #+#             */
-/*   Updated: 2025/01/16 11:21:01 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/16 12:28:09 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,6 @@ void	render_map(t_vars *vars, char **map)
 	}
 	render_grid_lines(&vars->img, map_width, map_height);
     render_player(vars);
+	// render_line_bresenham(&vars->img, (t_line_cord){vars->p_x, vars->p_y, vars->dir_x*BLOCK_W, vars->dir_y*BLOCK_H, PURPLE_PIXEL, PURPLE_PIXEL}); // ! tmp
+
 }
