@@ -6,67 +6,11 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:43:32 by sting             #+#    #+#             */
-/*   Updated: 2025/01/14 11:59:55 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/16 09:28:09 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-// void	render_horizontal_lines(t_vars *vars, t_cord ***grid)
-// {
-// 	int			j;
-// 	int			i;
-// 	t_line_cord	line;
-
-// 	j = 0;
-// 	while (j < vars->line_count)
-// 	{
-// 		i = 0;
-// 		while (i < vars->wc - 1)
-// 		{
-// 			line.x1 = round((*grid)[j][i].x);
-// 			line.y1 = round((*grid)[j][i].y);
-// 			line.x2 = round((*grid)[j][i + 1].x);
-// 			line.y2 = round((*grid)[j][i + 1].y);
-// 			line.color1 = (*grid)[j][i].color;
-// 			line.color2 = (*grid)[j][i + 1].color;
-// 			render_line_bresenham(&vars->img, line);
-// 			i++;
-// 		}
-// 		j++;
-// 	}
-// }
-
-// void	render_vertical_lines(t_vars *vars, t_cord ***grid)
-// {
-// 	int			i;
-// 	int			j;
-// 	t_line_cord	line;
-
-// 	i = 0;
-// 	while (i < vars->wc)
-// 	{
-// 		j = 0;
-// 		while (j < vars->line_count - 1)
-// 		{
-// 			line.x1 = round((*grid)[j][i].x);
-// 			line.y1 = round((*grid)[j][i].y);
-// 			line.x2 = round((*grid)[j + 1][i].x);
-// 			line.y2 = round((*grid)[j + 1][i].y);
-// 			line.color1 = (*grid)[j][i].color;
-// 			line.color2 = (*grid)[j + 1][i].color;
-// 			render_line_bresenham(&vars->img, line);
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// }
-
-// void	render_grid(t_vars *vars, t_cord ***grid)
-// {
-// 	render_horizontal_lines(vars, grid);
-// 	render_vertical_lines(vars, grid);
-// }
 
 void	render_background(t_img *img, int color)
 {

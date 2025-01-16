@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 13:03:57 by sting             #+#    #+#             */
-/*   Updated: 2025/01/14 14:56:42 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/16 09:25:31 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void raycasting(t_vars *vars)
         camera_x = 2 * x / (double)WINDOW_WIDTH - 1; // x-coordinate in camera space
         ray_dir_x = vars->dir_x + (vars->plane_x * camera_x); // ! not sure: why multiply?
         ray_dir_y = vars->dir_y + (vars->plane_y * camera_x);
-        printf("rdx: %f, rdy: %f\n", ray_dir_x, ray_dir_y);
     
         map_x = (int)pos_x; // ? isn't p_x the scaled up ver? don't need to divide n round down?
         map_y = (int)pos_y;
