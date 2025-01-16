@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:48:19 by etien             #+#    #+#             */
-/*   Updated: 2025/01/16 11:01:30 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/16 11:40:22 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,7 @@ void	parse_cub(char *map_file, t_map *map)
 
 	map_detected = false;
 	tmp = NULL;
-	if (!check_file_extension(map_file))
-		err_free_exit(EXTENSION_ERR, map, NULL);
-	fd = open(map_file, O_RDONLY);
-	if (fd < 0)
-		err_free_exit(FILE_OPEN_ERR, map, NULL);
+	fd = open_file(map_file, map);
 	line = get_next_line(fd);
 	if (!line)
 		err_free_exit(EMPTY_FILE_ERR, map, NULL);
@@ -37,11 +33,11 @@ void	parse_cub(char *map_file, t_map *map)
 		free(line);
 		line = get_next_line(fd);
 	}
+	close(fd);
 	if (tmp)
 		parse_map(&tmp, map);
 	if (!check_completeness(map, ALL))
 		err_free_exit(INCOMPLETE_FIELD_ERR, map, NULL);
-	close(fd);
 }
 
 // This function will parse the line and call the relevant function
@@ -73,6 +69,8 @@ void	parse_texture(char *s, t_map *map)
 
 	id = s;
 	s += 2;
+	if (!ft_strchr(WHITESPACE, *s))
+		return ;
 	skip_whitespace(&s);
 	if (!(*s))
 		return ;
@@ -102,6 +100,8 @@ void	parse_color(char *s, char *line, t_map *map)
 
 	id = *s;
 	s += 1;
+	if (!ft_strchr(WHITESPACE, *s))
+		return ;
 	skip_whitespace(&s);
 	if (!(*s))
 		return ;

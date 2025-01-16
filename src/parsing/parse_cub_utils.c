@@ -6,11 +6,25 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:32:22 by etien             #+#    #+#             */
-/*   Updated: 2025/01/16 10:51:55 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/16 11:41:40 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
+
+// A helper function that will return the file descriptor
+// if the file is correctly formatted and can be opened.
+int	open_file(char *map_file, t_map *map)
+{
+	int	fd;
+
+	if (!check_file_extension(map_file))
+		err_free_exit(EXTENSION_ERR, map, NULL);
+	fd = open(map_file, O_RDONLY);
+	if (fd < 0)
+		err_free_exit(FILE_OPEN_ERR, map, NULL);
+	return (fd);
+}
 
 // This function checks that the filename ends with the .cub extension.
 bool	check_file_extension(const char *filename)
@@ -103,11 +117,10 @@ bool	check_completeness(t_map *map, int check_all)
 			printf("Ceiling color field is empty.\n");
 		return (false);
 	}
-	if (check_all)
-		if (!map->map)
-		{
-			printf("No map was detected.\n");
-			return (false);
-		}
+	if (check_all && !map->map)
+	{
+		printf("No map detected.\n");
+		return (false);
+	}
 	return (true);
 }

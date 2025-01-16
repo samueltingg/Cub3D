@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:24 by etien             #+#    #+#             */
-/*   Updated: 2025/01/16 11:00:08 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/16 11:42:11 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void	parse_line(char *line, t_map *map, bool *map_detected, t_list **tmp);
 void	parse_texture( char *s, t_map *map);
 void	parse_color(char *s, char *line, t_map *map);
 
+int		open_file(char *map_file, t_map *map);
 bool	check_file_extension(const char *filename);
 int		color_str_to_int(char *color_str, char *line, t_map *map);
 bool	check_color_format(char **color_arr);
