@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 09:38:32 by sting             #+#    #+#             */
-/*   Updated: 2025/01/16 09:43:20 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/16 10:23:49 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	render_map(t_img *img, char **map)
 		{
 			if (map[j][i] == '1')
 				render_square(img, (t_rect){x, y, BLOCK_W, BLOCK_H, 0xffffff});
-			else if (map[j][i] == '0')
+			else
 				render_square(img, (t_rect){x, y, BLOCK_W, BLOCK_H, 0x0});
 			x += BLOCK_W;
 			i++;

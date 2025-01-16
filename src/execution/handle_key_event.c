@@ -6,11 +6,11 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:31:06 by sting             #+#    #+#             */
-/*   Updated: 2025/01/16 10:21:32 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/16 10:52:53 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cub3d.h"
+#include "cub3d.h"
 
 void	handle_translation(int keycode, t_vars *vars)
 {
@@ -29,15 +29,21 @@ void	handle_translation(int keycode, t_vars *vars)
 		ty = 10;
 	else
 		return ;
-	vars->p_x += tx;
-	vars->p_y += ty;
+	// printf("p_x: %f, p_y: %f\n", vars->p_x, vars->p_y);
+	if (vars->map[(int)((vars->p_y + ty) / BLOCK_W)][(int)((vars->p_x + tx)
+			/ BLOCK_H)] != '1')
+	{
+		vars->p_x += tx;
+		vars->p_y += ty;
+	}
 }
 
-void multiply_dir_vec_to_rot_matrix(t_vars *vars, double rot_amt)
+void	multiply_dir_vec_to_rot_matrix(t_vars *vars, double rot_amt)
 {
-	double x;
-	double y;;
+	double	x;
+	double	y;
 
+	;
 	x = vars->dir_x;
 	y = vars->dir_y;
 	vars->dir_x = cos(rot_amt) * x - sin(rot_amt) * y;
@@ -48,7 +54,7 @@ void	handle_rotate(int keycode, t_vars *vars)
 {
 	if (keycode == KEY_LEFT)
 		multiply_dir_vec_to_rot_matrix(vars, RADIAN(-10));
-	else if(keycode == KEY_RIGHT)
+	else if (keycode == KEY_RIGHT)
 		multiply_dir_vec_to_rot_matrix(vars, RADIAN(10));
 }
 

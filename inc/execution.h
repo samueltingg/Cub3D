@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:12:33 by sting             #+#    #+#             */
-/*   Updated: 2025/01/16 10:04:34 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/16 10:51:55 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ typedef struct s_vars
 
 	// coordinate of player
 	double				p_x;
-	int					p_y;
+	double				p_y;
 	// int		p_angle; //? in radians?
 
 	// raycasting section
