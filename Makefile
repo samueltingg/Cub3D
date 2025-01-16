@@ -22,6 +22,7 @@ SRCS_FIL = \
 			execution/render.c \
 			execution/handle_key_event.c \
 			execution/raycasting.c \
+			execution/render_map.c \
 			\
 
 SRCS = $(addprefix $(SRCDIR), $(SRCS_FIL))

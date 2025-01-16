@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:12:33 by sting             #+#    #+#             */
-/*   Updated: 2025/01/14 11:13:35 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/16 09:41:24 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,10 @@ typedef struct s_ray
 void					img_pix_put(t_img *img, int x, int y, int color);
 void					render_background(t_img *img, int color);
 int						render(void *param);
-void					render_grid(t_vars *vars, t_cord ***grid);
+void					render_square(t_img *img, t_rect rect);
+void					render_map(t_img *img, char **map);
+void					render_grid_lines(t_img *img, int map_width,
+							int map_height);
 
 // * RAYCASTING
 void					render_rays(t_vars *vars);

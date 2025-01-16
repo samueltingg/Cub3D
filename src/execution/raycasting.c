@@ -6,16 +6,12 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 13:03:57 by sting             #+#    #+#             */
-/*   Updated: 2025/01/16 09:25:31 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/16 09:50:26 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "cub3d.h"
 
-void render_rays(t_vars *vars)
-{
-	render_line_bresenham(&vars->img, (t_line_cord){vars->p_x, vars->p_y, 1*BLOCK_W, 1*BLOCK_H, GREEN_PIXEL, GREEN_PIXEL});
-}
 
 /*
 *camera_x
@@ -39,11 +35,10 @@ void raycasting(t_vars *vars)
     double side_dist_y;
     double delta_dist_x;
     double delta_dist_y;
-    // double perp_wall_dist;
     int step_x;
     int step_y;
-    int hit;
     // int hit_side;
+    // double perp_wall_dist;
     
     pos_x = vars->p_x / BLOCK_W;
     pos_y = vars->p_y / BLOCK_H;
@@ -93,9 +88,8 @@ void raycasting(t_vars *vars)
         }
 
         
-        hit = 0;
         //perform DDA
-        while (hit == 0)
+        while (1)
         {
             //jump to next map square, either in x-direction, or in y-direction
             if (side_dist_x < side_dist_y)
@@ -113,10 +107,9 @@ void raycasting(t_vars *vars)
             //Check if ray has hit a wall
             if (vars->map[map_y][map_x] == '1') // todo: store map in t_vars?
             {
-                hit = 1;
-                // printf("map_x: %i, map_y: %i || hit?: %i \n", map_x, map_y, hit);
                 // todo: draw a line from p_x/y to map_x/y
                 render_line_bresenham(&vars->img, (t_line_cord){vars->p_x, vars->p_y, map_x*BLOCK_W, map_y*BLOCK_H, GREEN_PIXEL, GREEN_PIXEL});
+                break;
             }
         } 
 
