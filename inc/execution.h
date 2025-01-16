@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:12:33 by sting             #+#    #+#             */
-/*   Updated: 2025/01/16 09:41:24 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/16 10:04:34 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct s_vars
 	// raycasting section
 	double				dir_x;
 	double				dir_y;
+	double				p_angle;
 	double				plane_x;
 	double				plane_y;
 

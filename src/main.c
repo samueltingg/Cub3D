@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:33 by etien             #+#    #+#             */
-/*   Updated: 2025/01/14 14:58:12 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/16 10:21:54 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,7 @@ int main(void)
 		NULL};
 	t_vars vars;
 
-
 	vars.map = eg_map; // ! example map
-	printf("map[2][3]: %c\n", vars.map[2][3]);
 	init_vars(&vars);	
 	mlx(&vars);
 	

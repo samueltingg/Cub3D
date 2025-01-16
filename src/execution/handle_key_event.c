@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:31:06 by sting             #+#    #+#             */
-/*   Updated: 2025/01/14 11:34:04 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/16 10:21:32 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,37 @@ void	handle_translation(int keycode, t_vars *vars)
 	ty = 0;
 	tx = 0;
 	if (keycode == KEY_D)
-		tx = 1;
+		tx = 10;
 	else if (keycode == KEY_A)
-		tx = -1;
+		tx = -10;
 	else if (keycode == KEY_W)
-		ty = -1;
+		ty = -10;
 	else if (keycode == KEY_S)
-		ty = 1;
+		ty = 10;
 	else
 		return ;
 	vars->p_x += tx;
 	vars->p_y += ty;
 }
 
+void multiply_dir_vec_to_rot_matrix(t_vars *vars, double rot_amt)
+{
+	double x;
+	double y;;
+
+	x = vars->dir_x;
+	y = vars->dir_y;
+	vars->dir_x = cos(rot_amt) * x - sin(rot_amt) * y;
+	vars->dir_y = sin(rot_amt) * x + cos(rot_amt) * y;
+}
+
+void	handle_rotate(int keycode, t_vars *vars)
+{
+	if (keycode == KEY_LEFT)
+		multiply_dir_vec_to_rot_matrix(vars, RADIAN(-10));
+	else if(keycode == KEY_RIGHT)
+		multiply_dir_vec_to_rot_matrix(vars, RADIAN(10));
+}
 
 int	handle_key_event(int keycode, void *param)
 {
@@ -41,21 +59,7 @@ int	handle_key_event(int keycode, void *param)
 	vars = (t_vars *)param;
 	if (keycode == KEY_ESC)
 		close_window(vars);
-	// else if (keycode == KEY_R)
-	// {
-	// 	reset_grid(vars);
-	// 	if (vars->flags.split_4_view == TRUE)
-	// 		free_all_splitview_cord(vars);
-	// 	vars->flags.split_4_view = FALSE;
-	// }
-	// else if (vars->flags.split_4_view == TRUE)
-	// 	return (0);
-	// else if (keycode == KEY_PLUS)
-	// 	vars->gap++;
-	// else if (keycode == KEY_MINUS && vars->gap - 1 > 0)
-	// 	vars->gap--;
 	handle_translation(keycode, vars);
-	// handle_rotate(keycode, vars);
-	// if_other_key_pressed(keycode, vars);
+	handle_rotate(keycode, vars);
 	return (0);
 }
