@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 13:03:57 by sting             #+#    #+#             */
-/*   Updated: 2025/01/16 09:50:26 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/16 11:28:50 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,10 @@ void raycasting(t_vars *vars)
             }
         } 
 
-        //Calculate distance projected on camera direction (Euclidean distance would give fisheye effect!)
-    //     if(hit_side == 0) 
-    //         perp_wall_dist = (side_dist_x - delta_dist_x);
-    //     else
-    //         perp_wall_dist = (side_dist_y - delta_dist_y);
+        // Calculate distance projected on camera direction (Euclidean distance would give fisheye effect!)
+        // if(hit_side == 0) 
+        //     perp_wall_dist = (side_dist_x - delta_dist_x);
+        // else
+        //     perp_wall_dist = (side_dist_y - delta_dist_y);
     }
 }
