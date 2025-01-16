@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:31:06 by sting             #+#    #+#             */
-/*   Updated: 2025/01/16 12:25:43 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/16 12:30:50 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ void	handle_translation(int keycode, t_vars *vars)
 	else if (keycode == KEY_W)
 	{
 		tx = (1 * vars->dir_x);
-		ty = -(1 * vars->dir_y);
+		ty = (1 * vars->dir_y);
 	}
 	else if (keycode == KEY_S)
 	{
 		tx = -(1 * vars->dir_x);
-		ty = (1 * vars->dir_y);
+		ty = -(1 * vars->dir_y);
 	}
 	else
 		return ;
