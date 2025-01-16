@@ -6,11 +6,34 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 09:38:32 by sting             #+#    #+#             */
-/*   Updated: 2025/01/16 10:23:49 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/16 11:21:01 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	render_square(t_img *img, t_rect rect)
+{
+	int	x;
+	int	y;
+
+	y = rect.y;
+	while (y <= rect.height + rect.y)
+	{
+		x = rect.x;
+		while (x <= rect.width + rect.x)
+		{
+			img_pix_put(img, x, y, rect.color);
+			x++;
+		}
+		y++;
+	}
+}
+
+void render_player(t_vars *vars)
+{
+	render_square(&vars->img, (t_rect){vars->p_x - P_WIDTH/2, vars->p_y - P_HEIGHT/2, P_WIDTH, P_HEIGHT, RED_PIXEL});
+}
 
 void	render_grid_lines(t_img *img, int map_width, int map_height)
 {
@@ -43,7 +66,7 @@ void	render_grid_lines(t_img *img, int map_width, int map_height)
 	}
 }
 
-void	render_map(t_img *img, char **map)
+void	render_map(t_vars *vars, char **map)
 {
 	int	map_height;
 	int	map_width;
@@ -65,14 +88,15 @@ void	render_map(t_img *img, char **map)
 		while (x < map_width)
 		{
 			if (map[j][i] == '1')
-				render_square(img, (t_rect){x, y, BLOCK_W, BLOCK_H, 0xffffff});
+				render_square(&vars->img, (t_rect){x, y, BLOCK_W, BLOCK_H, 0xffffff});
 			else
-				render_square(img, (t_rect){x, y, BLOCK_W, BLOCK_H, 0x0});
+				render_square(&vars->img, (t_rect){x, y, BLOCK_W, BLOCK_H, 0x0});
 			x += BLOCK_W;
 			i++;
 		}
 		y += BLOCK_H;
 		j++;
 	}
-	render_grid_lines(img, map_width, map_height);
+	render_grid_lines(&vars->img, map_width, map_height);
+    render_player(vars);
 }
