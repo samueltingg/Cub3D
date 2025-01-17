@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:48:19 by etien             #+#    #+#             */
-/*   Updated: 2025/01/16 11:40:22 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/17 13:54:09 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // This function will extract the lines from the .cub file and
 // pass them to parse_line.
-void	parse_cub(char *map_file, t_map *map)
+void	parse_cub(char *map_file, t_data *data)
 {
 	bool	map_detected;
 	int		fd;
@@ -23,26 +23,26 @@ void	parse_cub(char *map_file, t_map *map)
 
 	map_detected = false;
 	tmp = NULL;
-	fd = open_file(map_file, map);
+	fd = open_file(map_file, data);
 	line = get_next_line(fd);
 	if (!line)
-		err_free_exit(EMPTY_FILE_ERR, map, NULL);
+		err_free_exit(EMPTY_FILE_ERR, data, NULL);
 	while (line)
 	{
-		parse_line(line, map, &map_detected, &tmp);
+		parse_line(line, data, &map_detected, &tmp);
 		free(line);
 		line = get_next_line(fd);
 	}
 	close(fd);
 	if (tmp)
-		parse_map(&tmp, map);
-	if (!check_completeness(map, ALL))
-		err_free_exit(INCOMPLETE_FIELD_ERR, map, NULL);
+		parse_map(&tmp, data);
+	if (!check_completeness(data, ALL))
+		err_free_exit(INCOMPLETE_FIELD_ERR, data, NULL);
 }
 
 // This function will parse the line and call the relevant function
 // depending on the data type to be stored.
-void	parse_line(char *line, t_map *map, bool *map_detected, t_list **tmp)
+void	parse_line(char *line, t_data *data, bool *map_detected, t_list **tmp)
 {
 	char	*s;
 
@@ -52,15 +52,15 @@ void	parse_line(char *line, t_map *map, bool *map_detected, t_list **tmp)
 		return ;
 	else if (!(ft_strncmp(s, "NO", 2) && ft_strncmp(s, "SO", 2)
 			&& ft_strncmp(s, "WE", 2) && ft_strncmp(s, "EA", 2)))
-		parse_texture(s, map);
+		parse_texture(s, data);
 	else if (*s == 'F' || *s == 'C')
-		parse_color(s, line, map);
-	else if (detect_map(map, line, map_detected) || *map_detected)
+		parse_color(s, line, data);
+	else if (detect_map(data, line, map_detected) || *map_detected)
 		parse_map_line(line, tmp);
 }
 
 // This function will store the texture paths in their corresponding fields.
-void	parse_texture(char *s, t_map *map)
+void	parse_texture(char *s, t_data *data)
 {
 	char	*id;
 	char	*path_start;
@@ -79,19 +79,19 @@ void	parse_texture(char *s, t_map *map)
 		s++;
 	len = s - path_start;
 	trimmed_path = ft_strtrim_mod(ft_substr(path_start, 0, len), WHITESPACE);
-	if (!ft_strncmp(id, "NO", 2) && !map->north_texture)
-		map->north_texture = trimmed_path;
-	else if (!ft_strncmp(id, "SO", 2) && !map->south_texture)
-		map->south_texture = trimmed_path;
-	else if (!ft_strncmp(id, "WE", 2) && !map->west_texture)
-		map->west_texture = trimmed_path;
-	else if (!ft_strncmp(id, "EA", 2) && !map->east_texture)
-		map->east_texture = trimmed_path;
+	if (!ft_strncmp(id, "NO", 2) && !data->tex->north_texture)
+		data->tex->north_texture = trimmed_path;
+	else if (!ft_strncmp(id, "SO", 2) && !data->tex->south_texture)
+		data->tex->south_texture = trimmed_path;
+	else if (!ft_strncmp(id, "WE", 2) && !data->tex->west_texture)
+		data->tex->west_texture = trimmed_path;
+	else if (!ft_strncmp(id, "EA", 2) && !data->tex->east_texture)
+		data->tex->east_texture = trimmed_path;
 }
 
 // This function will store the floor and ceiling colors in their
 // corresponding fields.
-void	parse_color(char *s, char *line, t_map *map)
+void	parse_color(char *s, char *line, t_data *data)
 {
 	char	id;
 	char	*color_start;
@@ -110,9 +110,9 @@ void	parse_color(char *s, char *line, t_map *map)
 		s++;
 	len = s - color_start;
 	trimmed_color = ft_strtrim_mod(ft_substr(color_start, 0, len), WHITESPACE);
-	if (id == 'F' && map->floor_color < 0)
-		map->floor_color = color_str_to_int(trimmed_color, line, map);
-	else if (id == 'C' && map->ceiling_color < 0)
-		map->ceiling_color = color_str_to_int(trimmed_color, line, map);
+	if (id == 'F' && data->tex->floor_color < 0)
+		data->tex->floor_color = color_str_to_int(trimmed_color, line, data);
+	else if (id == 'C' && data->tex->ceiling_color < 0)
+		data->tex->ceiling_color = color_str_to_int(trimmed_color, line, data);
 	free(trimmed_color);
 }

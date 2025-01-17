@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:54:26 by etien             #+#    #+#             */
-/*   Updated: 2025/01/16 10:40:30 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/17 14:51:52 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,45 @@
 
 // This function will print out the error message to STDERR,
 // free dynamically-allocated memory and exit the program.
-void	err_free_exit(char *err_msg, t_map *map, char *line)
+void	err_free_exit(char *err_msg, t_data *data, char *line)
 {
 	ft_putstr_fd("Error\n", STDERR_FILENO);
 	ft_putendl_fd(err_msg, STDERR_FILENO);
-	if (map)
-		free_map(map);
+	if (data)
+		free_data(data);
 	if (line)
 		free(line);
 	exit(1);
 }
 
-// This function frees the map data structure.
+// This function frees the data struct.
 // Other than floor_color and ceiling_color, all the other data fields
 // are dynamically-allocated.
-void	free_map(t_map *map)
+void	free_data(t_data *data)
 {
-	if (map)
+	if (data)
 	{
-		if (map->north_texture)
-			free(map->north_texture);
-		if (map->south_texture)
-			free(map->south_texture);
-		if (map->west_texture)
-			free(map->west_texture);
-		if (map->east_texture)
-			free(map->east_texture);
-		if (map->map)
-			free_double_arr(map->map);
-		free(map);
+		if (data->img)
+			free(data->img);
+		if (data->ray)
+			free(data->ray);
+		if (data->player)
+			free(data->player);
+		if (data->tex)
+		{
+			if (data->tex->north_texture)
+				free(data->tex->north_texture);
+			if (data->tex->south_texture)
+				free(data->tex->south_texture);
+			if (data->tex->west_texture)
+				free(data->tex->west_texture);
+			if (data->tex->east_texture)
+				free(data->tex->east_texture);
+			free(data->tex);
+		}
+		if (data->map)
+			free_double_arr(data->map);
+		free(data);
 	}
 }
 
@@ -62,9 +72,9 @@ void	free_double_arr(char **arr)
 
 // This is a modified version of err_free_exit.
 // It will free both the temporary linked list and
-// the map struct.
-void	tmp_exit(char *err_msg, t_map *map, t_list **tmp)
+// the data struct.
+void	tmp_exit(char *err_msg, t_data *data, t_list **tmp)
 {
 	ft_lstclear(tmp, del);
-	err_free_exit(err_msg, map, NULL);
+	err_free_exit(err_msg, data, NULL);
 }

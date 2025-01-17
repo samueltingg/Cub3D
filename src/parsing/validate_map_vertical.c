@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 18:30:03 by etien             #+#    #+#             */
-/*   Updated: 2025/01/15 21:18:36 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/17 14:14:03 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,22 @@
 
 // This function checks the vertical (top and bottom) edges
 // for all middle columns in the map.
-bool	check_vertical_edges(t_map *map)
+bool	check_vertical_edges(t_data *data)
 {
 	int	top_edge_y;
 	int	bottom_edge_y;
 	int	x;
 
 	x = -1;
-	while (++x < map->map_width)
+	while (++x < data->map_width)
 	{
-		top_edge_y = get_vertical_edge(map, 0, x, TOP);
-		bottom_edge_y = get_vertical_edge(map, map->map_height - 1,
+		top_edge_y = get_vertical_edge(data, 0, x, TOP);
+		bottom_edge_y = get_vertical_edge(data, data->map_height - 1,
 				x, BOTTOM);
 		if (top_edge_y < 0 || bottom_edge_y < 0)
 			return (false);
-		if (!valid_vertical_edge(map, top_edge_y, x, TOP)
-			|| !valid_vertical_edge(map, bottom_edge_y, x, BOTTOM))
+		if (!valid_vertical_edge(data, top_edge_y, x, TOP)
+			|| !valid_vertical_edge(data, bottom_edge_y, x, BOTTOM))
 			return (false);
 	}
 	return (true);
@@ -40,21 +40,21 @@ bool	check_vertical_edges(t_map *map)
 // 2) If it is a corner - has neighbours along at least one axis.
 // 3) If not a corner - has horizontal neighbours.
 // Checks 2 and 3 ensure that there are no holes in the walls.
-bool	valid_vertical_edge(t_map *map, int y, int x, int edge_dir)
+bool	valid_vertical_edge(t_data *data, int y, int x, int edge_dir)
 {
 	int	corner_dir;
 
-	corner_dir = is_a_corner(map, y, x, edge_dir);
-	if (!is_a_wall(map, y, x))
+	corner_dir = is_a_corner(data, y, x, edge_dir);
+	if (!is_a_wall(data, y, x))
 		return (false);
 	if (corner_dir == LEFT || corner_dir == RIGHT)
 	{
-		if (!check_vertical_neighbours(map, y, x, corner_dir)
-			&& !check_horizontal_neighbours(map, y, x, edge_dir))
+		if (!check_vertical_neighbours(data, y, x, corner_dir)
+			&& !check_horizontal_neighbours(data, y, x, edge_dir))
 			return (false);
 	}
 	else
-		if (!check_horizontal_neighbours(map, y, x, edge_dir))
+		if (!check_horizontal_neighbours(data, y, x, edge_dir))
 			return (false);
 	return (true);
 }
@@ -64,11 +64,11 @@ bool	valid_vertical_edge(t_map *map, int y, int x, int edge_dir)
 // for column traversal. If the return value is -1, it means that the
 // column is composed entirely of spaces, hence invalid (similar
 // treatment as empty line in the map).
-int	get_vertical_edge(t_map *map, int y, int x, int edge_dir)
+int	get_vertical_edge(t_data *data, int y, int x, int edge_dir)
 {
-	while (y >= 0 && y < map->map_height)
+	while (y >= 0 && y < data->map_height)
 	{
-		if (ft_strchr(WHITESPACE, map->map[y][x]))
+		if (ft_strchr(WHITESPACE, data->map[y][x]))
 		{
 			if (edge_dir == TOP)
 				y++;
@@ -84,17 +84,17 @@ int	get_vertical_edge(t_map *map, int y, int x, int edge_dir)
 // This function will check the horizontal neighbours of the edges in
 // the middle rows. An edge needs to have two horizontal neighbours
 // (one left, one right) to be considered valid.
-bool	check_horizontal_neighbours(t_map *map, int y, int x, int edge_dir)
+bool	check_horizontal_neighbours(t_data *data, int y, int x, int edge_dir)
 {
 	t_horizontal_neighbour	valid_neighbour;
 
 	valid_neighbour.left = false;
 	valid_neighbour.right = false;
-	if (x == 0 || x == map->map_width - 1)
+	if (x == 0 || x == data->map_width - 1)
 		return (true);
-	while (map->map[y][x] == '1')
+	while (data->map[y][x] == '1')
 	{
-		valid_horizontal_neighbours(map, y, x, &valid_neighbour);
+		valid_horizontal_neighbours(data, y, x, &valid_neighbour);
 		if (valid_neighbour.left && valid_neighbour.right)
 			return (true);
 		if (edge_dir == TOP)
@@ -114,30 +114,30 @@ bool	check_horizontal_neighbours(t_map *map, int y, int x, int edge_dir)
 //     1 1 (BL, BR)
 // Different logic will apply if y is on the edge of the map to prevent
 // out-of-bounds access.
-void	valid_horizontal_neighbours(t_map *map, int y, int x,
+void	valid_horizontal_neighbours(t_data *data, int y, int x,
 			t_horizontal_neighbour *valid_neighbour)
 {
 	if (y == 0)
 	{
-		if (map->map[y][x - 1] == '1' || map->map[y + 1][x - 1] == '1')
+		if (data->map[y][x - 1] == '1' || data->map[y + 1][x - 1] == '1')
 			valid_neighbour->left = true;
-		if (map->map[y][x + 1] == '1' || map->map[y + 1][x + 1] == '1')
+		if (data->map[y][x + 1] == '1' || data->map[y + 1][x + 1] == '1')
 			valid_neighbour->right = true;
 	}
-	else if (y == map->map_height - 1)
+	else if (y == data->map_height - 1)
 	{
-		if (map->map[y - 1][x - 1] == '1' || map->map[y][x - 1] == '1')
+		if (data->map[y - 1][x - 1] == '1' || data->map[y][x - 1] == '1')
 			valid_neighbour->left = true;
-		if (map->map[y - 1][x + 1] == '1' || map->map[y][x + 1] == '1')
+		if (data->map[y - 1][x + 1] == '1' || data->map[y][x + 1] == '1')
 			valid_neighbour->right = true;
 	}
 	else
 	{
-		if (map->map[y - 1][x - 1] == '1' || map->map[y][x - 1] == '1'
-			|| map->map[y + 1][x - 1] == '1')
+		if (data->map[y - 1][x - 1] == '1' || data->map[y][x - 1] == '1'
+			|| data->map[y + 1][x - 1] == '1')
 			valid_neighbour->left = true;
-		if (map->map[y - 1][x + 1] == '1' || map->map[y][x + 1] == '1'
-			|| map->map[y + 1][x + 1] == '1')
+		if (data->map[y - 1][x + 1] == '1' || data->map[y][x + 1] == '1'
+			|| data->map[y + 1][x + 1] == '1')
 			valid_neighbour->right = true;
 	}
 }
