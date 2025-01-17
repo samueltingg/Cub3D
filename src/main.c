@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:33 by etien             #+#    #+#             */
-/*   Updated: 2025/01/17 14:56:10 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/17 15:09:34 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,21 +49,16 @@ void mlx(t_vars *vars)
 	mlx_loop(vars->mlx_ptr);
 }
 
-int main(void)
+int	main(int ac, char **av)
 {
-	char	*eg_map[] = {
-		"1111111",
-		"1001001",
-		"1001001",
-		"1001001",
-		"1000N01",
-		"1000001",
-		"1111111",
-		NULL};
-	t_vars vars;
+	t_data	*data;
 
-	vars.map = eg_map; // ! example map
-	init_vars(&vars);	
-	mlx(&vars);
-	
+	if (ac != 2)
+		err_free_exit(ARGS_ERR, NULL, NULL);
+	data = data_init();
+	parse_cub(av[1], data);
+	validate_map(data);
+	print_map_data(data);
+	free_data(data);
+	return (0);
 }

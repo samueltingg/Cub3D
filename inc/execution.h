@@ -6,12 +6,14 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:12:33 by sting             #+#    #+#             */
-/*   Updated: 2025/01/17 11:45:20 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/17 15:13:54 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTION_H
 # define EXECUTION_H
+
+# include "parsing.h"
 
 typedef struct s_cord
 {
@@ -21,19 +23,19 @@ typedef struct s_cord
 	int					color;
 }						t_cord;
 
-/**
- * @param line_len amount of bytes taken by one row of our image
- * @param img_ptr pointer to the image structure created by mlx_new_image
- * @param addr pointer to the raw pixel data of the image
- */
-typedef struct s_img
-{
-	void				*img_ptr;
-	char				*addr;
-	int					bits_per_pixel;
-	int					line_len;
-	int					endian;
-}						t_img;
+// /**
+//  * @param line_len amount of bytes taken by one row of our image
+//  * @param img_ptr pointer to the image structure created by mlx_new_image
+//  * @param addr pointer to the raw pixel data of the image
+//  */
+// typedef struct s_img
+// {
+// 	void				*img_ptr;
+// 	char				*addr;
+// 	int					bits_per_pixel;
+// 	int					line_len;
+// 	int					endian;
+// }						t_img;
 
 typedef struct s_line_cord
 {
