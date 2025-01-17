@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:32:22 by etien             #+#    #+#             */
-/*   Updated: 2025/01/16 11:41:40 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/17 13:49:05 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 // A helper function that will return the file descriptor
 // if the file is correctly formatted and can be opened.
-int	open_file(char *map_file, t_map *map)
+int	open_file(char *map_file, t_data *data)
 {
 	int	fd;
 
 	if (!check_file_extension(map_file))
-		err_free_exit(EXTENSION_ERR, map, NULL);
+		err_free_exit(EXTENSION_ERR, data, NULL);
 	fd = open(map_file, O_RDONLY);
 	if (fd < 0)
-		err_free_exit(FILE_OPEN_ERR, map, NULL);
+		err_free_exit(FILE_OPEN_ERR, data, NULL);
 	return (fd);
 }
 
@@ -41,7 +41,7 @@ bool	check_file_extension(const char *filename)
 }
 
 // This function will convert the color string to its integer representation.
-int	color_str_to_int(char *color_str, char *line, t_map *map)
+int	color_str_to_int(char *color_str, char *line, t_data *data)
 {
 	char	**color_arr;
 	int		r;
@@ -53,7 +53,7 @@ int	color_str_to_int(char *color_str, char *line, t_map *map)
 	{
 		free(color_str);
 		free_double_arr(color_arr);
-		err_free_exit(COLOR_ERR, map, line);
+		err_free_exit(COLOR_ERR, data, line);
 	}
 	r = ft_atoi(color_arr[0]);
 	g = ft_atoi(color_arr[1]);
@@ -97,27 +97,27 @@ bool	check_color_format(char **color_arr)
 // This function checks that the fields have been filled from the .cub file.
 // The default will check for all fields, except for the map field.
 // ALL mode will check for all fields.
-bool	check_completeness(t_map *map, int check_all)
+bool	check_completeness(t_data *data, int check_all)
 {
-	if (!map->north_texture || !map->south_texture
-		|| !map->west_texture || !map->east_texture
-		|| map->floor_color < 0 || map->ceiling_color < 0)
+	if (!data->tex->north_texture || !data->tex->south_texture
+		|| !data->tex->west_texture || !data->tex->east_texture
+		|| data->tex->floor_color < 0 || data->tex->ceiling_color < 0)
 	{
-		if (!map->north_texture)
+		if (!data->tex->north_texture)
 			printf("North texture field is empty.\n");
-		if (!map->south_texture)
+		if (!data->tex->south_texture)
 			printf("South texture field is empty.\n");
-		if (!map->west_texture)
+		if (!data->tex->west_texture)
 			printf("West texture field is empty.\n");
-		if (!map->east_texture)
+		if (!data->tex->east_texture)
 			printf("East texture field is empty.\n");
-		if (map->floor_color < 0)
+		if (data->tex->floor_color < 0)
 			printf("Floor color field is empty.\n");
-		if (map->ceiling_color < 0)
+		if (data->tex->ceiling_color < 0)
 			printf("Ceiling color field is empty.\n");
 		return (false);
 	}
-	if (check_all && !map->map)
+	if (check_all && !data->map)
 	{
 		printf("No map detected.\n");
 		return (false);

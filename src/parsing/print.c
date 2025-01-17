@@ -6,59 +6,57 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 18:31:22 by etien             #+#    #+#             */
-/*   Updated: 2025/01/14 18:58:32 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/17 14:39:32 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void	print_map_data(t_map *map)
+void	print_map_data(t_data *data)
 {
-	const char	*direction[] = {"NORTH", "SOUTH", "WEST", "EAST"};
-
-	if (map->north_texture)
-		printf("North texture: %s\n", map->north_texture);
-	if (map->south_texture)
-		printf("South texture: %s\n", map->south_texture);
-	if (map->west_texture)
-		printf("West texture: %s\n", map->west_texture);
-	if (map->east_texture)
-		printf("East texture: %s\n", map->east_texture);
-	if (map->floor_color >= 0)
-		printf("Floor color: %d\n", map->floor_color);
-	if (map->ceiling_color >= 0)
-		printf("Ceiling color: %d\n", map->ceiling_color);
-	if (map->map_height >= 0)
-		printf("Map height: %d\n", map->map_height);
-	if (map->map_width >= 0)
-		printf("Map width: %d\n", map->map_width);
-	if (map->player_dir >= 0)
-		printf("Player direction: %s\n", direction[map->player_dir]);
-	if (map->player_x >= 0)
-		printf("Player x: %d\n", map->player_x);
-	if (map->player_y >= 0)
-		printf("Player y: %d\n", map->player_y);
-	print_map(map);
+	if (data->tex->north_texture)
+		printf("North texture: %s\n", data->tex->north_texture);
+	if (data->tex->south_texture)
+		printf("South texture: %s\n", data->tex->south_texture);
+	if (data->tex->west_texture)
+		printf("West texture: %s\n", data->tex->west_texture);
+	if (data->tex->east_texture)
+		printf("East texture: %s\n", data->tex->east_texture);
+	if (data->tex->floor_color >= 0)
+		printf("Floor color: %d\n", data->tex->floor_color);
+	if (data->tex->ceiling_color >= 0)
+		printf("Ceiling color: %d\n", data->tex->ceiling_color);
+	if (data->map_height >= 0)
+		printf("Map height: %d\n", data->map_height);
+	if (data->map_width >= 0)
+		printf("Map width: %d\n", data->map_width);
+	printf("Player direction vector: (%f, %f)\n",
+		data->player->dir_x, data->player->dir_y);
+	if (data->player->pos_x >= 0)
+		printf("Player x: %f\n", data->player->pos_x);
+	if (data->player->pos_y >= 0)
+		printf("Player y: %f\n", data->player->pos_y);
+	print_map(data->map);
 }
 
-void	print_map(t_map *map)
+void	print_map(char **map)
 {
 	int	y;
 	int	x;
 
 	y = 0;
-	if (map->map)
+	if (map)
 	{
 		printf("Map: \n");
-		while (map->map[y])
+		while (map[y])
 		{
 			x = 0;
-			while (map->map[y][x])
+			while (map[y][x])
 			{
-				if (map->map[y][x] == 'X')
-					printf("\033[31m%c\033[0m", map->map[y][x]);
+				if (map[y][x] == 'X')
+					printf("\033[31m%c\033[0m", map[y][x]);
 				else
-					printf("%c", map->map[y][x]);
+					printf("%c", map[y][x]);
 				x++;
 			}
 			printf("\n");
@@ -67,11 +65,11 @@ void	print_map(t_map *map)
 	}
 }
 
-void	print_unclosed_map(t_map *map, int y, int x, int edge_dir)
+void	print_unclosed_map(char **map, int y, int x, int edge_dir)
 {
 	const char	*edge_dir_name[] = {"LEFT", "RIGHT", "TOP", "BOTTOM"};
 
-	map->map[y][x] = 'X';
+	map[y][x] = 'X';
 	print_map(map);
 	printf("Unclosed map at %s edge: (y: %d, x: %d)\n",
 		edge_dir_name[edge_dir], y, x);
