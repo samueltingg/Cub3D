@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 10:25:29 by etien             #+#    #+#             */
-/*   Updated: 2025/01/17 14:17:57 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/17 17:00:03 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ void	store_player(t_data *data, int y, int x, int *player_count)
 	{
 		if (*player_count == 0)
 		{
-			store_dir_vector(data->player, data->map[y][x]);
-			data->player->pos_x = x;
-			data->player->pos_y = y;
+			store_dir_vector(&data->player, data->map[y][x]);
+			data->player.pos_x = x;
+			data->player.pos_y = y;
 			(*player_count)++;
 		}
 		else

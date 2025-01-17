@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:24 by etien             #+#    #+#             */
-/*   Updated: 2025/01/17 16:01:36 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/17 17:04:28 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 # define EXTENSION_ERR "File name should end with .cub extension."
 # define FILE_OPEN_ERR "File could not be opened."
 # define INCOMPLETE_FIELD_ERR "Incomplete fields."
-# define MALLOC_ERR "Struct malloc failure."
 # define MAP_ARR_MALLOC_ERR "Map array malloc failure."
 # define MAP_BOUNDARIES_ERR "Map boundaries are unclosed."
 # define MAP_ELEMENT_ERR "Invalid map element."
@@ -115,11 +114,10 @@ typedef struct s_horizontal_neighbour
 	bool	right;
 }	t_horizontal_neighbour;
 
-t_data		*data_init(void);
-t_img		*img_init(t_data *data);
-t_ray		*ray_init(t_data *data);
-t_player	*player_init(t_data *data);
-t_texture	*texture_init(t_data *data);
+void		data_init(t_data *data);
+void		img_init(t_img *img);
+void		player_init(t_player *player);
+void		texture_init(t_texture *texture);
 
 void		print_map_data(t_data *data);
 void		print_map(char **map);
@@ -136,7 +134,7 @@ void		parse_line(char *line, t_data *data, bool *map_detected,
 void		parse_texture( char *s, t_data *data);
 void		parse_color(char *s, char *line, t_data *data);
 
-int			open_file(char *map_file, t_data *data);
+int			open_file(char *map_file);
 bool		check_file_extension(const char *filename);
 int			color_str_to_int(char *color_str, char *line, t_data *data);
 bool		check_color_format(char **color_arr);
