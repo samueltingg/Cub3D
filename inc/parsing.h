@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:24 by etien             #+#    #+#             */
-/*   Updated: 2025/01/16 11:42:11 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/17 11:41:42 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define EXTENSION_ERR "File name should end with .cub extension."
 # define FILE_OPEN_ERR "File could not be opened."
 # define INCOMPLETE_FIELD_ERR "Incomplete fields."
+# define MALLOC_ERR "Malloc error."
 # define MAP_ARR_MALLOC_ERR "Map array malloc failure."
 # define MAP_BOUNDARIES_ERR "Map boundaries are unclosed."
 # define MAP_ELEMENT_ERR "Invalid map element."
@@ -80,9 +81,12 @@ typedef struct s_map
 	int		map_height;
 	int		map_width;
 	char	**map;
-	int		player_dir;
-	int		player_x;
-	int		player_y;
+	double	pos_x;
+	double	pos_y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
 }	t_map;
 
 void	print_map_data(t_map *map);
@@ -120,7 +124,8 @@ bool	check_map_elements(char *s);
 
 void	validate_map(t_map *map);
 void	validate_player(t_map *map);
-void	store_player(t_map *map, int y, int x);
+void	store_player(t_map *map, int y, int x, int *player_count);
+void	store_dir_vector(t_map *map, char c);
 void	validate_boundaries(t_map *map);
 
 bool	is_a_wall(t_map *map, int y, int x);

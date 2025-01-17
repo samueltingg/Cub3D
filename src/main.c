@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:33 by etien             #+#    #+#             */
-/*   Updated: 2025/01/14 18:31:41 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/17 11:31:14 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 int	main(int ac, char **av)
 {
-	t_map	*map;
+	t_data	data;
+	// t_map	*map;
 
 	if (ac != 2)
 		err_free_exit(ARGS_ERR, NULL, NULL);
+	data_init(data);
 	map = map_init();
 	parse_cub(av[1], map);
 	validate_map(map);

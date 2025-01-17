@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 18:31:22 by etien             #+#    #+#             */
-/*   Updated: 2025/01/14 18:58:32 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/17 10:59:46 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	print_map_data(t_map *map)
 {
-	const char	*direction[] = {"NORTH", "SOUTH", "WEST", "EAST"};
-
 	if (map->north_texture)
 		printf("North texture: %s\n", map->north_texture);
 	if (map->south_texture)
@@ -32,12 +30,11 @@ void	print_map_data(t_map *map)
 		printf("Map height: %d\n", map->map_height);
 	if (map->map_width >= 0)
 		printf("Map width: %d\n", map->map_width);
-	if (map->player_dir >= 0)
-		printf("Player direction: %s\n", direction[map->player_dir]);
-	if (map->player_x >= 0)
-		printf("Player x: %d\n", map->player_x);
-	if (map->player_y >= 0)
-		printf("Player y: %d\n", map->player_y);
+	printf("Player direction vector: (%f, %f)\n", map->dir_x, map->dir_y);
+	if (map->pos_x >= 0)
+		printf("Player x: %f\n", map->pos_x);
+	if (map->pos_y >= 0)
+		printf("Player y: %f\n", map->pos_y);
 	print_map(map);
 }
 
