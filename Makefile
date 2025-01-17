@@ -17,6 +17,12 @@ SRCDIR = src/
 
 SRCS_FIL = \
 			main.c \
+			execution/gradient.c \
+			execution/bresenham.c \
+			execution/render.c \
+			execution/handle_key_event.c \
+			execution/raycasting.c \
+			execution/render_map.c \
 			$(addprefix parsing/, \
 			error.c init.c  \
 			parse_cub_utils.c parse_cub.c \
@@ -50,7 +56,7 @@ $(OBJDIR):
 $(NAME): $(OBJS)
 	@make -C $(LIBFT_DIR)
 	@make -C $(MINILIBX_DIR)
-	@$(CC) $(LIBFT_A) $(CFLAGS) $(OBJS) -o $(NAME) -L$(LIBFT_DIR) -lft && echo "$(GREEN)$(NAME) was created$(RESET)"
+	@$(CC) $(LIBFT_A) $(CFLAGS) $(OBJS) -o $(NAME) $(LIBRARIES) && echo "$(GREEN)$(NAME) was created$(RESET)"
 
 $(OBJDIR)%.o: $(SRCDIR)%.c
 	@$(CC) $(CFLAGS) -c $< -o $@ && echo "$(GREEN)object files were created$(RESET)"
