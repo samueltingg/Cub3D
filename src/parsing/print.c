@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 18:31:22 by etien             #+#    #+#             */
-/*   Updated: 2025/01/17 14:39:32 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/17 16:58:59 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,28 @@
 
 void	print_map_data(t_data *data)
 {
-	if (data->tex->north_texture)
-		printf("North texture: %s\n", data->tex->north_texture);
-	if (data->tex->south_texture)
-		printf("South texture: %s\n", data->tex->south_texture);
-	if (data->tex->west_texture)
-		printf("West texture: %s\n", data->tex->west_texture);
-	if (data->tex->east_texture)
-		printf("East texture: %s\n", data->tex->east_texture);
-	if (data->tex->floor_color >= 0)
-		printf("Floor color: %d\n", data->tex->floor_color);
-	if (data->tex->ceiling_color >= 0)
-		printf("Ceiling color: %d\n", data->tex->ceiling_color);
+	if (data->tex.north_texture)
+		printf("North texture: %s\n", data->tex.north_texture);
+	if (data->tex.south_texture)
+		printf("South texture: %s\n", data->tex.south_texture);
+	if (data->tex.west_texture)
+		printf("West texture: %s\n", data->tex.west_texture);
+	if (data->tex.east_texture)
+		printf("East texture: %s\n", data->tex.east_texture);
+	if (data->tex.floor_color >= 0)
+		printf("Floor color: %d\n", data->tex.floor_color);
+	if (data->tex.ceiling_color >= 0)
+		printf("Ceiling color: %d\n", data->tex.ceiling_color);
 	if (data->map_height >= 0)
 		printf("Map height: %d\n", data->map_height);
 	if (data->map_width >= 0)
 		printf("Map width: %d\n", data->map_width);
 	printf("Player direction vector: (%f, %f)\n",
-		data->player->dir_x, data->player->dir_y);
-	if (data->player->pos_x >= 0)
-		printf("Player x: %f\n", data->player->pos_x);
-	if (data->player->pos_y >= 0)
-		printf("Player y: %f\n", data->player->pos_y);
+		data->player.dir_x, data->player.dir_y);
+	if (data->player.pos_x >= 0)
+		printf("Player x: %f\n", data->player.pos_x);
+	if (data->player.pos_y >= 0)
+		printf("Player y: %f\n", data->player.pos_y);
 	print_map(data->map);
 }
 

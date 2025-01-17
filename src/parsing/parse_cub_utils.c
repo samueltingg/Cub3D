@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:32:22 by etien             #+#    #+#             */
-/*   Updated: 2025/01/17 13:49:05 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/17 17:01:23 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 // A helper function that will return the file descriptor
 // if the file is correctly formatted and can be opened.
-int	open_file(char *map_file, t_data *data)
+int	open_file(char *map_file)
 {
 	int	fd;
 
 	if (!check_file_extension(map_file))
-		err_free_exit(EXTENSION_ERR, data, NULL);
+		err_free_exit(EXTENSION_ERR, NULL, NULL);
 	fd = open(map_file, O_RDONLY);
 	if (fd < 0)
-		err_free_exit(FILE_OPEN_ERR, data, NULL);
+		err_free_exit(FILE_OPEN_ERR, NULL, NULL);
 	return (fd);
 }
 
@@ -99,21 +99,21 @@ bool	check_color_format(char **color_arr)
 // ALL mode will check for all fields.
 bool	check_completeness(t_data *data, int check_all)
 {
-	if (!data->tex->north_texture || !data->tex->south_texture
-		|| !data->tex->west_texture || !data->tex->east_texture
-		|| data->tex->floor_color < 0 || data->tex->ceiling_color < 0)
+	if (!data->tex.north_texture || !data->tex.south_texture
+		|| !data->tex.west_texture || !data->tex.east_texture
+		|| data->tex.floor_color < 0 || data->tex.ceiling_color < 0)
 	{
-		if (!data->tex->north_texture)
+		if (!data->tex.north_texture)
 			printf("North texture field is empty.\n");
-		if (!data->tex->south_texture)
+		if (!data->tex.south_texture)
 			printf("South texture field is empty.\n");
-		if (!data->tex->west_texture)
+		if (!data->tex.west_texture)
 			printf("West texture field is empty.\n");
-		if (!data->tex->east_texture)
+		if (!data->tex.east_texture)
 			printf("East texture field is empty.\n");
-		if (data->tex->floor_color < 0)
+		if (data->tex.floor_color < 0)
 			printf("Floor color field is empty.\n");
-		if (data->tex->ceiling_color < 0)
+		if (data->tex.ceiling_color < 0)
 			printf("Ceiling color field is empty.\n");
 		return (false);
 	}

@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:48:19 by etien             #+#    #+#             */
-/*   Updated: 2025/01/17 13:54:09 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/17 17:02:04 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	parse_cub(char *map_file, t_data *data)
 
 	map_detected = false;
 	tmp = NULL;
-	fd = open_file(map_file, data);
+	fd = open_file(map_file);
 	line = get_next_line(fd);
 	if (!line)
-		err_free_exit(EMPTY_FILE_ERR, data, NULL);
+		err_free_exit(EMPTY_FILE_ERR, NULL, NULL);
 	while (line)
 	{
 		parse_line(line, data, &map_detected, &tmp);
@@ -79,14 +79,14 @@ void	parse_texture(char *s, t_data *data)
 		s++;
 	len = s - path_start;
 	trimmed_path = ft_strtrim_mod(ft_substr(path_start, 0, len), WHITESPACE);
-	if (!ft_strncmp(id, "NO", 2) && !data->tex->north_texture)
-		data->tex->north_texture = trimmed_path;
-	else if (!ft_strncmp(id, "SO", 2) && !data->tex->south_texture)
-		data->tex->south_texture = trimmed_path;
-	else if (!ft_strncmp(id, "WE", 2) && !data->tex->west_texture)
-		data->tex->west_texture = trimmed_path;
-	else if (!ft_strncmp(id, "EA", 2) && !data->tex->east_texture)
-		data->tex->east_texture = trimmed_path;
+	if (!ft_strncmp(id, "NO", 2) && !data->tex.north_texture)
+		data->tex.north_texture = trimmed_path;
+	else if (!ft_strncmp(id, "SO", 2) && !data->tex.south_texture)
+		data->tex.south_texture = trimmed_path;
+	else if (!ft_strncmp(id, "WE", 2) && !data->tex.west_texture)
+		data->tex.west_texture = trimmed_path;
+	else if (!ft_strncmp(id, "EA", 2) && !data->tex.east_texture)
+		data->tex.east_texture = trimmed_path;
 }
 
 // This function will store the floor and ceiling colors in their
@@ -110,9 +110,9 @@ void	parse_color(char *s, char *line, t_data *data)
 		s++;
 	len = s - color_start;
 	trimmed_color = ft_strtrim_mod(ft_substr(color_start, 0, len), WHITESPACE);
-	if (id == 'F' && data->tex->floor_color < 0)
-		data->tex->floor_color = color_str_to_int(trimmed_color, line, data);
-	else if (id == 'C' && data->tex->ceiling_color < 0)
-		data->tex->ceiling_color = color_str_to_int(trimmed_color, line, data);
+	if (id == 'F' && data->tex.floor_color < 0)
+		data->tex.floor_color = color_str_to_int(trimmed_color, line, data);
+	else if (id == 'C' && data->tex.ceiling_color < 0)
+		data->tex.ceiling_color = color_str_to_int(trimmed_color, line, data);
 	free(trimmed_color);
 }
