@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 09:38:32 by sting             #+#    #+#             */
-/*   Updated: 2025/01/16 16:16:17 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/17 11:34:17 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,13 @@ void	render_square(t_img *img, t_rect rect)
 
 void render_player(t_vars *vars)
 {
-	render_square(&vars->img, (t_rect){vars->p_x - P_WIDTH/2, vars->p_y - P_HEIGHT/2, P_WIDTH, P_HEIGHT, RED_PIXEL});
+	int start_x;
+	int start_y;
+	
+	start_x = vars->p_x * BLOCK_W - P_WIDTH / 2;
+	start_y = vars->p_y * BLOCK_H - P_HEIGHT / 2;
+	render_square(&vars->img, (t_rect){start_x, start_y, P_WIDTH, P_HEIGHT, RED_PIXEL});
+	// render_square(&vars->img, (t_rect){vars->p_x - P_WIDTH/2, vars->p_y - P_HEIGHT/2, P_WIDTH, P_HEIGHT, RED_PIXEL});
 }
 
 void	render_grid_lines(t_img *img, int map_width, int map_height)
@@ -100,6 +106,5 @@ void	render_map(t_vars *vars, char **map)
 	render_grid_lines(&vars->img, map_width, map_height);
     render_player(vars);
 	// Render Direction Vector Line
-	render_line_bresenham(&vars->img, (t_line_cord){vars->p_x, vars->p_y, vars->dir_x*BLOCK_W + vars->p_x, vars->dir_y*BLOCK_H + vars->p_y, PURPLE_PIXEL, PURPLE_PIXEL}); // ! tmp
-
+	render_line_bresenham(&vars->img, (t_line_cord){vars->p_x * BLOCK_W, vars->p_y * BLOCK_H, vars->dir_x*BLOCK_W + vars->p_x * BLOCK_W, vars->dir_y*BLOCK_H + vars->p_y * BLOCK_H, ORANGE_PIXEL, ORANGE_PIXEL}); // ! tmp
 }

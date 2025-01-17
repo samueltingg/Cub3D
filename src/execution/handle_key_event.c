@@ -6,11 +6,49 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:31:06 by sting             #+#    #+#             */
-/*   Updated: 2025/01/16 16:17:51 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/17 11:30:58 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+// void	handle_translation(int keycode, t_vars *vars)
+// {
+// 	double	tx;
+// 	double	ty;
+
+// 	ty = 0;
+// 	tx = 0;
+// 	if (keycode == KEY_D)
+// 	{
+// 		tx = -(1 * vars->dir_y);
+// 		ty = (1 * vars->dir_x);
+// 	}
+// 	else if (keycode == KEY_A)
+// 	{
+// 		tx = (1 * vars->dir_y);
+// 		ty = -(1 * vars->dir_x);
+// 	}
+// 	else if (keycode == KEY_W)
+// 	{
+// 		tx = (1 * vars->dir_x);
+// 		ty = (1 * vars->dir_y);
+// 	}
+// 	else if (keycode == KEY_S)
+// 	{
+// 		tx = -(1 * vars->dir_x);
+// 		ty = -(1 * vars->dir_y);
+// 	}
+// 	else
+// 		return ;
+// 	// printf("p_x: %f, p_y: %f\n", vars->p_x, vars->p_y);
+// 	if (vars->map[(int)((vars->p_y + ty) / BLOCK_W)][(int)((vars->p_x + tx)
+// 			/ BLOCK_H)] != '1')
+// 	{
+// 		vars->p_x += tx;
+// 		vars->p_y += ty;
+// 	}
+// }
 
 void	handle_translation(int keycode, t_vars *vars)
 {
@@ -21,29 +59,29 @@ void	handle_translation(int keycode, t_vars *vars)
 	tx = 0;
 	if (keycode == KEY_D)
 	{
-		tx = -(1 * vars->dir_y);
-		ty = (1 * vars->dir_x);
+		tx = -(0.1 * vars->dir_y);
+		ty = (0.1 * vars->dir_x);
 	}
 	else if (keycode == KEY_A)
 	{
-		tx = (1 * vars->dir_y);
-		ty = -(1 * vars->dir_x);
+		tx = (0.1 * vars->dir_y);
+		ty = -(0.1 * vars->dir_x);
 	}
 	else if (keycode == KEY_W)
 	{
-		tx = (1 * vars->dir_x);
-		ty = (1 * vars->dir_y);
+		tx = (0.1 * vars->dir_x);
+		ty = (0.1 * vars->dir_y);
 	}
 	else if (keycode == KEY_S)
 	{
-		tx = -(1 * vars->dir_x);
-		ty = -(1 * vars->dir_y);
+		tx = -(0.1 * vars->dir_x);
+		ty = -(0.1 * vars->dir_y);
 	}
 	else
 		return ;
-	// printf("p_x: %f, p_y: %f\n", vars->p_x, vars->p_y);
-	if (vars->map[(int)((vars->p_y + ty) / BLOCK_W)][(int)((vars->p_x + tx)
-			/ BLOCK_H)] != '1')
+	
+	if (vars->map[(int)(vars->p_y + ty)][(int)(vars->p_x + tx)
+		] != '1')
 	{
 		vars->p_x += tx;
 		vars->p_y += ty;

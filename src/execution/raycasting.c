@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 13:03:57 by sting             #+#    #+#             */
-/*   Updated: 2025/01/16 16:05:15 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/17 11:29:31 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@
 void raycasting(t_vars *vars)
 {
     int x;
-    double pos_x;
-    double pos_y;
     double camera_x;
     double ray_dir_x;
     double ray_dir_y;
@@ -44,10 +42,6 @@ void raycasting(t_vars *vars)
     int hit_side;
     double perp_wall_dist;
     
-    pos_x = vars->p_x / BLOCK_W;
-    pos_y = vars->p_y / BLOCK_H;
-
-
     x = -1;
     while (++x < WINDOW_WIDTH)
     {
@@ -56,8 +50,8 @@ void raycasting(t_vars *vars)
         ray_dir_x = vars->dir_x + (vars->plane_x * camera_x); // ! not sure: why multiply?
         ray_dir_y = vars->dir_y + (vars->plane_y * camera_x);
     
-        map_x = (int)pos_x; // ? isn't p_x the scaled up ver? don't need to divide n round down?
-        map_y = (int)pos_y;
+        map_x = (int)vars->p_x; // ? isn't p_x the scaled up ver? don't need to divide n round down?
+        map_y = (int)vars->p_y;
         
         if (ray_dir_x == 0)
             delta_dist_x = 1e30; // avoid division of 0, hence set to high value
@@ -73,24 +67,23 @@ void raycasting(t_vars *vars)
         if (ray_dir_x < 0)
         {
             step_x = -1;
-            side_dist_x = (pos_x - map_x) * delta_dist_x;
+            side_dist_x = (vars->p_x - map_x) * delta_dist_x;
         }
         else
         {
             step_x = 1;
-            side_dist_x= (map_x + 1.0 - pos_x) * delta_dist_x;
+            side_dist_x= (map_x + 1.0 - vars->p_x) * delta_dist_x;
         }
         if (ray_dir_y < 0)
         {
             step_y= -1;
-            side_dist_y = (pos_y - map_y) * delta_dist_y;
+            side_dist_y = (vars->p_y - map_y) * delta_dist_y;
         }
         else
         {
             step_y = 1;
-            side_dist_y = (map_y + 1.0 - pos_y) * delta_dist_y;
+            side_dist_y = (map_y + 1.0 - vars->p_y) * delta_dist_y;
         }
-        // printf("side_dist_x: %f, side_dist_y: %f\n", side_dist_x, side_dist_x);
         
         //perform DDA
         while (1)
@@ -122,8 +115,6 @@ void raycasting(t_vars *vars)
             perp_wall_dist = (side_dist_x - delta_dist_x);
         else if (hit_side == NS)
             perp_wall_dist = (side_dist_y - delta_dist_y);
-        // printf("side_dist_x: %f, delta_dist_x: %f\n", side_dist_x, delta_dist_x);
-        // printf("perp_wall_dist: %f\n", perp_wall_dist);
 
         int line_height;
         int draw_start;
