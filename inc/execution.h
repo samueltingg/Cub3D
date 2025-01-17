@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:12:33 by sting             #+#    #+#             */
-/*   Updated: 2025/01/17 15:13:54 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/17 16:01:28 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,6 @@ typedef struct s_cord
 	double				z;
 	int					color;
 }						t_cord;
-
-// /**
-//  * @param line_len amount of bytes taken by one row of our image
-//  * @param img_ptr pointer to the image structure created by mlx_new_image
-//  * @param addr pointer to the raw pixel data of the image
-//  */
-// typedef struct s_img
-// {
-// 	void				*img_ptr;
-// 	char				*addr;
-// 	int					bits_per_pixel;
-// 	int					line_len;
-// 	int					endian;
-// }						t_img;
 
 typedef struct s_line_cord
 {
@@ -76,6 +62,26 @@ typedef struct s_rect
 	int					color;
 }						t_rect;
 //---------------------------
+
+typedef struct s_ray
+{
+	double	camera_x;
+	double	dir_x;
+	double	dir_y;
+	int		map_x;
+	int		map_y;
+	int		step_x;
+	int		step_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	int		side;
+	double	perp_wall_dist;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+}	t_ray;
 
 typedef struct s_vars
 {

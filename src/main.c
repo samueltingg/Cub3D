@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:33 by etien             #+#    #+#             */
-/*   Updated: 2025/01/17 15:09:34 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/17 16:03:36 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,15 @@ void mlx(t_vars *vars)
 
 int	main(int ac, char **av)
 {
-	t_data	*data;
+	t_data	data;
 
 	if (ac != 2)
 		err_free_exit(ARGS_ERR, NULL, NULL);
-	data = data_init();
-	parse_cub(av[1], data);
-	validate_map(data);
-	print_map_data(data);
-	free_data(data);
+	data_init(&data);
+	parse_cub(av[1], &data);
+	validate_map(&data);
+	print_map_data(&data);
+	mlx(&data);
+	free_data(&data);
 	return (0);
 }
