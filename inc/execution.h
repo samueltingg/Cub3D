@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:12:33 by sting             #+#    #+#             */
-/*   Updated: 2025/01/16 11:20:09 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/17 11:45:20 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ typedef struct s_vars
 	// coordinate of player
 	double				p_x;
 	double				p_y;
-	// int		p_angle; //? in radians?
 
 	// raycasting section
 	double				dir_x;
@@ -96,23 +95,6 @@ typedef struct s_vars
 
 }						t_vars;
 
-enum					e_wall_side
-{
-	NORTH,
-	SOUTH,
-	EAST,
-	WEST
-};
-
-typedef struct s_ray
-{
-	enum e_wall_side	wall_side;
-
-	// end position of ray
-	int					r_x;
-	int					r_y;
-	int					r_dist;
-}						t_ray;
 
 // * RENDERING
 void					img_pix_put(t_img *img, int x, int y, int color);
