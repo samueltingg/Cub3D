@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:43:32 by sting             #+#    #+#             */
-/*   Updated: 2025/01/20 14:08:43 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/20 16:11:59 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@ void	render_background(t_img *img, int color)
 
 int	render(void *param)
 {
-	t_vars	*vars;
+	t_data	*data;
 
-	vars = (t_vars *)param;
-	if (vars->win_ptr == NULL)
+	data = (t_data *)param;
+	if (data->win_ptr == NULL)
 		return (1);
-	ft_bzero(vars->img.addr, WINDOW_HEIGHT * WINDOW_WIDTH * (vars->img.bits_per_pixel / 8));
-	raycasting(vars);
-	render_map(vars, vars->map);
-	mlx_put_image_to_window(vars->mlx_ptr, vars->win_ptr, vars->img.img_ptr, 0,
+	ft_bzero(data->img.addr, WINDOW_HEIGHT * WINDOW_WIDTH * (data->img.bits_per_pixel / 8));
+	raycasting(data);
+	render_map(data, data->map);
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.img_ptr, 0,
 		0);
 	return (0);
 }
