@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 10:25:29 by etien             #+#    #+#             */
-/*   Updated: 2025/01/17 17:00:03 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/20 16:50:01 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,21 +64,29 @@ void	store_dir_vector(t_player *player, char c)
 	{
 		player->dir_x = 0;
 		player->dir_y = -1;
+		player->plane_x = 0.66;
+		player->plane_y = 0;
 	}
 	else if (c == 'S')
 	{
 		player->dir_x = 0;
 		player->dir_y = 1;
+		player->plane_x = -0.66;
+		player->plane_y = 0;
 	}
 	else if (c == 'W')
 	{
 		player->dir_x = -1;
 		player->dir_y = 0;
+		player->plane_x = 0;
+		player->plane_y = -0.66;
 	}
 	else if (c == 'E')
 	{
 		player->dir_x = 1;
 		player->dir_y = 0;
+		player->plane_x = 0;
+		player->plane_y = 0.66;
 	}
 }
 

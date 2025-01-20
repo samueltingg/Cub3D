@@ -6,21 +6,21 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 13:03:57 by sting             #+#    #+#             */
-/*   Updated: 2025/01/17 15:41:27 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/20 16:49:21 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "cub3d.h"
 
-void init_raycasting_info(int x, t_ray *ray, t_vars *vars)
+void init_raycasting_info(int x, t_ray *ray, t_player player)
 {
-    // calculate ray position & direction
+    // calculate ray position & direction based on x cordinate of screen
     ray->camera_x = 2 * x / (double)WINDOW_WIDTH - 1; // x-coordinate in camera space
-    ray->dir_x = vars->dir_x + (vars->plane_x * ray->camera_x); 
-    ray->dir_y = vars->dir_y + (vars->plane_y * ray->camera_x);
+    ray->dir_x = player.dir_x + (player.plane_x * ray->camera_x); 
+    ray->dir_y = player.dir_y + (player.plane_y * ray->camera_x);
 
-    ray->map_x = (int)vars->p_x;
-    ray->map_y = (int)vars->p_y;
+    ray->map_x = (int)player.pos_x;
+    ray->map_y = (int)player.pos_y;
     
     if (ray->dir_x == 0)
         ray->delta_dist_x = 1e30; // avoid division of 0, hence set to high value
@@ -34,31 +34,31 @@ void init_raycasting_info(int x, t_ray *ray, t_vars *vars)
 }
 
 // calculate step & initial side dist
-void dda_setup(t_ray *ray, t_vars *vars)
+void dda_setup(t_ray *ray, t_player player)
 {
     if (ray->dir_x < 0)
     {
         ray->step_x = -1;
-        ray->side_dist_x = (vars->p_x - ray->map_x) * ray->delta_dist_x;
+        ray->side_dist_x = (player.pos_x - ray->map_x) * ray->delta_dist_x;
     }
     else
     {
         ray->step_x = 1;
-        ray->side_dist_x = (ray->map_x + 1.0 - vars->p_x) * ray->delta_dist_x;
+        ray->side_dist_x = (ray->map_x + 1.0 - player.pos_x) * ray->delta_dist_x;
     }
     if (ray->dir_y < 0)
     {
         ray->step_y = -1;
-        ray->side_dist_y = (vars->p_y - ray->map_y) * ray->delta_dist_y;
+        ray->side_dist_y = (player.pos_y - ray->map_y) * ray->delta_dist_y;
     }
     else
     {
         ray->step_y = 1;
-        ray->side_dist_y = (ray->map_y + 1.0 - vars->p_y) * ray->delta_dist_y;
+        ray->side_dist_y = (ray->map_y + 1.0 - player.pos_y) * ray->delta_dist_y;
     }
 }
 
-void perform_dda(t_ray *ray, t_vars *vars)
+void perform_dda(t_ray *ray, t_data *data)
 {
     while (1)
     {
@@ -76,7 +76,7 @@ void perform_dda(t_ray *ray, t_vars *vars)
             ray->side = NS;
         }
         //Check if ray has hit a wall
-        if (vars->map[ray->map_y][ray->map_x] == '1')
+        if (data->map[ray->map_y][ray->map_x] == '1')
             break ;
     } 
 }
@@ -97,7 +97,7 @@ void calc_line_height(t_ray *ray)
         ray->draw_end = WINDOW_HEIGHT - 1;        
 }
 
-void raycasting(t_vars *vars)
+void raycasting(t_data *data)
 {
     int x;
     t_ray ray;
@@ -105,12 +105,12 @@ void raycasting(t_vars *vars)
     x = -1;
     while (++x < WINDOW_WIDTH)
     {
-        init_raycasting_info(x, &ray, vars);
-        dda_setup(&ray, vars);
-        perform_dda(&ray, vars);
+        init_raycasting_info(x, &ray, data->player);
+        dda_setup(&ray, data->player);
+        perform_dda(&ray, data);
         calc_line_height(&ray);
         
         // draw vertical line
-        render_line_bresenham(&vars->img, (t_line_cord){x, ray.draw_start, x, ray.draw_end, BLUE_PIXEL, BLUE_PIXEL});
+        render_line_bresenham(&data->img, (t_line_cord){x, ray.draw_start, x, ray.draw_end, BLUE_PIXEL, BLUE_PIXEL});
     }
 }
