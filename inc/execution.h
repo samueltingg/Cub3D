@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:12:33 by sting             #+#    #+#             */
-/*   Updated: 2025/01/17 16:01:28 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/20 16:48:50 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void					img_pix_put(t_img *img, int x, int y, int color);
 void					render_background(t_img *img, int color);
 int						render(void *param);
 void					render_square(t_img *img, t_rect rect);
-void					render_map(t_vars *vars, char **map);
+void					render_map(t_data *data, char **map);
 void					render_grid_lines(t_img *img, int map_width,
 							int map_height);
 
@@ -127,6 +127,6 @@ int						gradient(int startcolor, int endcolor, int len,
 // Handle Key Event
 int						close_window(void *params);
 int						handle_key_event(int keycode, void *param);
-void					raycasting(t_vars *vars);
+void					raycasting(t_data *data);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:54:26 by etien             #+#    #+#             */
-/*   Updated: 2025/01/17 16:54:48 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/20 16:49:42 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	err_free_exit(char *err_msg, t_data *data, char *line)
 {
 	ft_putstr_fd("Error\n", STDERR_FILENO);
 	ft_putendl_fd(err_msg, STDERR_FILENO);
-	free_data(data);
+	if (data)
+		free_data(data);
 	if (line)
 		free(line);
 	exit(1);
