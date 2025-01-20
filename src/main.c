@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:33 by etien             #+#    #+#             */
-/*   Updated: 2025/01/20 14:24:42 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/20 14:39:38 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	main(int ac, char **av)
 	parse_cub(av[1], &data);
 	validate_map(&data);
 	print_map_data(&data);
-	mlx(&data);
+	// mlx(&data);
 	free_data(&data);
 	return (0);
 }
