@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 10:25:29 by etien             #+#    #+#             */
-/*   Updated: 2025/01/20 14:51:50 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/20 15:40:17 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,14 @@ void	store_dir_vector(t_player *player, char c)
 	{
 		player->dir_x = 0;
 		player->dir_y = -1;
-		player->plane_x = -0.66;
+		player->plane_x = 0.66;
 		player->plane_y = 0;
 	}
 	else if (c == 'S')
 	{
 		player->dir_x = 0;
 		player->dir_y = 1;
-		player->plane_x = 0.66;
+		player->plane_x = -0.66;
 		player->plane_y = 0;
 	}
 	else if (c == 'W')
