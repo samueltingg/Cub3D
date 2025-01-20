@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 13:03:57 by sting             #+#    #+#             */
-/*   Updated: 2025/01/17 14:53:36 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/20 10:36:54 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void init_raycasting_info(int x, t_ray *ray, t_vars *vars)
 {
-    // calculate ray position & direction
+    // calculate ray position & direction based on x cordinate of screen
     ray->camera_x = 2 * x / (double)WINDOW_WIDTH - 1; // x-coordinate in camera space
     ray->dir_x = vars->dir_x + (vars->plane_x * ray->camera_x); 
     ray->dir_y = vars->dir_y + (vars->plane_y * ray->camera_x);

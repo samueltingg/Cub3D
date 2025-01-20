@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:31:06 by sting             #+#    #+#             */
-/*   Updated: 2025/01/17 11:30:58 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/20 10:44:09 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,24 @@ void	handle_translation(int keycode, t_vars *vars)
 
 void	multiply_dir_vec_to_rot_matrix(t_vars *vars, double rot_amt)
 {
-	double	x;
-	double	y;
+	// double	x;
+	// double	y;
 
-	;
-	x = vars->dir_x;
-	y = vars->dir_y;
-	vars->dir_x = cos(rot_amt) * x - sin(rot_amt) * y;
-	vars->dir_y = sin(rot_amt) * x + cos(rot_amt) * y;
+	// x = vars->dir_x;
+	// y = vars->dir_y;
+	// vars->dir_x = cos(rot_amt) * x - sin(rot_amt) * y;
+	// vars->dir_y = sin(rot_amt) * x + cos(rot_amt) * y;
+
+	//updated
+	double old_dir_x; 
+	double old_plane_x;
+
+	old_dir_x = vars->dir_x;
+	vars->dir_x = vars->dir_x * cos(rot_amt) - vars->dir_y * sin(rot_amt);
+	vars->dir_y = old_dir_x * sin(rot_amt) + vars->dir_y * cos(rot_amt);
+	old_plane_x = vars->plane_x;
+	vars->plane_x = vars->plane_x * cos(rot_amt) - vars->plane_y * sin(rot_amt);
+	vars->plane_y = old_plane_x * sin(rot_amt) + vars->plane_y * cos(rot_amt);
 }
 
 void	handle_rotate(int keycode, t_vars *vars)
