@@ -2,7 +2,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror $(INCLUDES) -fsanitize=address -g #-std=c99
 INCLUDES = -Iinc -I$(LIBFT_DIR) -I$(MINILIBX_DIR)
- 
+
 # Output executable
 NAME = cub3D
 
@@ -23,7 +23,12 @@ SRCS_FIL = \
 			execution/handle_key_event.c \
 			execution/raycasting.c \
 			execution/render_map.c \
-			\
+			$(addprefix parsing/, \
+			error.c init.c  \
+			parse_cub_utils.c parse_cub.c \
+			parse_map_utils.c parse_map.c \
+			print.c utils.c \
+			validate_map_horizontal.c validate_map_utils.c validate_map_vertical.c validate_map.c)
 
 SRCS = $(addprefix $(SRCDIR), $(SRCS_FIL))
 
