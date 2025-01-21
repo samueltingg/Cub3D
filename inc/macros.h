@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:52:30 by etien             #+#    #+#             */
-/*   Updated: 2025/01/20 16:18:52 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/21 16:34:49 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,8 @@
 
 #define BLOCK_W 20 
 #define BLOCK_H 20 
+
+#define TEX_WIDTH 64
+#define TEX_HEIGHT 64
 
 #endif

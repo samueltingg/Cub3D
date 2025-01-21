@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 13:03:57 by sting             #+#    #+#             */
-/*   Updated: 2025/01/20 15:51:56 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/21 16:52:50 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,27 @@ void calc_line_height(t_ray *ray)
         ray->draw_start = 0;
     ray->draw_end = ray->line_height / 2 + WINDOW_HEIGHT / 2;
     if (ray->draw_end >= WINDOW_HEIGHT)
-        ray->draw_end = WINDOW_HEIGHT - 1;        
+        ray->draw_end = WINDOW_HEIGHT - 1;    
 }
+
+// void render_textures(t_data *data, t_player player, t_ray ray)
+// {
+//     // calculate value of wallx
+//     double wall_x;
+    
+//     if (ray.side == EW)
+//         wall_x = player.pos_y + ray.perp_wall_dist * ray.dir_y;
+//     else    
+//         wall_x = player.pos_x + ray.perp_wall_dist * ray.dir_x;
+//     wall_x -= floor(wall_x);
+
+//     int tex_x; 
+//     tex_x = (int)wall_x * (double)TEX_WIDTH;
+//     if(ray.side == EW && ray.dir_x > 0) 
+//         tex_x = TEX_WIDTH - tex_x - 1;
+//     if(ray.side == NS && ray.dir_y < 0) 
+//         tex_x = TEX_WIDTH - tex_x - 1;
+// }
 
 void raycasting(t_data *data)
 {
@@ -110,7 +129,10 @@ void raycasting(t_data *data)
         perform_dda(&ray, data);
         calc_line_height(&ray);
         
+        int color = BLUE_PIXEL;
+        if (ray.side == NS)
+            color = color / (1.5); // different shade for NS
         // draw vertical line
-        render_line_bresenham(&data->img, (t_line_cord){x, ray.draw_start, x, ray.draw_end, BLUE_PIXEL, BLUE_PIXEL});
+        render_line_bresenham(&data->img, (t_line_cord){x, ray.draw_start, x, ray.draw_end, color, color});
     }
 }
