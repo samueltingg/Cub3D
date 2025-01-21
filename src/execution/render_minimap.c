@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_map.c                                       :+:      :+:    :+:   */
+/*   render_minimap.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 09:38:32 by sting             #+#    #+#             */
-/*   Updated: 2025/01/21 08:44:36 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/21 13:54:22 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	render_grid_lines(t_img *img, int map_width, int map_height)
 	}
 }
 
-void	render_map(t_data *data, char **map)
+void	render_minimap(t_data *data, char **map)
 {
 	int	x;
 	int	y;

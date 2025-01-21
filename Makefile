@@ -22,7 +22,7 @@ SRCS_FIL = \
 			execution/render.c \
 			execution/handle_key_event.c \
 			execution/raycasting.c \
-			execution/render_map.c \
+			execution/render_minimap.c \
 			$(addprefix parsing/, \
 			error.c init.c  \
 			parse_cub_utils.c parse_cub.c \

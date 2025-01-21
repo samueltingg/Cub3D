@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:12:33 by sting             #+#    #+#             */
-/*   Updated: 2025/01/20 15:52:51 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/21 13:54:40 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,9 @@ typedef struct s_vars
 
 // * RENDERING
 void					img_pix_put(t_img *img, int x, int y, int color);
-void					render_background(t_img *img, int color);
 int						render(void *param);
 void					render_square(t_img *img, t_rect rect);
-void					render_map(t_data *data, char **map);
+void					render_minimap(t_data *data, char **map);
 void					render_grid_lines(t_img *img, int map_width,
 							int map_height);
 
