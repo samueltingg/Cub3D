@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 13:03:57 by sting             #+#    #+#             */
-/*   Updated: 2025/01/20 15:51:56 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/21 13:21:06 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,10 @@ void perform_dda(t_ray *ray, t_data *data)
         }
         //Check if ray has hit a wall
         if (data->map[ray->map_y][ray->map_x] == '1')
+        {
+            render_line_bresenham(&data->img, (t_line_cord){data->player.pos_x * BLOCK_W, data->player.pos_y * BLOCK_H, ray->map_x * BLOCK_W, ray->map_y * BLOCK_H, GREEN_PIXEL, GREEN_PIXEL}); // ! tmp
             break ;
+        }
     } 
 }
 
@@ -111,6 +114,6 @@ void raycasting(t_data *data)
         calc_line_height(&ray);
         
         // draw vertical line
-        render_line_bresenham(&data->img, (t_line_cord){x, ray.draw_start, x, ray.draw_end, BLUE_PIXEL, BLUE_PIXEL});
+        // render_line_bresenham(&data->img, (t_line_cord){x, ray.draw_start, x, ray.draw_end, BLUE_PIXEL, BLUE_PIXEL});
     }
 }

@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:52:30 by etien             #+#    #+#             */
-/*   Updated: 2025/01/20 16:18:52 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/21 13:21:16 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@
 # define EW 0
 # define NS 1
 
-#define BLOCK_W 20 
-#define BLOCK_H 20 
+#define BLOCK_W 60 
+#define BLOCK_H 60
 
 #endif
