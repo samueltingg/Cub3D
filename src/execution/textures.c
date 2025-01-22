@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 13:33:42 by sting             #+#    #+#             */
-/*   Updated: 2025/01/22 14:11:56 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/22 14:14:13 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void render_textures(t_data *data, t_player player, t_ray ray)
     {
         (int)tex_pos & (TEX_HEIGHT - 1);
         tex_pos += step;
-
+        // ! STOPPED HERE
 
         y++;
     }
