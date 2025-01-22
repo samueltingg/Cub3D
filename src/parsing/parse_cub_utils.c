@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:32:22 by etien             #+#    #+#             */
-/*   Updated: 2025/01/17 17:01:23 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/22 11:09:08 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,17 @@ int	open_file(char *map_file)
 {
 	int	fd;
 
-	if (!check_file_extension(map_file))
-		err_free_exit(EXTENSION_ERR, NULL, NULL);
+	if (!check_file_extension(map_file, ".cub"))
+		err_free_exit(CUB_EXTENSION_ERR, NULL, NULL);
 	fd = open(map_file, O_RDONLY);
 	if (fd < 0)
 		err_free_exit(FILE_OPEN_ERR, NULL, NULL);
 	return (fd);
 }
 
-// This function checks that the filename ends with the .cub extension.
-bool	check_file_extension(const char *filename)
+// This function checks that the filename ends with correct extension.
+bool	check_file_extension(const char *filename, const char *extension)
 {
-	const char	*extension = ".cub";
 	size_t		len_filename;
 	size_t		len_extension;
 

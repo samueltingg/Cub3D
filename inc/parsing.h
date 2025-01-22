@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:24 by etien             #+#    #+#             */
-/*   Updated: 2025/01/17 17:04:28 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/22 13:29:15 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define ARGS_ERR "Incorrect number of arguments."
 # define COLOR_ERR "Invalid color."
 # define EMPTY_FILE_ERR "File is empty."
-# define EXTENSION_ERR "File name should end with .cub extension."
+# define CUB_EXTENSION_ERR "File name should end with .cub extension."
 # define FILE_OPEN_ERR "File could not be opened."
 # define INCOMPLETE_FIELD_ERR "Incomplete fields."
 # define MAP_ARR_MALLOC_ERR "Map array malloc failure."
@@ -33,6 +33,8 @@
 # define MAP_ORDER_ERR "Map should be the last element."
 # define PLAYER_COUNT_ERR "Only one player is allowed."
 # define PLAYER_MISSING_ERR "No player found in the map."
+# define TEXTURE_OPEN_ERR "Texture file could not be opened."
+# define XPM_EXTENSION_ERR "The program only supports .xpm files for textures."
 
 /**
  * @param line_len amount of bytes taken by one row of our image
@@ -131,11 +133,12 @@ void		tmp_exit(char *err_msg, t_data *data, t_list **tmp);
 void		parse_cub(char *map_file, t_data *data);
 void		parse_line(char *line, t_data *data, bool *map_detected,
 				t_list **tmp);
-void		parse_texture( char *s, t_data *data);
+void		parse_texture( char *s, char *line, t_data *data);
+void		assign_texture(char *id, char *trimmed_path, t_data *data);
 void		parse_color(char *s, char *line, t_data *data);
 
 int			open_file(char *map_file);
-bool		check_file_extension(const char *filename);
+bool		check_file_extension(const char *filename, const char *extension);
 int			color_str_to_int(char *color_str, char *line, t_data *data);
 bool		check_color_format(char **color_arr);
 bool		check_completeness(t_data *data, int check_all);
@@ -153,9 +156,12 @@ bool		check_map_elements(char *s);
 
 void		validate_map(t_data *data);
 void		validate_player(t_data *data);
+void		validate_boundaries(t_data *data);
+void		validate_textures(t_data *data);
+
 void		store_player(t_data *data, int y, int x, int *player_count);
 void		store_dir_vector(t_player *player, char c);
-void		validate_boundaries(t_data *data);
+bool		texture_is_accessible(const char *path);
 
 bool		is_a_wall(t_data *data, int y, int x);
 int			is_a_corner(t_data *data, int y, int x, int edge_dir);
