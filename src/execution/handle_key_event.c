@@ -6,15 +6,15 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:31:06 by sting             #+#    #+#             */
-/*   Updated: 2025/01/21 14:19:16 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/22 13:28:43 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h" 
+#include "cub3d.h"
 
-void	handle_translation(int keycode, t_data *data)
+void	handle_translation(int keycode, t_data *data, t_player *player)
 {
-	double move_speed;
+	double	move_speed;
 	double	tx;
 	double	ty;
 
@@ -23,32 +23,32 @@ void	handle_translation(int keycode, t_data *data)
 	tx = 0;
 	if (keycode == KEY_D)
 	{
-		tx = -(move_speed * data->player.dir_y);
-		ty = (move_speed * data->player.dir_x);
+		tx = -(move_speed * player->dir_y);
+		ty = (move_speed * player->dir_x);
 	}
 	else if (keycode == KEY_A)
 	{
-		tx = (move_speed * data->player.dir_y);
-		ty = -(move_speed * data->player.dir_x);
+		tx = (move_speed * player->dir_y);
+		ty = -(move_speed * player->dir_x);
 	}
 	else if (keycode == KEY_W)
 	{
-		tx = (move_speed * data->player.dir_x);
-		ty = (move_speed * data->player.dir_y);
+		tx = (move_speed * player->dir_x);
+		ty = (move_speed * player->dir_y);
 	}
 	else if (keycode == KEY_S)
 	{
-		tx = -(move_speed * data->player.dir_x);
-		ty = -(move_speed * data->player.dir_y);
+		tx = -(move_speed * player->dir_x);
+		ty = -(move_speed * player->dir_y);
 	}
 	else
 		return ;
-	if (data->map[(int)(data->player.pos_y + ty)][(int)(data->player.pos_x
+	if (data->map[(int)(player->pos_y)][(int)(player->pos_x
 			+ tx)] != '1')
-	{
-		data->player.pos_x += tx;
-		data->player.pos_y += ty;
-	}
+		player->pos_x += tx;
+	if (data->map[(int)(player->pos_y
+			+ ty)][(int)(player->pos_x)] != '1')
+		player->pos_y += ty;
 }
 
 // multiplies Player's Direction & Plane Vector individually to the rotation matrix
@@ -82,7 +82,7 @@ int	handle_key_event(int keycode, void *param)
 	data = (t_data *)param;
 	if (keycode == KEY_ESC)
 		close_window(data);
-	handle_translation(keycode, data);
+	handle_translation(keycode, data, &data->player);
 	handle_rotate(keycode, &data->player);
 	return (0);
 }

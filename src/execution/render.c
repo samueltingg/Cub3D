@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:43:32 by sting             #+#    #+#             */
-/*   Updated: 2025/01/21 13:54:22 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/22 13:31:21 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	render(void *param)
 	if (data->win_ptr == NULL)
 		return (1);
 	ft_bzero(data->img.addr, WINDOW_HEIGHT * WINDOW_WIDTH * (data->img.bits_per_pixel / 8));
-	// render_half_background(&data->img, data->tex.ceiling_color);
 	render_ceiling_n_floor(&data->img, data->tex);
 	raycasting(data);
 	render_minimap(data, data->map);
