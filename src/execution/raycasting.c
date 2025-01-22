@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 13:03:57 by sting             #+#    #+#             */
-/*   Updated: 2025/01/22 13:31:54 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/22 13:49:47 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,25 +99,6 @@ void	calc_line_height(t_ray *ray)
 	if (ray->draw_end >= WINDOW_HEIGHT)
 		ray->draw_end = WINDOW_HEIGHT - 1;
 }
-
-// void render_textures(t_data *data, t_player player, t_ray ray)
-// {
-//     // calculate value of wallx
-//     double wall_x;
-
-//     if (ray.side == EW)
-//         wall_x = player.pos_y + ray.perp_wall_dist * ray.dir_y;
-//     else
-//         wall_x = player.pos_x + ray.perp_wall_dist * ray.dir_x;
-//     wall_x -= floor(wall_x);
-
-//     int tex_x;
-//     tex_x = (int)wall_x * (double)TEX_WIDTH;
-//     if(ray.side == EW && ray.dir_x > 0)
-//         tex_x = TEX_WIDTH - tex_x - 1;
-//     if(ray.side == NS && ray.dir_y < 0)
-//         tex_x = TEX_WIDTH - tex_x - 1;
-// }
 
 void	raycasting(t_data *data)
 {
