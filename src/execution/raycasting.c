@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 13:03:57 by sting             #+#    #+#             */
-/*   Updated: 2025/01/21 16:52:50 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/22 11:41:30 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ void calc_line_height(t_ray *ray)
         ray->perp_wall_dist = (ray->side_dist_x - ray->delta_dist_x);
     else if (ray->side == NS)
         ray->perp_wall_dist = (ray->side_dist_y - ray->delta_dist_y);
+    if (ray->perp_wall_dist < (double)1) // to avoid division of close to 0 number during calc of line_height
+        ray->perp_wall_dist = 1;
     ray->line_height = (int)(WINDOW_HEIGHT / ray->perp_wall_dist);
     ray->draw_start = -(ray->line_height) / 2 + WINDOW_HEIGHT / 2;
     if (ray->draw_start < 0)
