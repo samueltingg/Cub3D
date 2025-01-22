@@ -31,7 +31,8 @@ SRCS_FIL = \
 			validate_boundaries_utils.c \
 			validate_horizontal_boundaries.c \
 			validate_map_utils.c validate_map.c \
-			validate_vertical_boundaries.c)
+			validate_vertical_boundaries.c \
+			door.c)
 
 SRCS = $(addprefix $(SRCDIR), $(SRCS_FIL))
 

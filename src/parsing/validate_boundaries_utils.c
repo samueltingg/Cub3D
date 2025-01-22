@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 19:10:17 by etien             #+#    #+#             */
-/*   Updated: 2025/01/22 11:32:17 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/22 16:45:47 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,14 @@ int	is_a_corner(t_data *data, int y, int x, int edge_dir)
 			return (RIGHT);
 	}
 	return (-1);
+}
+
+bool	is_an_edge(t_data *data, int y, int x)
+{
+	if (y == get_vertical_edge(data, y, x, TOP)
+		|| y == get_vertical_edge(data, y, x, BOTTOM)
+		|| x == get_horizontal_edge(data, y, x, LEFT)
+		|| x == get_horizontal_edge(data, y, x, RIGHT))
+		return (true);
+	return (false);
 }
