@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:24 by etien             #+#    #+#             */
-/*   Updated: 2025/01/17 17:04:28 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/23 11:54:48 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,9 @@ typedef struct s_texture
 	char	*east_texture;
 	int		floor_color;
 	int		ceiling_color;
+	t_img	img; // ! added
+	int width; // ! tmp
+	int height; // ! tmp
 }	t_texture;
 
 typedef struct s_data

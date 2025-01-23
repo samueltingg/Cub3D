@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:12:33 by sting             #+#    #+#             */
-/*   Updated: 2025/01/21 13:54:40 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/23 11:56:54 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,15 @@ typedef struct s_vars
 
 }						t_vars;
 
+typedef  struct  s_ver_line
+{
+	int  x; //the x coordinate of line relative to screen
+	int  y; //the current pixel index of the line (along y axis)
+	int  y0; //y start index of drawing texture
+	int  y1; //y end index of drawing texture
+	int  tex_x; //x coordinate of texture to draw
+	int  tex_y; //y coordinate of texture to draw
+} t_ver_line;
 
 // * RENDERING
 void					img_pix_put(t_img *img, int x, int y, int color);
@@ -112,8 +121,8 @@ void					render_minimap(t_data *data, char **map);
 void					render_grid_lines(t_img *img, int map_width,
 							int map_height);
 
-// * RAYCASTING
-void					render_rays(t_vars *vars);
+// * TEXTURES
+void render_textures(t_data *data, t_player player, t_ray ray, t_texture tex);
 
 // BRESENHAM'S LINE ALGO
 void					render_line_bresenham(t_img *img, t_line_cord cord);

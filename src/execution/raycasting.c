@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 13:03:57 by sting             #+#    #+#             */
-/*   Updated: 2025/01/22 13:49:47 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/23 12:22:09 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,5 +119,6 @@ void	raycasting(t_data *data)
 		// draw vertical line
 		render_line_bresenham(&data->img, (t_line_cord){x, ray.draw_start, x,
 			ray.draw_end, color, color});
+		// render_textures(data, data->player, ray, data->tex);
 	}
 }
