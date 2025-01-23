@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:43:32 by sting             #+#    #+#             */
-/*   Updated: 2025/01/23 12:26:13 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/23 12:53:38 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,7 @@ int	render(void *param)
 	render_minimap(data, data->map);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.img_ptr, 0,
 		0);
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->tex.img.img_ptr, 0, 0);
+
 	return (0);
 }
