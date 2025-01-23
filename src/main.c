@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:33 by etien             #+#    #+#             */
-/*   Updated: 2025/01/23 14:19:19 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/23 16:53:53 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void init_textures(t_data *data, t_texture *tex)
         fprintf(stderr, "Error: Failed to load texture from %s.\n", relative_path);
         exit(EXIT_FAILURE);
     }   
-	tex->img.addr = mlx_get_data_addr(tex->img.img_ptr,
+	tex->img.addr = (int *)mlx_get_data_addr(tex->img.img_ptr,
 			&tex->img.bits_per_pixel, &tex->img.line_len, &tex->img.endian);
 }
 
@@ -58,7 +58,7 @@ void mlx(t_data *data)
 			"Cub3D");
 	data->img.img_ptr = mlx_new_image(data->mlx_ptr, WINDOW_WIDTH,
 			WINDOW_HEIGHT);
-	data->img.addr = mlx_get_data_addr(data->img.img_ptr,
+	data->img.addr = (int *)mlx_get_data_addr(data->img.img_ptr,
 			&data->img.bits_per_pixel, &data->img.line_len, &data->img.endian);
 	init_textures(data, &data->tex); // ! tmp
 	mlx_loop_hook(data->mlx_ptr, &render, data);
