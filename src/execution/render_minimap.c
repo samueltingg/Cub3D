@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 09:38:32 by sting             #+#    #+#             */
-/*   Updated: 2025/01/22 13:31:06 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/23 17:28:48 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ void	render_minimap(t_data *data, char **map)
 	int	i;
 	int	j;
 
-	// example map
 	y = 0;
 	j = 0;
 	while (y < data->map_height * BLOCK_H)
@@ -94,9 +93,6 @@ void	render_minimap(t_data *data, char **map)
 			if (map[j][i] == '1')
 				render_square(&data->img, (t_rect){x, y, BLOCK_W, BLOCK_H,
 					0xffffff});
-			else
-				render_square(&data->img, (t_rect){x, y, BLOCK_W, BLOCK_H,
-					0x0});
 			x += BLOCK_W;
 			i++;
 		}
@@ -106,5 +102,7 @@ void	render_minimap(t_data *data, char **map)
 	render_grid_lines(&data->img, data->map_width * BLOCK_H, data->map_height
 		* BLOCK_H);
 	render_player(data, data->player);
-	// Render Direction Vector Line
 }
+			// else
+			// 	render_square(&data->img, (t_rect){x, y, BLOCK_W, BLOCK_H,
+			// 		data->tex.ceiling_color});
