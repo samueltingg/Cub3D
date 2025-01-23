@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 13:03:57 by sting             #+#    #+#             */
-/*   Updated: 2025/01/23 12:22:09 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/23 14:52:23 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,14 +102,14 @@ void	calc_line_height(t_ray *ray)
 
 void	raycasting(t_data *data)
 {
-	int		x;
+	int		win_x;
 	t_ray	ray;
 	int		color;
 
-	x = -1;
-	while (++x < WINDOW_WIDTH)
+	win_x = -1;
+	while (++win_x < WINDOW_WIDTH)
 	{
-		init_raycasting_info(x, &ray, data->player);
+		init_raycasting_info(win_x, &ray, data->player);
 		dda_setup(&ray, data->player);
 		perform_dda(&ray, data);
 		calc_line_height(&ray);
@@ -117,8 +117,8 @@ void	raycasting(t_data *data)
 		if (ray.side == NS)
 			color = color / (1.5); // different shade for NS
 		// draw vertical line
-		render_line_bresenham(&data->img, (t_line_cord){x, ray.draw_start, x,
+		render_line_bresenham(&data->img, (t_line_cord){win_x, ray.draw_start, win_x,
 			ray.draw_end, color, color});
-		// render_textures(data, data->player, ray, data->tex);
+		render_textures(data, ray, data->tex, win_x);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 13:33:42 by sting             #+#    #+#             */
-/*   Updated: 2025/01/23 11:55:20 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/23 14:52:14 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,65 +21,45 @@ tex_x: x cord on texture
 
 step: vertical increment in texture space for each pixel in the column
 */
-void render_textures(t_data *data, t_player player, t_ray ray, t_texture tex)
+void render_textures(t_data *data, t_ray ray, t_texture tex, int win_x)
 {
-	//* TESTING
-	// t_img tex_img;
-	// char	*relative_path = "./textures/East.xpm";
-	// int		img_width;
-	// int		img_height;
-
-
-	// tex_img.img_ptr = mlx_xpm_file_to_image(data->mlx_ptr, relative_path, &img_width, &img_height);
-    // tex_img.addr = mlx_get_data_addr(tex_img.img_ptr,
-	// 		&tex_img.bits_per_pixel, &tex_img.line_len, &tex_img.endian);
-    //* ---------------------------------------
-
     double wall_x;
     int tex_x;
+    double step;
+    double tex_pos;
+    int win_y;
+    int tex_y;
 
     // calculate value of wallx
     if (ray.side == EW)
-        wall_x = player.pos_y + ray.perp_wall_dist * ray.dir_y;
+        wall_x = data->player.pos_y + ray.perp_wall_dist * ray.dir_y;
     else
-        wall_x = player.pos_x + ray.perp_wall_dist * ray.dir_x;
+        wall_x = data->player.pos_x + ray.perp_wall_dist * ray.dir_x;
     wall_x -= floor(wall_x);
-
+    printf("wall_x: %f\n", wall_x);
     // calc value of tex_x
-    tex_x = (int)wall_x * (double)TEX_WIDTH;
+    tex_x = (int)(wall_x * (double)tex.width);
     if(ray.side == EW && ray.dir_x > 0)
-        tex_x = TEX_WIDTH - tex_x - 1; // ! ??
+        tex_x = tex.width - tex_x - 1; // ! ??
     if(ray.side == NS && ray.dir_y < 0)
-        tex_x = TEX_WIDTH - tex_x - 1; //! ??
+        tex_x = tex.width - tex_x - 1; //! ??
+    printf("tex_x: %d\n", tex_x);
 
-    double step;
-    double tex_pos;
-    int y;
-    int tex_y;
+
     // __uint32_t color;
 
-    step = 1.0 * TEX_HEIGHT / ray.line_height;
+    step = 1.0 * tex.height / ray.line_height;
     // starting texture coordinate
     tex_pos = (ray.draw_start - WINDOW_HEIGHT / 2 + ray.line_height / 2) * step;
-    y = ray.draw_start;
-    while (y < ray.draw_end)
+    win_y = ray.draw_start;
+    while (win_y < ray.draw_end)
     {
-        tex_y = (int)tex_pos & (TEX_HEIGHT - 1);
+        tex_y = (int)tex_pos & (tex.height - 1);
         tex_pos += step;
         // ! STOPPED HERE
 
         // todo: change color of specific cord on mlx_img to color of specific cord on tex
-        img_pix_put(&data->img, wall_x, y, tex.img.addr[(tex_y * tex.width) + tex_x * (tex.img.bits_per_pixel / 8)]);
-
-        y++;
+        img_pix_put(&data->img, win_x, win_y, tex.img.addr[(tex_y * tex.img.line_len) + tex_x * (tex.img.bits_per_pixel / 8)]);
+        win_y++;
     }
 }
-
-
-// void render_texture(t_data *data, t_player player, t_ray ray, int x)
-// {
-//     t_ver_line line;
-
-//     line.x = x;
-    
-// }
