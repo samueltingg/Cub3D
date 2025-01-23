@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 18:31:22 by etien             #+#    #+#             */
-/*   Updated: 2025/01/17 16:58:59 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/23 22:39:40 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	print_map(char **map)
 			{
 				if (map[y][x] == 'X')
 					printf("\033[31m%c\033[0m", map[y][x]);
+				else if (map[y][x] == 'D')
+					printf("\033[32m%c\033[0m", map[y][x]);
 				else
 					printf("%c", map[y][x]);
 				x++;

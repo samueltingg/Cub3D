@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:24 by etien             #+#    #+#             */
-/*   Updated: 2025/01/22 17:54:01 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/23 22:56:53 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ bool		texture_is_accessible(const char *path);
 
 bool		is_a_wall(t_data *data, int y, int x);
 int			is_a_corner(t_data *data, int y, int x, int edge_dir);
-bool		is_an_edge(t_data *data, int y, int x);
+bool		on_map_boundary(t_data *data, int y, int x);
 
 bool		check_horizontal_edges(t_data *data);
 bool		valid_horizontal_edge(t_data *data, int y, int x, int edge_dir);
@@ -193,6 +193,8 @@ void		valid_horizontal_neighbours(t_data *data, int y, int x,
 void		set_up_door(t_data	*data);
 int			get_door_candidates(t_data *data, t_coords *candidates);
 bool		valid_door_candidate(t_data *data, int y, int x);
+void		mark_outside_boundary(t_data *data);
+void		flood_fill(t_data *data, int y, int x);
 
 char		*ft_strtrim_mod(char *s1, char const *set);
 void		skip_whitespace(char **s);

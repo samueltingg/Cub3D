@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 19:10:17 by etien             #+#    #+#             */
-/*   Updated: 2025/01/22 16:45:47 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/23 22:57:38 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,19 @@ int	is_a_corner(t_data *data, int y, int x, int edge_dir)
 	return (-1);
 }
 
-bool	is_an_edge(t_data *data, int y, int x)
+// This function checks if a coordinate is on the map's boundary by
+// comparing its coordinates with the edge coordinates on both of
+// its axes. If a coordinate is neither a horizonal nor vertical edge,
+// it may still be on the boundary if it is adjacent to an 'X'.
+bool	on_map_boundary(t_data *data, int y, int x)
 {
-	if (y == get_vertical_edge(data, y, x, TOP)
-		|| y == get_vertical_edge(data, y, x, BOTTOM)
-		|| x == get_horizontal_edge(data, y, x, LEFT)
-		|| x == get_horizontal_edge(data, y, x, RIGHT))
+	if (y == get_vertical_edge(data, 0, x, TOP)
+		|| y == get_vertical_edge(data, data->map_height - 1, x, BOTTOM)
+		|| x == get_horizontal_edge(data, y, 0, LEFT)
+		|| x == get_horizontal_edge(data, y, data->map_width - 1, RIGHT))
+		return (true);
+	else if (data->map[y - 1][x] == 'X' || data->map[y + 1][x] == 'X'
+		|| data->map[y][x - 1] == 'X' || data->map[y][x + 1] == 'X')
 		return (true);
 	return (false);
 }
