@@ -22,7 +22,9 @@ SRCS_FIL = \
 			execution/render.c \
 			execution/handle_key_event.c \
 			execution/raycasting.c \
-			execution/render_map.c \
+			execution/render_minimap.c \
+			execution/textures.c \
+			execution/img_pix_put.c \
 			$(addprefix parsing/, \
 			error.c init.c  \
 			parse_cub_utils.c parse_cub.c \
@@ -41,9 +43,20 @@ LIBFT_DIR = libft/
 LIBFT_A = $(LIBFT_DIR)libft.a
 
 
-MINILIBX_DIR = minilibx-linux/
-LIBRARIES = -L$(LIBFT_DIR) -lft -lm -L$(MINILIBX_DIR) -lmlx_Linux -lXext -lX11 -lm -lz
+# MINILIBX_DIR = minilibx-linux/
+# LIBRARIES = -L$(LIBFT_DIR) -lft -lm -L$(MINILIBX_DIR) -lmlx_Linux -lXext -lX11 -lm -lz
 
+# Set MINILIBX_DIR based on the operating system
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S), Darwin)  # macOS
+    MINILIBX_DIR = minilibx/minilibx-macOS/
+	LIBRARIES = -L$(LIBFT_DIR) -lft -lm -L$(MINILIBX_DIR) -lmlx -framework OpenGL -framework AppKit
+else ifeq ($(UNAME_S), Linux)  # Linux
+    MINILIBX_DIR = minilibx/minilibx-linux/
+	LIBRARIES = -L$(LIBFT_DIR) -lft -lm -L$(MINILIBX_DIR) -lmlx_Linux -lXext -lX11 -lm -lz
+else
+    $(error Unsupported operating system)
+endif
 
 # Build targets
 all: $(OBJDIR) $(NAME)

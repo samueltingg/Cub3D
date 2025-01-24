@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_map.c                                       :+:      :+:    :+:   */
+/*   render_minimap.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 09:38:32 by sting             #+#    #+#             */
-/*   Updated: 2025/01/20 16:12:26 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/23 17:28:48 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,18 @@ void	render_square(t_img *img, t_rect rect)
 	}
 }
 
-void render_player(t_data *data, t_player player)
+void	render_player(t_data *data, t_player player)
 {
-	int start_x;
-	int start_y;
-	
+	int	start_x;
+	int	start_y;
+
 	start_x = player.pos_x * BLOCK_W - P_WIDTH / 2;
 	start_y = player.pos_y * BLOCK_H - P_HEIGHT / 2;
-	render_square(&data->img, (t_rect){start_x, start_y, P_WIDTH, P_HEIGHT, RED_PIXEL});
+	render_square(&data->img, (t_rect){start_x, start_y, P_WIDTH, P_HEIGHT,
+		RED_PIXEL});
+	render_line_bresenham(&data->img, (t_line_cord){player.pos_x * BLOCK_W,
+		player.pos_y * BLOCK_H, player.dir_x * BLOCK_W + player.pos_x * BLOCK_W,
+		player.dir_y * BLOCK_H + player.pos_y * BLOCK_H, RED_PIXEL, RED_PIXEL});
 }
 
 void	render_grid_lines(t_img *img, int map_width, int map_height)
@@ -71,14 +75,13 @@ void	render_grid_lines(t_img *img, int map_width, int map_height)
 	}
 }
 
-void	render_map(t_data *data, char **map)
+void	render_minimap(t_data *data, char **map)
 {
 	int	x;
 	int	y;
 	int	i;
 	int	j;
 
-	// example map
 	y = 0;
 	j = 0;
 	while (y < data->map_height * BLOCK_H)
@@ -88,17 +91,18 @@ void	render_map(t_data *data, char **map)
 		while (x < data->map_width * BLOCK_H)
 		{
 			if (map[j][i] == '1')
-				render_square(&data->img, (t_rect){x, y, BLOCK_W, BLOCK_H, 0xffffff});
-			else
-				render_square(&data->img, (t_rect){x, y, BLOCK_W, BLOCK_H, 0x0});
+				render_square(&data->img, (t_rect){x, y, BLOCK_W, BLOCK_H,
+					0xffffff});
 			x += BLOCK_W;
 			i++;
 		}
 		y += BLOCK_H;
 		j++;
 	}
-	render_grid_lines(&data->img, data->map_width * BLOCK_H, data->map_height * BLOCK_H);
-    render_player(data, data->player);
-	// Render Direction Vector Line
-	render_line_bresenham(&data->img, (t_line_cord){data->player.pos_x * BLOCK_W, data->player.pos_y * BLOCK_H, data->player.dir_x*BLOCK_W + data->player.pos_x * BLOCK_W, data->player.dir_y*BLOCK_H + data->player.pos_y * BLOCK_H, ORANGE_PIXEL, ORANGE_PIXEL}); // ! tmp
+	render_grid_lines(&data->img, data->map_width * BLOCK_H, data->map_height
+		* BLOCK_H);
+	render_player(data, data->player);
 }
+			// else
+			// 	render_square(&data->img, (t_rect){x, y, BLOCK_W, BLOCK_H,
+			// 		data->tex.ceiling_color});
