@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 18:31:22 by etien             #+#    #+#             */
-/*   Updated: 2025/01/23 22:39:40 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/24 16:25:48 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	print_map_data(t_data *data)
 {
-	if (data->tex.north_texture)
-		printf("North texture: %s\n", data->tex.north_texture);
-	if (data->tex.south_texture)
-		printf("South texture: %s\n", data->tex.south_texture);
-	if (data->tex.west_texture)
-		printf("West texture: %s\n", data->tex.west_texture);
-	if (data->tex.east_texture)
-		printf("East texture: %s\n", data->tex.east_texture);
+	if (data->tex.path[0])
+		printf("North texture: %s\n", data->tex.path[0]);
+	if (data->tex.path[1])
+		printf("South texture: %s\n", data->tex.path[1]);
+	if (data->tex.path[2])
+		printf("West texture: %s\n", data->tex.path[2]);
+	if (data->tex.path[3])
+		printf("East texture: %s\n", data->tex.path[3]);
 	if (data->tex.floor_color >= 0)
 		printf("Floor color: %d\n", data->tex.floor_color);
 	if (data->tex.ceiling_color >= 0)

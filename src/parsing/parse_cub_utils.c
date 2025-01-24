@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:32:22 by etien             #+#    #+#             */
-/*   Updated: 2025/01/22 11:09:08 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/24 16:23:53 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,17 +98,17 @@ bool	check_color_format(char **color_arr)
 // ALL mode will check for all fields.
 bool	check_completeness(t_data *data, int check_all)
 {
-	if (!data->tex.north_texture || !data->tex.south_texture
-		|| !data->tex.west_texture || !data->tex.east_texture
+	if (!data->tex.path[0] || !data->tex.path[1]
+		|| !data->tex.path[2] || !data->tex.path[3]
 		|| data->tex.floor_color < 0 || data->tex.ceiling_color < 0)
 	{
-		if (!data->tex.north_texture)
+		if (!data->tex.path[0])
 			printf("North texture field is empty.\n");
-		if (!data->tex.south_texture)
+		if (!data->tex.path[1])
 			printf("South texture field is empty.\n");
-		if (!data->tex.west_texture)
+		if (!data->tex.path[2])
 			printf("West texture field is empty.\n");
-		if (!data->tex.east_texture)
+		if (!data->tex.path[3])
 			printf("East texture field is empty.\n");
 		if (data->tex.floor_color < 0)
 			printf("Floor color field is empty.\n");

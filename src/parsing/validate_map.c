@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 10:25:29 by etien             #+#    #+#             */
-/*   Updated: 2025/01/22 17:44:23 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/24 16:26:16 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ void	validate_boundaries(t_data *data)
 // This function ensures that the texture files can be opened.
 void	validate_textures(t_data *data)
 {
-	if (!texture_is_accessible(data->tex.north_texture)
-		|| !texture_is_accessible(data->tex.south_texture)
-		|| !texture_is_accessible(data->tex.west_texture)
-		|| !texture_is_accessible(data->tex.east_texture))
+	if (!texture_is_accessible(data->tex.path[0])
+		|| !texture_is_accessible(data->tex.path[1])
+		|| !texture_is_accessible(data->tex.path[2])
+		|| !texture_is_accessible(data->tex.path[3]))
 		err_free_exit(TEXTURE_OPEN_ERR, data, NULL);
 }

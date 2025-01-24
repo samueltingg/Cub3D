@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:24 by etien             #+#    #+#             */
-/*   Updated: 2025/01/23 22:56:53 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/24 16:20:34 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ typedef struct s_img
 	int		bits_per_pixel;
 	int		line_len;
 	int		endian;
+	int		width;
+	int		height;
 }	t_img;
 
 typedef struct s_player
@@ -64,12 +66,14 @@ typedef struct s_player
 
 typedef struct s_texture
 {
-	char	*north_texture;
-	char	*south_texture;
-	char	*west_texture;
-	char	*east_texture;
+	char	*path[4];
 	int		floor_color;
 	int		ceiling_color;
+	t_img	img[4];
+	int		dir;
+	int		x;
+	int		y;
+	double	pos;
 }	t_texture;
 
 typedef struct s_data

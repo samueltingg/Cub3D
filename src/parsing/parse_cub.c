@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:48:19 by etien             #+#    #+#             */
-/*   Updated: 2025/01/22 11:25:53 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/24 16:26:51 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,14 +89,14 @@ void	parse_texture(char *s, char *line, t_data *data)
 
 void	assign_texture(char *id, char *trimmed_path, t_data *data)
 {
-	if (!ft_strncmp(id, "NO", 2) && !data->tex.north_texture)
-		data->tex.north_texture = trimmed_path;
-	else if (!ft_strncmp(id, "SO", 2) && !data->tex.south_texture)
-		data->tex.south_texture = trimmed_path;
-	else if (!ft_strncmp(id, "WE", 2) && !data->tex.west_texture)
-		data->tex.west_texture = trimmed_path;
-	else if (!ft_strncmp(id, "EA", 2) && !data->tex.east_texture)
-		data->tex.east_texture = trimmed_path;
+	if (!ft_strncmp(id, "NO", 2) && !data->tex.path[0])
+		data->tex.path[0] = trimmed_path;
+	else if (!ft_strncmp(id, "SO", 2) && !data->tex.path[1])
+		data->tex.path[1] = trimmed_path;
+	else if (!ft_strncmp(id, "WE", 2) && !data->tex.path[2])
+		data->tex.path[2] = trimmed_path;
+	else if (!ft_strncmp(id, "EA", 2) && !data->tex.path[3])
+		data->tex.path[3] = trimmed_path;
 }
 
 // This function will store the floor and ceiling colors in their

@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:30:37 by etien             #+#    #+#             */
-/*   Updated: 2025/01/17 16:44:00 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/24 16:20:22 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,12 @@ void	player_init(t_player *player)
 
 void	texture_init(t_texture *texture)
 {
-	texture->north_texture = NULL;
-	texture->south_texture = NULL;
-	texture->west_texture = NULL;
-	texture->east_texture = NULL;
+	ft_bzero(texture->path, sizeof(texture->path));
 	texture->floor_color = -1;
 	texture->ceiling_color = -1;
+	ft_bzero(texture->img, sizeof(texture->img));
+	texture->dir = 0;
+	texture->x = 0;
+	texture->y = 0;
+	texture->pos = 0;
 }
