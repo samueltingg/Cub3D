@@ -6,23 +6,26 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 13:03:57 by sting             #+#    #+#             */
-/*   Updated: 2025/01/23 15:51:07 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/24 15:21:32 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
+/*
+	"ray->delta_dist_x = 1e30; ""
+	avoid division of 0, hence set to high value
+*/
 void	init_raycasting_info(int x, t_ray *ray, t_player player)
 {
 	// calculate ray position & direction based on x cordinate of screen
 	ray->camera_x = 2 * x / (double)WINDOW_WIDTH - 1;
-		// x-coordinate in camera space
+	// x-coordinate in camera space
 	ray->dir_x = player.dir_x + (player.plane_x * ray->camera_x);
 	ray->dir_y = player.dir_y + (player.plane_y * ray->camera_x);
 	ray->map_x = (int)player.pos_x;
 	ray->map_y = (int)player.pos_y;
 	if (ray->dir_x == 0)
-		ray->delta_dist_x = 1e30; // avoid division of 0, hence set to high value
+		ray->delta_dist_x = 1e30;
 	else
 		ray->delta_dist_x = fabs(1 / ray->dir_x);
 	if (ray->dir_y == 0)
@@ -115,5 +118,5 @@ void	raycasting(t_data *data)
 		render_textures(data, ray, data->tex, win_x);
 	}
 }
-		// render_line_bresenham(&data->img, (t_line_cord){win_x, ray.draw_start, win_x,
-		// 	ray.draw_end, color, color});
+// render_line_bresenham(&data->img, (t_line_cord){win_x, ray.draw_start, win_x,
+// 	ray.draw_end, color, color});

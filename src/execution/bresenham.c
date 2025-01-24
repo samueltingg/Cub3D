@@ -6,41 +6,11 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 14:19:42 by sting             #+#    #+#             */
-/*   Updated: 2025/01/23 16:45:39 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/24 14:29:39 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-/*
-! Important check
-	- 	if (x >= WINDOW_WIDTH || y >= WINDOW_HEIGHT || x < 0 || y < 0)
-		return ;
-
-- "img.addr" obtained from mlx_get_data_addr is a pointer 
-	to the start of the image data in memory.
-	- It allows you to directly access and manipulate the pixel data of the image.
-
-- code below uses a formula to access the memory location of 
-	a specific pixel coordinate(given as input) of the image.
-*/
-// void	img_pix_put(t_img *img, int x, int y, int color)
-// {
-// 	char	*dst;
-
-// 	if (x >= WINDOW_WIDTH || y >= WINDOW_HEIGHT || x < 0 || y < 0)
-// 		return ;
-// 	dst = img->addr + (y * img->line_len + x * (img->bits_per_pixel / 8));
-// 	*(unsigned int *)dst = color;
-// }
-
-void img_pix_put(t_img *img, int x, int y, int color)
-{
-	int pixel;
-
-	pixel = y * (img->line_len / 4) + x;
-	img->addr[pixel] = color; 
-}
 
 /*
 - For Less steep slope

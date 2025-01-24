@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:24 by etien             #+#    #+#             */
-/*   Updated: 2025/01/23 16:48:21 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/24 15:29:45 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ typedef struct s_img
 	int			bits_per_pixel;
 	int			line_len;
 	int			endian;
+	int			width;
+	int			height;
 }				t_img;
 
 typedef struct s_player
@@ -64,11 +66,16 @@ typedef struct s_texture
 	char		*south_texture;
 	char		*west_texture;
 	char		*east_texture;
+	// char		*path[4];
+	
 	int			floor_color;
 	int			ceiling_color;
-	t_img img;  // ! added
-	int width;  // ! tmp
-	int height; // ! tmp
+
+	t_img		img[4];
+	int			dir;
+	int			x;
+	int			y;
+	double		pos;
 }				t_texture;
 
 typedef struct s_data

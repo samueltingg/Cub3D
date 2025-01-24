@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:52:30 by etien             #+#    #+#             */
-/*   Updated: 2025/01/23 17:32:14 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/24 10:21:53 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 # define ON_MOUSEMOVE 6
 # define ON_EXPOSE 12
 # define ON_DESTROY 17
-
 
 // KEYCODES
 # ifdef __APPLE__ // MacOS
@@ -105,5 +104,7 @@
 
 #define BLOCK_W 20 
 #define BLOCK_H 20 
+
+#define DARKEN_COLOR_MASK 0b011111110111111101111111
 
 #endif
