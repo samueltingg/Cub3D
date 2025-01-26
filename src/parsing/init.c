@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:30:37 by etien             #+#    #+#             */
-/*   Updated: 2025/01/24 16:20:22 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/26 19:20:04 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@ void	data_init(t_data *data)
 	img_init(&data->img);
 	player_init(&data->player);
 	texture_init(&data->tex);
+	door_init(&data->door);
 	data->map_height = -1;
 	data->map_width = -1;
 	data->map = NULL;
+	ft_bzero(&data->last_time, sizeof(&data->last_time));
 }
 
 void	img_init(t_img *img)
@@ -49,4 +51,12 @@ void	texture_init(t_texture *texture)
 	texture->x = 0;
 	texture->y = 0;
 	texture->pos = 0;
+}
+
+void	door_init(t_door *door)
+{
+	door->x = -1;
+	door->y	= -1;
+	door->is_open = 0;
+	door->progress = 0;
 }

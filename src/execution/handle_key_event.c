@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:31:06 by sting             #+#    #+#             */
-/*   Updated: 2025/01/26 18:03:12 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/26 19:38:14 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,22 +75,26 @@ void	handle_rotate(int keycode, t_player *player)
 		multiply_vectors_to_rot_matrix(player, RADIAN(1));
 }
 
-void	handle_door(int keycode, t_data *data, t_player *player)
+// If a door is already active, the keystroke is ignored and the
+// function will immediately return.
+void	handle_door(int keycode, t_data *data)
 {
 	t_ray	ray;
 	if (keycode == KEY_E)
 	{
+		if (data->door.is_open != 0)
+			return ;
 		printf("Attempting to open door\n");
 		if (detect_door(data, &ray))
 		{
 			printf("Door detected\n");
+			data->door.x = ray.map_x;
+			data->door.y = ray.map_y;
+			data->door.is_open = 1;
 			data->map[ray.map_y][ray.map_x] = '0';
 		}
 		else
 			printf("No door here\n");
-		printf("pos_x: %f, pos_y: %f\n", player->pos_x, player->pos_y);
-		printf("dir_x: %f, dir_y: %f\n", player->dir_x, player->dir_y);
-
 	}
 }
 
@@ -104,6 +108,6 @@ int	handle_key_event(int keycode, void *param)
 		close_window(data);
 	handle_translation(keycode, data, &data->player);
 	handle_rotate(keycode, &data->player);
-	handle_door(keycode, data, &data->player);
+	handle_door(keycode, data);
 	return (0);
 }
