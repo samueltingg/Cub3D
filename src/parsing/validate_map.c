@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 10:25:29 by etien             #+#    #+#             */
-/*   Updated: 2025/01/24 16:26:16 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/26 12:16:53 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	validate_map(t_data *data)
 {
 	validate_player(data);
 	validate_boundaries(data);
-	// validate_textures(data);
+	validate_textures(data);
 	set_up_door(data);
 }
 

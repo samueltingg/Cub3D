@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:24 by etien             #+#    #+#             */
-/*   Updated: 2025/01/26 11:29:17 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/26 12:39:53 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,13 +144,14 @@ void			tmp_exit(char *err_msg, t_data *data, t_list **tmp);
 
 void			parse_cub(char *map_file, t_data *data);
 void			parse_line(char *line, t_data *data, bool *map_detected,
-				t_list **tmp);
+					t_list **tmp);
 void			parse_texture(char *s, char *line, t_data *data);
 void			assign_texture(char *id, char *trimmed_path, t_data *data);
 void			parse_color(char *s, char *line, t_data *data);
 
 int				open_file(char *map_file);
-bool			check_file_extension(const char *filename, const char *extension);
+bool			check_file_extension(const char *filename,
+					const char *extension);
 int				color_str_to_int(char *color_str, char *line, t_data *data);
 bool			check_color_format(char **color_arr);
 bool			check_completeness(t_data *data, int check_all);
@@ -172,7 +173,9 @@ void			validate_boundaries(t_data *data);
 void			validate_textures(t_data *data);
 
 void			store_player(t_data *data, int y, int x, int *player_count);
-void			store_dir_vector(t_player *player, char c);
+void			store_vectors(t_player *player, char c);
+void			store_dir(t_player *player, double dir_x, double dir_y);
+void			store_plane(t_player *player, double plane_x, double plane_y);
 bool			texture_is_accessible(const char *path);
 
 bool			is_a_wall(t_data *data, int y, int x);
