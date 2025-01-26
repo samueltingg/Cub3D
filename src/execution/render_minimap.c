@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 09:38:32 by sting             #+#    #+#             */
-/*   Updated: 2025/01/26 15:19:56 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/26 23:15:38 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,15 @@ void	render_minimap(t_data *data, char **map)
 		{
 			if (map[j][i] == '1')
 				render_square(&data->img, (t_rect){x, y, BLOCK_W, BLOCK_H,
-					0xffffff});
+					WHITE_PIXEL});
 			else if (map[j][i] == 'D')
+			{
 				render_square(&data->img, (t_rect){x, y, BLOCK_W, BLOCK_H,
-					0xffff00});
+					YELLOW_PIXEL});
+				if (j == data->door.y && i == data->door.x && data->door.progress > 0)
+					render_square(&data->img, (t_rect){x, y, BLOCK_W, BLOCK_H,
+						gradient(YELLOW_PIXEL, GREEN_PIXEL, 1, data->door.progress)});
+			}
 			x += BLOCK_W;
 			i++;
 		}
@@ -109,3 +114,4 @@ void	render_minimap(t_data *data, char **map)
 			// else
 			// 	render_square(&data->img, (t_rect){x, y, BLOCK_W, BLOCK_H,
 			// 		data->tex.ceiling_color});
+

@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:52:30 by etien             #+#    #+#             */
-/*   Updated: 2025/01/26 16:00:41 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/26 23:02:11 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@
 # define GREEN_PIXEL 0x00FF00
 # define BLUE_PIXEL 0x0000FF
 # define PURPLE_PIXEL 0x9900FF
-# define YELLOW_PIXEL 0xFFFFCC
+# define YELLOW_PIXEL 0xFFFF00
 # define ORANGE_PIXEL 0xFFA500
 
 # define RADIAN(angle_degrees) ((angle_degrees)*PI / 180)

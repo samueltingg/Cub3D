@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 16:04:56 by etien             #+#    #+#             */
-/*   Updated: 2025/01/26 19:24:32 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/26 23:18:07 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,16 @@ void	update_door(t_door *door, double delta_time)
 		return ;
 	else if (door->is_open == 1)
 	{
-		door->progress += delta_time;
+		door->progress += delta_time * 0.3;
 		if (door->progress >= 1.0)
 		{
 			door->progress = 1.0;
-			door->is_open = -1;
+			// door->is_open = -1;
 		}
 	}
 	else if (door->is_open == -1)
 	{
-		door->progress -= delta_time;
+		door->progress -= delta_time * 0.3;
 		if (door->progress <= 0.0)
 		{
 			door_init(door);
@@ -70,4 +70,24 @@ double	get_delta_time(t_data	*data)
 		(current_time.tv_usec - data->last_time.tv_usec) / 1e6;
 	data->last_time = current_time;
 	return (delta_time);
+}
+
+void	add_door_offset(t_data *data, t_ray *ray)
+{
+	int		horizon;
+	double	door_offset;
+	double	progress;
+
+	horizon = WINDOW_HEIGHT / 2;
+	door_offset = 0;
+	progress = data->door.progress;
+	if (ray->map_x != data->door.x || ray->map_y != data->door.y)
+		return ;
+	door_offset = -ray->line_height * progress;
+	ray->draw_start = horizon - ray->line_height/2 + door_offset;
+	ray->draw_end = horizon + ray->line_height/2 + door_offset;
+	if (ray->draw_start < 0)
+		ray->draw_start = 0;
+	if (ray->draw_start >= WINDOW_HEIGHT)
+		ray->draw_start = WINDOW_HEIGHT - 1;
 }

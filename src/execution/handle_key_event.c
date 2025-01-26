@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:31:06 by sting             #+#    #+#             */
-/*   Updated: 2025/01/26 19:38:14 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/26 23:25:52 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ void	handle_translation(int keycode, t_data *data, t_player *player)
 	}
 	else
 		return ;
-	if (!ft_strchr(WALLS, data->map[(int)(player->pos_y)]
-			[(int)(player->pos_x + tx)]))
+	if (((int)(player->pos_y) == data->door.y && (int)(player->pos_x + tx) == data->door.x && data->door.progress == 1)
+		|| !ft_strchr(WALLS, data->map[(int)(player->pos_y)][(int)(player->pos_x + tx)]))
 		player->pos_x += tx;
-	if (!ft_strchr(WALLS, data->map[(int)(player->pos_y + ty)]
-			[(int)(player->pos_x)]))
+	if (((int)(player->pos_y + ty) == data->door.y && (int)(player->pos_x) == data->door.x && data->door.progress == 1)
+		|| !ft_strchr(WALLS, data->map[(int)(player->pos_y + ty)][(int)(player->pos_x)]))
 		player->pos_y += ty;
 }
 
@@ -91,13 +91,12 @@ void	handle_door(int keycode, t_data *data)
 			data->door.x = ray.map_x;
 			data->door.y = ray.map_y;
 			data->door.is_open = 1;
-			data->map[ray.map_y][ray.map_x] = '0';
+			// data->map[ray.map_y][ray.map_x] = '0';
 		}
 		else
 			printf("No door here\n");
 	}
 }
-
 
 int	handle_key_event(int keycode, void *param)
 {
