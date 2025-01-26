@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 13:03:57 by sting             #+#    #+#             */
-/*   Updated: 2025/01/24 16:38:52 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/26 15:31:01 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	perform_dda(t_ray *ray, t_data *data)
 			ray->side = NS;
 		}
 		// Check if ray has hit a wall
-		if (data->map[ray->map_y][ray->map_x] == '1')
+		if (ft_strchr(WALLS, data->map[ray->map_y][ray->map_x]))
 			break ;
 	}
 }

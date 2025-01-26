@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 15:59:41 by etien             #+#    #+#             */
-/*   Updated: 2025/01/23 23:03:40 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/26 15:24:44 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	get_door_candidates(t_data *data, t_coords *candidates)
 		x = -1;
 		while (data->map[y][++x])
 		{
-			if (data->map[y][x] == '1' && !on_map_boundary(data, y, x)
+			if (is_a_wall(data, y, x) && !on_map_boundary(data, y, x)
 				&& valid_door_candidate(data, y, x))
 			{
 				candidates[candidate_count].y = y;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_minimap.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 09:38:32 by sting             #+#    #+#             */
-/*   Updated: 2025/01/23 17:28:48 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/26 15:19:56 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,9 @@ void	render_minimap(t_data *data, char **map)
 			if (map[j][i] == '1')
 				render_square(&data->img, (t_rect){x, y, BLOCK_W, BLOCK_H,
 					0xffffff});
+			else if (map[j][i] == 'D')
+				render_square(&data->img, (t_rect){x, y, BLOCK_W, BLOCK_H,
+					0xffff00});
 			x += BLOCK_W;
 			i++;
 		}

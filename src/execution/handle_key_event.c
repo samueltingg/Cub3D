@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_key_event.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:31:06 by sting             #+#    #+#             */
-/*   Updated: 2025/01/22 13:28:43 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/26 18:03:12 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ void	handle_translation(int keycode, t_data *data, t_player *player)
 	}
 	else
 		return ;
-	if (data->map[(int)(player->pos_y)][(int)(player->pos_x
-			+ tx)] != '1')
+	if (!ft_strchr(WALLS, data->map[(int)(player->pos_y)]
+			[(int)(player->pos_x + tx)]))
 		player->pos_x += tx;
-	if (data->map[(int)(player->pos_y
-			+ ty)][(int)(player->pos_x)] != '1')
+	if (!ft_strchr(WALLS, data->map[(int)(player->pos_y + ty)]
+			[(int)(player->pos_x)]))
 		player->pos_y += ty;
 }
 
@@ -75,6 +75,26 @@ void	handle_rotate(int keycode, t_player *player)
 		multiply_vectors_to_rot_matrix(player, RADIAN(1));
 }
 
+void	handle_door(int keycode, t_data *data, t_player *player)
+{
+	t_ray	ray;
+	if (keycode == KEY_E)
+	{
+		printf("Attempting to open door\n");
+		if (detect_door(data, &ray))
+		{
+			printf("Door detected\n");
+			data->map[ray.map_y][ray.map_x] = '0';
+		}
+		else
+			printf("No door here\n");
+		printf("pos_x: %f, pos_y: %f\n", player->pos_x, player->pos_y);
+		printf("dir_x: %f, dir_y: %f\n", player->dir_x, player->dir_y);
+
+	}
+}
+
+
 int	handle_key_event(int keycode, void *param)
 {
 	t_data	*data;
@@ -84,5 +104,6 @@ int	handle_key_event(int keycode, void *param)
 		close_window(data);
 	handle_translation(keycode, data, &data->player);
 	handle_rotate(keycode, &data->player);
+	handle_door(keycode, data, &data->player);
 	return (0);
 }

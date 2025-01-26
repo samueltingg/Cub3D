@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:12:33 by sting             #+#    #+#             */
-/*   Updated: 2025/01/24 16:35:40 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/26 18:01:56 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,12 @@ int						gradient(int startcolor, int endcolor, int len,
 // Handle Key Event
 int						close_window(void *params);
 int						handle_key_event(int keycode, void *param);
+void					init_raycasting_info(int x, t_ray *ray, t_player player);
+void					dda_setup(t_ray *ray, t_player player);
+void					perform_dda(t_ray *ray, t_data *data);
 void					raycasting(t_data *data);
+
+// DOOR
+bool					detect_door(t_data *data, t_ray *ray);
 
 #endif

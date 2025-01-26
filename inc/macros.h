@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   macros.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:52:30 by etien             #+#    #+#             */
-/*   Updated: 2025/01/24 16:36:10 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/26 16:00:41 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@
 #  define KEY_S 1
 #  define KEY_A 0
 #  define KEY_D 2
+#  define KEY_E 14
 #  define KEY_R 15
 #  define KEY_I 34
 #  define KEY_J 38
@@ -62,6 +63,7 @@
 #  define KEY_S 115
 #  define KEY_A 97
 #  define KEY_D 100
+#  define KEY_E 101
 #  define KEY_J 106
 #  define KEY_L 108
 #  define KEY_P 112
@@ -102,8 +104,8 @@
 # define EW 0
 # define NS 1
 
-#define BLOCK_W 20 
-#define BLOCK_H 20 
+#define BLOCK_W 20
+#define BLOCK_H 20
 
 #define DARKEN_COLOR_MASK 0b011111110111111101111111
 

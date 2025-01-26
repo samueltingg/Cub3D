@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:24 by etien             #+#    #+#             */
-/*   Updated: 2025/01/26 12:39:53 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/26 15:31:34 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # define DIRECTIONS "NSEW"
 # define EMPTY_SPACE "0 "
 # define MAP_ELEMENTS "01NSEW "
+# define WALLS "1D"
 # define WHITESPACE " \t\n"
 
 // error messages
