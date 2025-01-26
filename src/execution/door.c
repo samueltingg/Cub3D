@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 16:04:56 by etien             #+#    #+#             */
-/*   Updated: 2025/01/26 23:18:07 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/26 23:36:45 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,7 @@ void	update_door(t_door *door, double delta_time)
 	{
 		door->progress += delta_time * 0.3;
 		if (door->progress >= 1.0)
-		{
 			door->progress = 1.0;
-			// door->is_open = -1;
-		}
 	}
 	else if (door->is_open == -1)
 	{

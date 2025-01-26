@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 09:38:32 by sting             #+#    #+#             */
-/*   Updated: 2025/01/26 23:15:38 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/26 23:39:55 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	render_minimap(t_data *data, char **map)
 					YELLOW_PIXEL});
 				if (j == data->door.y && i == data->door.x && data->door.progress > 0)
 					render_square(&data->img, (t_rect){x, y, BLOCK_W, BLOCK_H,
-						gradient(YELLOW_PIXEL, GREEN_PIXEL, 1, data->door.progress)});
+						gradient(YELLOW_PIXEL, GREEN_PIXEL, 100, data->door.progress * 100)});
 			}
 			x += BLOCK_W;
 			i++;

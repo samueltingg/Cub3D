@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:31:06 by sting             #+#    #+#             */
-/*   Updated: 2025/01/26 23:25:52 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/26 23:49:31 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,16 +82,18 @@ void	handle_door(int keycode, t_data *data)
 	t_ray	ray;
 	if (keycode == KEY_E)
 	{
-		if (data->door.is_open != 0)
-			return ;
-		printf("Attempting to open door\n");
 		if (detect_door(data, &ray))
 		{
 			printf("Door detected\n");
-			data->door.x = ray.map_x;
-			data->door.y = ray.map_y;
-			data->door.is_open = 1;
-			// data->map[ray.map_y][ray.map_x] = '0';
+			if (data->door.is_open == 0)
+			{
+				data->door.x = ray.map_x;
+				data->door.y = ray.map_y;
+				data->door.is_open = 1;
+			}
+			else if (ray.map_x == data->door.x && ray.map_y == data->door.y
+				&& data->door.progress == 1)
+				data->door.is_open = -1;
 		}
 		else
 			printf("No door here\n");
