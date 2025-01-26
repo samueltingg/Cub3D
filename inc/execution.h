@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:12:33 by sting             #+#    #+#             */
-/*   Updated: 2025/01/20 16:48:50 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/24 16:35:40 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_rect
 
 typedef struct s_ray
 {
+	int		win_x; // x cord of window
 	double	camera_x;
 	double	dir_x;
 	double	dir_y;
@@ -103,18 +104,16 @@ typedef struct s_vars
 
 }						t_vars;
 
-
 // * RENDERING
 void					img_pix_put(t_img *img, int x, int y, int color);
-void					render_background(t_img *img, int color);
 int						render(void *param);
 void					render_square(t_img *img, t_rect rect);
-void					render_map(t_data *data, char **map);
+void					render_minimap(t_data *data, char **map);
 void					render_grid_lines(t_img *img, int map_width,
 							int map_height);
 
-// * RAYCASTING
-void					render_rays(t_vars *vars);
+// * TEXTURES
+void render_textures(t_data *data, t_ray ray, t_texture tex, int x);
 
 // BRESENHAM'S LINE ALGO
 void					render_line_bresenham(t_img *img, t_line_cord cord);
