@@ -5,40 +5,65 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/14 19:10:17 by etien             #+#    #+#             */
-/*   Updated: 2025/01/17 14:11:40 by etien            ###   ########.fr       */
+/*   Created: 2025/01/22 11:32:11 by etien             #+#    #+#             */
+/*   Updated: 2025/01/22 13:32:52 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-// This function checks if the coordinate is a wall (i.e. '1').
-bool	is_a_wall(t_data *data, int y, int x)
+// This function will ensure that there is only one player
+// in the map and store the player's direction and position.
+void	store_player(t_data *data, int y, int x, int *player_count)
 {
-	if (data->map[y][x] != '1')
-		return (false);
-	return (true);
+	if (ft_strchr(DIRECTIONS, data->map[y][x]))
+	{
+		if (*player_count == 0)
+		{
+			store_dir_vector(&data->player, data->map[y][x]);
+			data->player.pos_x = x;
+			data->player.pos_y = y;
+			(*player_count)++;
+		}
+		else
+			err_free_exit(PLAYER_COUNT_ERR, data, NULL);
+	}
 }
 
-// A corner is a coordinate that is both a horizontal edge and a vertical edge.
-// The function will return the corresponding corner edge.
-int	is_a_corner(t_data *data, int y, int x, int edge_dir)
+// This function will translate the player's starting direction
+// to its x and y direction vectors.
+void	store_dir_vector(t_player *player, char c)
 {
-	if (edge_dir == LEFT || edge_dir == RIGHT)
+	if (c == 'N')
 	{
-		if (y == get_vertical_edge(data, 0, x, TOP))
-			return (TOP);
-		else if (y == get_vertical_edge(data, data->map_height - 1,
-				x, BOTTOM))
-			return (BOTTOM);
+		player->dir_x = 0;
+		player->dir_y = -1;
 	}
-	else if (edge_dir == TOP || edge_dir == BOTTOM)
+	else if (c == 'S')
 	{
-		if (x == get_horizontal_edge(data, y, 0, LEFT))
-			return (LEFT);
-		else if (x == get_horizontal_edge(data, y,
-				data->map_width - 1, RIGHT))
-			return (RIGHT);
+		player->dir_x = 0;
+		player->dir_y = 1;
 	}
-	return (-1);
+	else if (c == 'W')
+	{
+		player->dir_x = -1;
+		player->dir_y = 0;
+	}
+	else if (c == 'E')
+	{
+		player->dir_x = 1;
+		player->dir_y = 0;
+	}
+}
+
+// This function checks whether the texture file can be opened.
+bool	texture_is_accessible(const char *path)
+{
+	int	fd;
+
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
+		return (false);
+	close(fd);
+	return (true);
 }
