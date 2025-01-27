@@ -6,12 +6,14 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 16:04:56 by etien             #+#    #+#             */
-/*   Updated: 2025/01/27 09:25:40 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/27 11:25:58 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+// This function detects for doors within a range of one unit distance
+// in front of the player. The detection is done with DDA.
 // WINDOW_WIDTH / 2 corresponds to the middle of the screen
 bool	detect_door(t_data *data, t_ray *ray)
 {
@@ -32,63 +34,84 @@ bool	detect_door(t_data *data, t_ray *ray)
 	return (false);
 }
 
-// is_open can take three values:
-// 0 - door is closed
-// 1 - door is opening
-// -1 - door is closing
-void	update_door(t_door *door, double delta_time)
-{
-	if (door->is_open == 0)
-		return ;
-	else if (door->is_open == 1)
-	{
-		door->progress += delta_time * 0.3;
-		if (door->progress >= 1.0)
-			door->progress = 1.0;
-	}
-	else if (door->is_open == -1)
-	{
-		door->progress -= delta_time * 0.3;
-		if (door->progress <= 0.0)
-		{
-			door_init(door);
-			printf("Door closed\n");
-		}
-	}
-}
-
+// This function will return the time difference between frames to
+// increment door_progress and animate the sliding movement of the door.
 double	get_delta_time(t_data	*data)
 {
 	struct timeval	current_time;
 	double			delta_time;
 
 	gettimeofday(&current_time, NULL);
-	delta_time = (current_time.tv_sec - data->last_time.tv_sec) +
-		(current_time.tv_usec - data->last_time.tv_usec) / 1e6;
+	delta_time = (current_time.tv_sec - data->last_time.tv_sec)
+		+ (current_time.tv_usec - data->last_time.tv_usec) / 1e6;
 	data->last_time = current_time;
 	return (delta_time);
 }
 
+// This function updates the door_progress and toggles the is_open
+// state of the door. It will set the door to start closing if the
+// door has been open for 2 seconds and the player is at least one
+// unit distance away.
+// is_open can take three values:
+// 0 - door is closed
+// 1 - door is opening
+// -1 - door is closing
+void	update_door(t_data *data, t_door *door, double delta_time)
+{
+	double	distance;
+
+	distance = 0;
+	if (door->is_open == 0)
+		return ;
+	else if (door->is_open == 1)
+	{
+		door->progress += delta_time * 0.5;
+		if (door->progress >= 1.0)
+		{
+			door->progress = 1.0;
+			door->time_elapsed += delta_time;
+		}
+	}
+	else if (door->is_open == -1)
+	{
+		door->progress -= delta_time * 0.5;
+		if (door->progress <= 0.0)
+			door_init(door);
+	}
+	if (door->time_elapsed >= 2.0)
+	{
+		distance = pow(data->player.pos_x - door->x, 2)
+			+ pow(data->player.pos_y - door->y, 2);
+		if (distance >= 1.0)
+			door->is_open = -1;
+	}
+}
+
+// This function is called in render_textures to add a vertical
+// offset to the ray->draw_start and ray->draw_end of the sliding door
+// that will scale with door_progress.
 void	add_door_offset(t_data *data, t_ray *ray)
 {
 	int		horizon;
-	double	door_offset;
+	double	vertical_offset;
 	double	progress;
 
 	horizon = WINDOW_HEIGHT / 2;
-	door_offset = 0;
+	vertical_offset = 0;
 	progress = data->door.progress;
 	if (ray->map_x != data->door.x || ray->map_y != data->door.y)
 		return ;
-	door_offset = -ray->line_height * progress;
-	ray->draw_start = horizon - ray->line_height/2 + door_offset;
-	ray->draw_end = horizon + ray->line_height/2 + door_offset;
+	vertical_offset = -ray->line_height * progress;
+	ray->draw_start = horizon - ray->line_height / 2 + vertical_offset;
+	ray->draw_end = horizon + ray->line_height / 2 + vertical_offset;
 	if (ray->draw_start < 0)
 		ray->draw_start = 0;
 	if (ray->draw_start >= WINDOW_HEIGHT)
 		ray->draw_start = WINDOW_HEIGHT - 1;
 }
 
+// This function is similar to the raycasting function but modified to
+// render the sliding animation of the interacted door.
 void	open_door_raycasting(t_data *data)
 {
 	int		win_x;

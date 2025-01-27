@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:24 by etien             #+#    #+#             */
-/*   Updated: 2025/01/27 09:04:45 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/27 10:15:34 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ typedef struct s_door
 	int		y;
 	int		is_open;
 	double	progress;
+	double	time_elapsed;
 }			t_door;
 
 typedef struct s_data

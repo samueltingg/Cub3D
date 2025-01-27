@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 09:38:32 by sting             #+#    #+#             */
-/*   Updated: 2025/01/26 23:39:55 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/27 11:28:31 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,4 +114,3 @@ void	render_minimap(t_data *data, char **map)
 			// else
 			// 	render_square(&data->img, (t_rect){x, y, BLOCK_W, BLOCK_H,
 			// 		data->tex.ceiling_color});
-

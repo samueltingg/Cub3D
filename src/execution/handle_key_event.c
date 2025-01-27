@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:31:06 by sting             #+#    #+#             */
-/*   Updated: 2025/01/27 09:04:57 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/27 11:33:45 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	handle_rotate(int keycode, t_player *player)
 void	handle_door(int keycode, t_data *data)
 {
 	t_ray	ray;
+
 	if (keycode == KEY_E)
 	{
 		if (detect_door(data, &ray))

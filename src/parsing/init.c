@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:30:37 by etien             #+#    #+#             */
-/*   Updated: 2025/01/27 08:53:13 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/27 11:23:33 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ void	door_init(t_door *door)
 {
 	door->door_count = 0;
 	door->x = -1;
-	door->y	= -1;
+	door->y = -1;
 	door->is_open = 0;
 	door->progress = 0;
+	door->time_elapsed = 0;
 }
