@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 16:04:56 by etien             #+#    #+#             */
-/*   Updated: 2025/01/27 12:36:15 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/27 16:07:01 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void	update_door_variables(t_data *data, t_door *door, double delta_time)
 
 // This function will set the door to start closing if the door has been
 // open for 2 seconds and the player is at least one unit distance away.
+// The 0.5 offset on the door coordinate is to ensure it is in the center
+// of the door tile.
 void	close_door_automatically(t_data *data, t_door *door)
 {
 	double	distance;
@@ -71,8 +73,8 @@ void	close_door_automatically(t_data *data, t_door *door)
 	distance = 0;
 	if (door->time_elapsed >= 2.0)
 	{
-		distance = pow(data->player.pos_x - door->x, 2)
-			+ pow(data->player.pos_y - door->y, 2);
+		distance = pow(data->player.pos_x - (door->x + 0.5), 2)
+			+ pow(data->player.pos_y - (door->y + 0.5), 2);
 		if (distance >= 1.0)
 			door->is_open = -1;
 	}
