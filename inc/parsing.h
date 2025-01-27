@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:24 by etien             #+#    #+#             */
-/*   Updated: 2025/01/27 10:15:34 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/27 12:39:14 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <time.h>
 
 # define DIRECTIONS "NSEW"
-# define EMPTY_SPACE "0 "
+# define EMPTY_SPACE "0 NSEW"
 # define MAP_ELEMENTS "01NSEW "
 # define OBSTACLE "1D"
 # define WHITESPACE " \t\n"
@@ -221,5 +221,6 @@ void	flood_fill(t_data *data, int y, int x);
 char	*ft_strtrim_mod(char *s1, char const *set);
 void	skip_whitespace(char **s);
 void	del(void *content);
+double	get_delta_time(t_data *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:43:32 by sting             #+#    #+#             */
-/*   Updated: 2025/01/27 11:29:35 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/27 12:36:57 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	render(void *param)
 	ft_bzero(data->img.addr, WINDOW_HEIGHT * WINDOW_WIDTH
 		* (data->img.bits_per_pixel / 8));
 	render_ceiling_n_floor(&data->img, data->tex);
-	update_door(data, &data->door, delta_time);
+	update_door_variables(data, &data->door, delta_time);
 	raycasting(data);
 	open_door_raycasting(data);
 	render_minimap(data, data->map);

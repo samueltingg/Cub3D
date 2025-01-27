@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:12:33 by sting             #+#    #+#             */
-/*   Updated: 2025/01/27 11:22:51 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/27 12:37:26 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,9 +141,9 @@ void	raycasting(t_data *data);
 
 // DOOR
 bool	detect_door(t_data *data, t_ray *ray);
-double	get_delta_time(t_data *data);
-void	update_door(t_data *data, t_door *door, double delta_time);
-void	add_door_offset(t_data *data, t_ray *ray);
+void	update_door_variables(t_data *data, t_door *door, double delta_time);
+void	close_door_automatically(t_data *data, t_door *door);
+void	add_door_offset(t_data *data, t_ray *ray, t_texture *tex, double step);
 void	open_door_raycasting(t_data *data);
 
 #endif
