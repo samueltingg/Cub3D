@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:12:33 by sting             #+#    #+#             */
-/*   Updated: 2025/01/26 22:23:18 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/27 09:26:20 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,13 @@ typedef struct s_vars
 
 }						t_vars;
 
+typedef enum e_raycasting_mode
+{
+						NORMAL,
+						DOOR_DETECTION,
+						OPEN_DOOR
+}						t_raycasting_mode;
+
 // * RENDERING
 void					img_pix_put(t_img *img, int x, int y, int color);
 int						render(void *param);
@@ -128,8 +135,10 @@ int						close_window(void *params);
 int						handle_key_event(int keycode, void *param);
 void					init_raycasting_info(int x, t_ray *ray, t_player player);
 void					dda_setup(t_ray *ray, t_player player);
-void					perform_dda(t_ray *ray, t_data *data);
+void					perform_dda(t_ray *ray, t_data *data, int raycasting_mode);
+void					calc_line_height(t_ray *ray);
 void					raycasting(t_data *data);
+void					open_door_raycasting(t_data *data);
 
 // DOOR
 bool					detect_door(t_data *data, t_ray *ray);

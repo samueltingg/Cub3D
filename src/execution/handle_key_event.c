@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:31:06 by sting             #+#    #+#             */
-/*   Updated: 2025/01/26 23:49:31 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/27 09:04:57 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ void	handle_translation(int keycode, t_data *data, t_player *player)
 	else
 		return ;
 	if (((int)(player->pos_y) == data->door.y && (int)(player->pos_x + tx) == data->door.x && data->door.progress == 1)
-		|| !ft_strchr(WALLS, data->map[(int)(player->pos_y)][(int)(player->pos_x + tx)]))
+		|| !ft_strchr(OBSTACLE, data->map[(int)(player->pos_y)][(int)(player->pos_x + tx)]))
 		player->pos_x += tx;
 	if (((int)(player->pos_y + ty) == data->door.y && (int)(player->pos_x) == data->door.x && data->door.progress == 1)
-		|| !ft_strchr(WALLS, data->map[(int)(player->pos_y + ty)][(int)(player->pos_x)]))
+		|| !ft_strchr(OBSTACLE, data->map[(int)(player->pos_y + ty)][(int)(player->pos_x)]))
 		player->pos_y += ty;
 }
 

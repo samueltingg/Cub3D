@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:24 by etien             #+#    #+#             */
-/*   Updated: 2025/01/26 19:20:21 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/27 09:04:45 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # define DIRECTIONS "NSEW"
 # define EMPTY_SPACE "0 "
 # define MAP_ELEMENTS "01NSEW "
-# define WALLS "1D"
+# define OBSTACLE "1D"
 # define WHITESPACE " \t\n"
 
 // error messages
@@ -79,6 +79,7 @@ typedef struct s_texture
 
 typedef struct s_door
 {
+	int		door_count;
 	int		x;
 	int		y;
 	int		is_open;
@@ -211,7 +212,7 @@ void	valid_horizontal_neighbours(t_data *data, int y, int x,
 			t_horizontal_neighbour *valid_neighbour);
 
 void	set_up_door(t_data	*data);
-int		get_door_candidates(t_data *data, t_coords *candidates);
+void	get_door_candidates(t_data *data, t_coords *candidates);
 bool	valid_door_candidate(t_data *data, int y, int x);
 void	mark_outside_boundary(t_data *data);
 void	flood_fill(t_data *data, int y, int x);

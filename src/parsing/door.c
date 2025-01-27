@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 15:59:41 by etien             #+#    #+#             */
-/*   Updated: 2025/01/26 15:24:44 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/27 08:51:29 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,24 @@ void	set_up_door(t_data	*data)
 {
 	int			i;
 	t_coords	*candidates;
-	int			candidate_count;
 
 	i = -1;
 	candidates = malloc(sizeof(t_coords)
 			* (data->map_height * data->map_width));
 	mark_outside_boundary(data);
-	candidate_count = get_door_candidates(data, candidates);
-	if (candidate_count == 0)
+	get_door_candidates(data, candidates);
+	if (data->door.door_count == 0)
 	{
 		free(candidates);
 		return ;
 	}
-	while (++i < candidate_count)
+	while (++i < data->door.door_count)
 		data->map[(candidates[i].y)][(candidates[i].x)] = 'D';
 	free(candidates);
 }
 
 // This function will store valid door candidates in the candidates array.
-int	get_door_candidates(t_data *data, t_coords *candidates)
+void	get_door_candidates(t_data *data, t_coords *candidates)
 {
 	int	candidate_count;
 	int	y;
@@ -58,7 +57,7 @@ int	get_door_candidates(t_data *data, t_coords *candidates)
 			}
 		}
 	}
-	return (candidate_count);
+	data->door.door_count = candidate_count;
 }
 
 // A valid door candidate must have adjacent walls along one axis

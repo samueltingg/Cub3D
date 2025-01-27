@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 16:04:56 by etien             #+#    #+#             */
-/*   Updated: 2025/01/26 23:36:45 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/27 09:25:40 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ bool	detect_door(t_data *data, t_ray *ray)
 	ft_bzero(ray, sizeof(t_ray));
 	init_raycasting_info(WINDOW_WIDTH / 2, ray, data->player);
 	dda_setup(ray, data->player);
-	perform_dda(ray, data);
+	perform_dda(ray, data, DOOR_DETECTION);
 	if (data->map[ray->map_y][ray->map_x] == 'D')
 	{
 		if (ray->side == EW)
@@ -87,4 +87,23 @@ void	add_door_offset(t_data *data, t_ray *ray)
 		ray->draw_start = 0;
 	if (ray->draw_start >= WINDOW_HEIGHT)
 		ray->draw_start = WINDOW_HEIGHT - 1;
+}
+
+void	open_door_raycasting(t_data *data)
+{
+	int		win_x;
+	t_ray	ray;
+
+	win_x = -1;
+	while (++win_x < WINDOW_WIDTH)
+	{
+		init_raycasting_info(win_x, &ray, data->player);
+		dda_setup(&ray, data->player);
+		perform_dda(&ray, data, OPEN_DOOR);
+		if (ray.map_y == data->door.y && ray.map_x == data->door.x)
+		{
+			calc_line_height(&ray);
+			render_textures(data, ray, data->tex, win_x);
+		}
+	}
 }

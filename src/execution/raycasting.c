@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 13:03:57 by sting             #+#    #+#             */
-/*   Updated: 2025/01/26 23:43:47 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/27 09:14:52 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	dda_setup(t_ray *ray, t_player player)
 	}
 }
 
-void	perform_dda(t_ray *ray, t_data *data)
+void	perform_dda(t_ray *ray, t_data *data, int raycasting_mode)
 {
 	while (1)
 	{
@@ -78,8 +78,14 @@ void	perform_dda(t_ray *ray, t_data *data)
 			ray->map_y += ray->step_y;
 			ray->side = NS;
 		}
+		if (raycasting_mode == NORMAL)
+			// Under normal raycasting, scenes behind open doors will
+			// continue to be rendered.
+			if (ray->map_y == data->door.y && ray->map_x == data->door.x
+				&& data->door.progress > 0)
+				continue ;
 		// Check if ray has hit a wall
-		if (ft_strchr(WALLS, data->map[ray->map_y][ray->map_x]))
+		if (ft_strchr(OBSTACLE, data->map[ray->map_y][ray->map_x]))
 			break ;
 	}
 }
@@ -113,7 +119,7 @@ void	raycasting(t_data *data)
 	{
 		init_raycasting_info(win_x, &ray, data->player);
 		dda_setup(&ray, data->player);
-		perform_dda(&ray, data);
+		perform_dda(&ray, data, NORMAL);
 		calc_line_height(&ray);
 		render_textures(data, ray, data->tex, win_x);
 	}
