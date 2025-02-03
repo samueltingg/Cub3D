@@ -25,6 +25,7 @@ SRCS_FIL = \
 			execution/render_minimap.c \
 			execution/textures.c \
 			execution/img_pix_put.c \
+			execution/movement.c \
 			$(addprefix parsing/, \
 			error.c init.c  \
 			parse_cub_utils.c parse_cub.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:30:37 by etien             #+#    #+#             */
-/*   Updated: 2025/01/17 16:44:00 by etien            ###   ########.fr       */
+/*   Updated: 2025/02/03 15:12:06 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	data_init(t_data *data)
 {
+	ft_bzero(data->keys, sizeof(data->keys)); // ! new
 	data->mlx_ptr = NULL;
 	data->win_ptr = NULL;
 	img_init(&data->img);

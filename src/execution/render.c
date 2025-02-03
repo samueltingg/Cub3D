@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:43:32 by sting             #+#    #+#             */
-/*   Updated: 2025/01/23 17:29:31 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/03 15:14:36 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	render(void *param)
 	data = (t_data *)param;
 	if (data->win_ptr == NULL)
 		return (1);
+	player_movement(data, data->keys, &data->player);
 	ft_bzero(data->img.addr, WINDOW_HEIGHT * WINDOW_WIDTH * (data->img.bits_per_pixel / 8));
 	render_ceiling_n_floor(&data->img, data->tex);
 	raycasting(data);

@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:24 by etien             #+#    #+#             */
-/*   Updated: 2025/01/24 15:29:45 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/03 15:22:01 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct s_data
 	int			map_height;
 	int			map_width;
 	char		**map;
+	bool		keys[6]; 
 }				t_data;
 
 typedef enum e_completeness_check

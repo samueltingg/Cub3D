@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:33 by etien             #+#    #+#             */
-/*   Updated: 2025/01/24 15:01:24 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/03 14:16:49 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ void mlx(t_data *data)
 			&data->img.bits_per_pixel, &data->img.line_len, &data->img.endian);
 	init_textures(data, &data->tex); // ! tmp
 	mlx_loop_hook(data->mlx_ptr, &render, data);
-	mlx_hook(data->win_ptr, ON_KEYDOWN, 1L << 0, &handle_key_event, data);
+	mlx_hook(data->win_ptr, ON_KEYPRESS, 1L << 0, &handle_key_press, data);
+	mlx_hook(data->win_ptr, ON_KEYRELEASE, 1L << 1, &handle_key_release, data);
 	mlx_hook(data->win_ptr, ON_DESTROY, 0, &close_window, data);
 	mlx_loop(data->mlx_ptr);
 }
