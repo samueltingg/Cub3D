@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:52:30 by etien             #+#    #+#             */
-/*   Updated: 2025/02/04 09:48:20 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/04 11:59:46 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define PI 3.14159
 
 // EVENT CODE
-# define ON_KEYPRESS 2 
+# define ON_KEYPRESS 2
 # define ON_KEYRELEASE 3
 # define ON_MOUSEDOWN 4
 # define ON_MOUSEUP 5
@@ -90,10 +90,6 @@
 # define L_GREY_PIXEL 0xA1A1A1
 
 # define RADIAN(angle_degrees) ((angle_degrees)*PI / 180)
-# define R(a) (a) >> 16
-# define G(a) ((a) >> 8) & 0xFF
-# define B(a) (a) & 0xFF
-# define RGB(r, g, b) ((r) << 16) + ((g) << 8) + (b)
 
 // Player
 # define P_WIDTH 12
@@ -103,9 +99,16 @@
 # define EW 0
 # define NS 1
 
-#define BLOCK_W 20 
-#define BLOCK_H 20 
+# define BLOCK_W 20
+# define BLOCK_H 20
 
-#define DARKEN_COLOR_MASK 0b011111110111111101111111
+# define DARKEN_COLOR_MASK 0b011111110111111101111111
+
+# define MINIMAP_MAX_H 280
+
+// #define MINIMAP_WIDTH 400   // Fixed width of the minimap in pixels
+// #define MINIMAP_HEIGHT 320  // Fixed height of the minimap in pixels
+// #define MINIMAP_SCALE 20  
+	// How much to scale the map tiles (adjust for zoom)
 
 #endif

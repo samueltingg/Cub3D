@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:12:33 by sting             #+#    #+#             */
-/*   Updated: 2025/02/04 09:46:16 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/04 12:03:28 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,13 @@ typedef struct s_angle
 
 // -------Newly added--------
 
-typedef struct s_rect
+typedef struct t_square
 {
 	double x; // origin (top left)
 	double y; // origin (top left)
-	double	width;
-	double	height;
+	double	len;
 	int		color;
-}			t_rect;
+}			t_square;
 //---------------------------
 
 typedef struct s_ray
@@ -117,9 +116,9 @@ typedef struct s_vars
 // * RENDERING
 void		img_pix_put(t_img *img, int x, int y, int color);
 int			render(void *param);
-void		render_square(t_img *img, t_rect rect);
+void		render_square(t_img *img, t_square rect);
 void		render_minimap(t_data *data, char **map);
-void		render_grid_lines(t_img *img, int map_width, int map_height);
+void		render_grid_lines(t_img *img, int map_width, int map_height, int block_len);
 
 // * TEXTURES
 void		render_textures(t_data *data, t_ray ray, t_texture tex, int x);

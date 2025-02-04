@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 13:03:57 by sting             #+#    #+#             */
-/*   Updated: 2025/02/04 09:50:27 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/04 11:15:48 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,5 +122,5 @@ void	raycasting(t_data *data)
 		render_textures(data, ray, data->tex, win_x);
 	}
 }
-// render_line_bresenham(&data->img, (t_line_cord){win_x, ray.draw_start, win_x,
-// 	ray.draw_end, color, color});
+		// render_line_bresenham(&data->img, (t_line_cord){win_x, ray.draw_start, win_x,
+		// 	ray.draw_end, L_GREY_PIXEL, L_GREY_PIXEL});

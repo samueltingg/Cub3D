@@ -17,7 +17,6 @@ SRCDIR = src/
 
 SRCS_FIL = \
 			main.c \
-			execution/gradient.c \
 			execution/bresenham.c \
 			execution/render.c \
 			execution/handle_key_event.c \
