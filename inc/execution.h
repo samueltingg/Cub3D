@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:12:33 by sting             #+#    #+#             */
-/*   Updated: 2025/02/03 15:03:31 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/04 09:46:16 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,9 +127,6 @@ void		render_textures(t_data *data, t_ray ray, t_texture tex, int x);
 // BRESENHAM'S LINE ALGO
 void		render_line_bresenham(t_img *img, t_line_cord cord);
 void		render_line_low(t_img *img, t_line_cord line);
-
-// * COLOR
-int			gradient(int startcolor, int endcolor, int len, int pix);
 
 // Handle Key Event
 int			close_window(void *params);

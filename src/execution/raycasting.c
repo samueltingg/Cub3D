@@ -6,11 +6,12 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 13:03:57 by sting             #+#    #+#             */
-/*   Updated: 2025/01/24 15:21:32 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/04 09:50:27 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
 /*
 	"ray->delta_dist_x = 1e30; ""
 	avoid division of 0, hence set to high value
@@ -84,7 +85,10 @@ void	perform_dda(t_ray *ray, t_data *data)
 	}
 }
 
-// Calculate distance projected on camera direction (Euclidean distance would give fisheye effect!)
+/*
+Calculate distance projected on camera direction 
+(Euclidean distance would give fisheye effect!)
+*/
 void	calc_line_height(t_ray *ray)
 {
 	if (ray->side == EW)

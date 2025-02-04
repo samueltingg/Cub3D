@@ -6,19 +6,19 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:43:32 by sting             #+#    #+#             */
-/*   Updated: 2025/02/03 15:14:36 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/04 09:41:57 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void render_ceiling_n_floor(t_img *img, t_texture tex)
+void	render_ceiling_n_floor(t_img *img, t_texture tex)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (i < WINDOW_HEIGHT/2)
+	while (i < WINDOW_HEIGHT / 2)
 	{
 		j = 0;
 		while (j < WINDOW_WIDTH)
@@ -42,7 +42,8 @@ int	render(void *param)
 	if (data->win_ptr == NULL)
 		return (1);
 	player_movement(data, data->keys, &data->player);
-	ft_bzero(data->img.addr, WINDOW_HEIGHT * WINDOW_WIDTH * (data->img.bits_per_pixel / 8));
+	ft_bzero(data->img.addr, WINDOW_HEIGHT * WINDOW_WIDTH
+		* (data->img.bits_per_pixel / 8));
 	render_ceiling_n_floor(&data->img, data->tex);
 	raycasting(data);
 	render_minimap(data, data->map);

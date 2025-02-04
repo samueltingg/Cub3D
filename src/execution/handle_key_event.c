@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:31:06 by sting             #+#    #+#             */
-/*   Updated: 2025/02/03 15:28:51 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/04 09:43:58 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	handle_key_press(int keycode, void *param)
 
 int	handle_key_release(int keycode, void *param)
 {
-	t_data *data;
+	t_data	*data;
 
 	data = (t_data *)param;
 	if (keycode == KEY_W)

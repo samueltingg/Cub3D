@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 14:50:16 by sting             #+#    #+#             */
-/*   Updated: 2025/02/03 15:27:45 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/04 10:27:37 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@ void	translate_player(int key, t_data *data, t_player *player)
 	double	move_speed;
 	double	tx;
 	double	ty;
+	double	gap_x;
+	double	gap_y;
+	double	buffer;
+	double	length;
 
 	move_speed = 0.1;
 	ty = 0;
@@ -43,9 +47,16 @@ void	translate_player(int key, t_data *data, t_player *player)
 	}
 	else
 		return ;
-	if (data->map[(int)(player->pos_y)][(int)(player->pos_x + tx)] != '1')
+	buffer = 0.0;
+	// Normalize the movement vector to apply buffer correctly
+	length = sqrt(tx * tx + ty * ty);
+	gap_x = (tx / length) * buffer;
+	gap_y = (ty / length) * buffer;
+	if (data->map[(int)(player->pos_y)][(int)(player->pos_x + tx
+			+ gap_x)] != '1')
 		player->pos_x += tx;
-	if (data->map[(int)(player->pos_y + ty)][(int)(player->pos_x)] != '1')
+	if (data->map[(int)(player->pos_y + ty
+			+ gap_y)][(int)(player->pos_x)] != '1')
 		player->pos_y += ty;
 }
 
@@ -74,7 +85,7 @@ void	rotate_player(int key, t_player *player)
 
 void	player_movement(t_data *data, bool *keys, t_player *player)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < 6)

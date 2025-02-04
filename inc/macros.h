@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:52:30 by etien             #+#    #+#             */
-/*   Updated: 2025/02/03 14:16:04 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/04 09:48:20 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@
 # define PURPLE_PIXEL 0x9900FF
 # define YELLOW_PIXEL 0xFFFFCC
 # define ORANGE_PIXEL 0xFFA500
+# define L_GREY_PIXEL 0xA1A1A1
 
 # define RADIAN(angle_degrees) ((angle_degrees)*PI / 180)
 # define R(a) (a) >> 16
