@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_key_event.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:31:06 by sting             #+#    #+#             */
-/*   Updated: 2025/01/22 13:28:43 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/27 11:33:45 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ void	handle_translation(int keycode, t_data *data, t_player *player)
 	}
 	else
 		return ;
-	if (data->map[(int)(player->pos_y)][(int)(player->pos_x
-			+ tx)] != '1')
+	if (((int)(player->pos_y) == data->door.y && (int)(player->pos_x + tx) == data->door.x && data->door.progress == 1)
+		|| !ft_strchr(OBSTACLE, data->map[(int)(player->pos_y)][(int)(player->pos_x + tx)]))
 		player->pos_x += tx;
-	if (data->map[(int)(player->pos_y
-			+ ty)][(int)(player->pos_x)] != '1')
+	if (((int)(player->pos_y + ty) == data->door.y && (int)(player->pos_x) == data->door.x && data->door.progress == 1)
+		|| !ft_strchr(OBSTACLE, data->map[(int)(player->pos_y + ty)][(int)(player->pos_x)]))
 		player->pos_y += ty;
 }
 
@@ -75,6 +75,32 @@ void	handle_rotate(int keycode, t_player *player)
 		multiply_vectors_to_rot_matrix(player, RADIAN(1));
 }
 
+// If a door is already active, the keystroke is ignored and the
+// function will immediately return.
+void	handle_door(int keycode, t_data *data)
+{
+	t_ray	ray;
+
+	if (keycode == KEY_E)
+	{
+		if (detect_door(data, &ray))
+		{
+			printf("Door detected\n");
+			if (data->door.is_open == 0)
+			{
+				data->door.x = ray.map_x;
+				data->door.y = ray.map_y;
+				data->door.is_open = 1;
+			}
+			else if (ray.map_x == data->door.x && ray.map_y == data->door.y
+				&& data->door.progress == 1)
+				data->door.is_open = -1;
+		}
+		else
+			printf("No door here\n");
+	}
+}
+
 int	handle_key_event(int keycode, void *param)
 {
 	t_data	*data;
@@ -84,5 +110,6 @@ int	handle_key_event(int keycode, void *param)
 		close_window(data);
 	handle_translation(keycode, data, &data->player);
 	handle_rotate(keycode, &data->player);
+	handle_door(keycode, data);
 	return (0);
 }

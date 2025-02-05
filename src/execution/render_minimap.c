@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_minimap.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 09:38:32 by sting             #+#    #+#             */
-/*   Updated: 2025/01/23 17:28:48 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/27 11:28:31 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,15 @@ void	render_minimap(t_data *data, char **map)
 		{
 			if (map[j][i] == '1')
 				render_square(&data->img, (t_rect){x, y, BLOCK_W, BLOCK_H,
-					0xffffff});
+					WHITE_PIXEL});
+			else if (map[j][i] == 'D')
+			{
+				render_square(&data->img, (t_rect){x, y, BLOCK_W, BLOCK_H,
+					YELLOW_PIXEL});
+				if (j == data->door.y && i == data->door.x && data->door.progress > 0)
+					render_square(&data->img, (t_rect){x, y, BLOCK_W, BLOCK_H,
+						gradient(YELLOW_PIXEL, GREEN_PIXEL, 100, data->door.progress * 100)});
+			}
 			x += BLOCK_W;
 			i++;
 		}

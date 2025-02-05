@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:54:26 by etien             #+#    #+#             */
-/*   Updated: 2025/01/20 16:49:42 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/24 16:23:05 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ void	err_free_exit(char *err_msg, t_data *data, char *line)
 // are dynamically-allocated.
 void	free_data(t_data *data)
 {
-	if (data->tex.north_texture)
-		free(data->tex.north_texture);
-	if (data->tex.south_texture)
-		free(data->tex.south_texture);
-	if (data->tex.west_texture)
-		free(data->tex.west_texture);
-	if (data->tex.east_texture)
-		free(data->tex.east_texture);
+	if (data->tex.path[0])
+		free(data->tex.path[0]);
+	if (data->tex.path[1])
+		free(data->tex.path[1]);
+	if (data->tex.path[2])
+		free(data->tex.path[2]);
+	if (data->tex.path[3])
+		free(data->tex.path[3]);
 	if (data->map)
 		free_double_arr(data->map);
 }

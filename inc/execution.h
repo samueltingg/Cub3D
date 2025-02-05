@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:12:33 by sting             #+#    #+#             */
-/*   Updated: 2025/01/24 16:35:40 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/27 12:37:26 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ typedef struct s_angle
 
 typedef struct s_rect
 {
-	double x; // origin (top left)
-	double y; // origin (top left)
+	double				x; // origin (top left)
+	double				y; // origin (top left)
 	double				width;
 	double				height;
 	int					color;
@@ -104,28 +104,46 @@ typedef struct s_vars
 
 }						t_vars;
 
+typedef enum e_raycasting_mode
+{
+	NORMAL,
+	DOOR_DETECTION,
+	OPEN_DOOR
+}	t_raycasting_mode;
+
 // * RENDERING
-void					img_pix_put(t_img *img, int x, int y, int color);
-int						render(void *param);
-void					render_square(t_img *img, t_rect rect);
-void					render_minimap(t_data *data, char **map);
-void					render_grid_lines(t_img *img, int map_width,
-							int map_height);
+void	img_pix_put(t_img *img, int x, int y, int color);
+int		render(void *param);
+void	render_square(t_img *img, t_rect rect);
+void	render_minimap(t_data *data, char **map);
+void	render_grid_lines(t_img *img, int map_width, int map_height);
 
 // * TEXTURES
-void render_textures(t_data *data, t_ray ray, t_texture tex, int x);
+void	render_textures(t_data *data, t_ray ray, t_texture tex, int x);
 
 // BRESENHAM'S LINE ALGO
-void					render_line_bresenham(t_img *img, t_line_cord cord);
-void					render_line_low(t_img *img, t_line_cord line);
+void	render_line_bresenham(t_img *img, t_line_cord cord);
+void	render_line_low(t_img *img, t_line_cord line);
 
 // * COLOR
-int						gradient(int startcolor, int endcolor, int len,
-							int pix);
+int		gradient(int startcolor, int endcolor, int len, int pix);
 
 // Handle Key Event
-int						close_window(void *params);
-int						handle_key_event(int keycode, void *param);
-void					raycasting(t_data *data);
+int		close_window(void *params);
+int		handle_key_event(int keycode, void *param);
+
+// RAYCASTING
+void	init_raycasting_info(int x, t_ray *ray, t_player player);
+void	dda_setup(t_ray *ray, t_player player);
+void	perform_dda(t_ray *ray, t_data *data, int raycasting_mode);
+void	calc_line_height(t_ray *ray);
+void	raycasting(t_data *data);
+
+// DOOR
+bool	detect_door(t_data *data, t_ray *ray);
+void	update_door_variables(t_data *data, t_door *door, double delta_time);
+void	close_door_automatically(t_data *data, t_door *door);
+void	add_door_offset(t_data *data, t_ray *ray, t_texture *tex, double step);
+void	open_door_raycasting(t_data *data);
 
 #endif

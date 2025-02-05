@@ -25,12 +25,17 @@ SRCS_FIL = \
 			execution/render_minimap.c \
 			execution/textures.c \
 			execution/img_pix_put.c \
+			execution/door.c \
 			$(addprefix parsing/, \
 			error.c init.c  \
 			parse_cub_utils.c parse_cub.c \
 			parse_map_utils.c parse_map.c \
 			print.c utils.c \
-			validate_map_horizontal.c validate_map_utils.c validate_map_vertical.c validate_map.c)
+			validate_boundaries_utils.c \
+			validate_horizontal_boundaries.c \
+			validate_map_utils.c validate_map.c \
+			validate_vertical_boundaries.c \
+			door.c)
 
 SRCS = $(addprefix $(SRCDIR), $(SRCS_FIL))
 
