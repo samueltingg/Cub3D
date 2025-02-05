@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 13:03:57 by sting             #+#    #+#             */
-/*   Updated: 2025/02/05 11:40:37 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/05 11:48:38 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,10 @@ void	calc_line_height(t_ray *ray)
 		ray->perp_wall_dist = (ray->side_dist_x - ray->delta_dist_x);
 	else if (ray->side == NS)
 		ray->perp_wall_dist = (ray->side_dist_y - ray->delta_dist_y);
-	printf("perp_wall_dist: %f\n", ray->perp_wall_dist);
 	// Prevent division by zero or very small values
 	if (ray->perp_wall_dist < 1e-4)
 		ray->perp_wall_dist = 1e-4;
 	ray->line_height = (int)(WINDOW_HEIGHT / ray->perp_wall_dist);
-	printf("line_height: %i\n", ray->line_height);
 	ray->draw_start = -(ray->line_height) / 2 + WINDOW_HEIGHT / 2;
 	if (ray->draw_start < 0)
 		ray->draw_start = 0;
