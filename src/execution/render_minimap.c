@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_minimap.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 09:38:32 by sting             #+#    #+#             */
-/*   Updated: 2025/02/05 12:56:54 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/05 16:46:40 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,14 +101,12 @@ void	render_minimap(t_data *data, char **map)
 					render_square(&data->img, (t_square){i * block_len, j * block_len, block_len,
 						gradient(YELLOW_PIXEL, GREEN_PIXEL, 100, data->door.progress * 100)});
 			}
-			
 		}
 	}
 	render_grid_lines(&data->img, data->map_width * block_len, data->map_height
 		* block_len, block_len);
 	render_player(data, data->player, block_len);
 }
-
 
 // void	render_minimap(t_data *data, char **map)
 // {

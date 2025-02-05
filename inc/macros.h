@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   macros.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:52:30 by etien             #+#    #+#             */
-/*   Updated: 2025/02/05 13:02:27 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/05 16:24:19 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MACROS_H
 # define MACROS_H
 
-# define WINDOW_WIDTH 2560 
+# define WINDOW_WIDTH 2560
 # define WINDOW_HEIGHT 1440
 # define MLX_ERROR 1
 # define TRUE 1
@@ -92,10 +92,6 @@
 # define L_GREY_PIXEL 0xA1A1A1
 
 # define RADIAN(angle_degrees) ((angle_degrees)*PI / 180)
-# define R(a) (a) >> 16
-# define G(a) ((a) >> 8) & 0xFF
-# define B(a) (a) & 0xFF
-# define RGB(r, g, b) ((r) << 16) + ((g) << 8) + (b) 
 
 // Player
 # define P_WIDTH 12
@@ -114,7 +110,7 @@
 
 // #define MINIMAP_WIDTH 400   // Fixed width of the minimap in pixels
 // #define MINIMAP_HEIGHT 320  // Fixed height of the minimap in pixels
-// #define MINIMAP_SCALE 20  
+// #define MINIMAP_SCALE 20
 	// How much to scale the map tiles (adjust for zoom)
 
 #endif

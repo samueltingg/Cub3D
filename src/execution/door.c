@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   door.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 16:04:56 by etien             #+#    #+#             */
-/*   Updated: 2025/02/05 13:01:33 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/05 16:45:35 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 bool	detect_door(t_data *data, t_ray *ray)
 {
 	double	distance;
-	
-	distance = 0.0;
+
+	distance = 0;
 	ft_bzero(ray, sizeof(t_ray));
 	init_raycasting_info(WINDOW_WIDTH / 2, ray, data->player);
 	dda_setup(ray, data->player);
