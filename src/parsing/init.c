@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:30:37 by etien             #+#    #+#             */
-/*   Updated: 2025/01/27 11:23:33 by etien            ###   ########.fr       */
+/*   Updated: 2025/02/05 10:54:52 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	data_init(t_data *data)
 	data->map_width = -1;
 	data->map = NULL;
 	ft_bzero(&data->last_time, sizeof(&data->last_time));
+	ft_bzero(&data->keys, sizeof(&data->keys));
 }
 
 void	img_init(t_img *img)

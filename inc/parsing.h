@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:24 by etien             #+#    #+#             */
-/*   Updated: 2025/01/27 12:39:14 by etien            ###   ########.fr       */
+/*   Updated: 2025/02/05 10:52:50 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ typedef struct s_data
 	int				map_width;
 	char			**map;
 	struct timeval	last_time;
+	bool			keys[6];
 }					t_data;
 
 typedef enum e_completeness_check
