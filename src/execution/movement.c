@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 14:50:16 by sting             #+#    #+#             */
-/*   Updated: 2025/02/05 12:46:14 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/05 15:59:01 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,11 @@ void	translate_player(int key, t_data *data, t_player *player)
 	length = sqrt(tx * tx + ty * ty);
 	gap_x = (tx / length) * buffer;
 	gap_y = (ty / length) * buffer;
-			
-	if (((int)(player->pos_y) == data->door.y && (int)(player->pos_x + tx) == data->door.x && data->door.progress == 1)
+
+	if (((int)(player->pos_y) == data->door.y && (int)(player->pos_x + tx + gap_x) == data->door.x && data->door.progress == 1)
 		|| !ft_strchr(OBSTACLE, data->map[(int)(player->pos_y)][(int)(player->pos_x + tx + gap_x)]))
 		player->pos_x += tx;
-	if (((int)(player->pos_y + ty) == data->door.y && (int)(player->pos_x) == data->door.x && data->door.progress == 1)
+	if (((int)(player->pos_y + ty + gap_y) == data->door.y && (int)(player->pos_x) == data->door.x && data->door.progress == 1)
 		|| !ft_strchr(OBSTACLE, data->map[(int)(player->pos_y + ty + gap_y)][(int)(player->pos_x)]))
 		player->pos_y += ty;
 }
