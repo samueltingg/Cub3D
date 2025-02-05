@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:43:32 by sting             #+#    #+#             */
-/*   Updated: 2025/02/04 09:41:57 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/05 12:57:32 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,19 @@ void	render_ceiling_n_floor(t_img *img, t_texture tex)
 int	render(void *param)
 {
 	t_data	*data;
+	double	delta_time;
 
 	data = (t_data *)param;
+	delta_time = get_delta_time(data);
 	if (data->win_ptr == NULL)
 		return (1);
 	player_movement(data, data->keys, &data->player);
 	ft_bzero(data->img.addr, WINDOW_HEIGHT * WINDOW_WIDTH
 		* (data->img.bits_per_pixel / 8));
 	render_ceiling_n_floor(&data->img, data->tex);
+	update_door_variables(data, &data->door, delta_time);
 	raycasting(data);
+	open_door_raycasting(data);
 	render_minimap(data, data->map);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.img_ptr, 0,
 		0);

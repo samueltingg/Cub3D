@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:52:30 by etien             #+#    #+#             */
-/*   Updated: 2025/02/05 11:33:15 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/05 13:02:27 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@
 #  define KEY_S 1
 #  define KEY_A 0
 #  define KEY_D 2
+#  define KEY_E 14
 #  define KEY_R 15
 #  define KEY_I 34
 #  define KEY_J 38
@@ -62,6 +63,7 @@
 #  define KEY_S 115
 #  define KEY_A 97
 #  define KEY_D 100
+#  define KEY_E 101
 #  define KEY_J 106
 #  define KEY_L 108
 #  define KEY_P 112
@@ -85,11 +87,15 @@
 # define GREEN_PIXEL 0x00FF00
 # define BLUE_PIXEL 0x0000FF
 # define PURPLE_PIXEL 0x9900FF
-# define YELLOW_PIXEL 0xFFFFCC
+# define YELLOW_PIXEL 0xFFFF00
 # define ORANGE_PIXEL 0xFFA500
 # define L_GREY_PIXEL 0xA1A1A1
 
 # define RADIAN(angle_degrees) ((angle_degrees)*PI / 180)
+# define R(a) (a) >> 16
+# define G(a) ((a) >> 8) & 0xFF
+# define B(a) (a) & 0xFF
+# define RGB(r, g, b) ((r) << 16) + ((g) << 8) + (b) 
 
 // Player
 # define P_WIDTH 12

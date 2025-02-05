@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 09:38:32 by sting             #+#    #+#             */
-/*   Updated: 2025/02/04 12:10:22 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/05 12:56:54 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,63 @@ void	render_minimap(t_data *data, char **map)
 	{
 		i = -1;
 		while (++i < data->map_width)
+		{
 			if (map[j][i] == '1')
 				render_square(&data->img, (t_square){i * block_len, j
 					* block_len, block_len, WHITE_PIXEL});
+			else if (map[j][i] == 'D')
+			{
+				render_square(&data->img, (t_square){i * block_len, j * block_len, block_len,
+					YELLOW_PIXEL});
+				if (j == data->door.y && i == data->door.x && data->door.progress > 0)
+					render_square(&data->img, (t_square){i * block_len, j * block_len, block_len,
+						gradient(YELLOW_PIXEL, GREEN_PIXEL, 100, data->door.progress * 100)});
+			}
+			
+		}
 	}
 	render_grid_lines(&data->img, data->map_width * block_len, data->map_height
 		* block_len, block_len);
 	render_player(data, data->player, block_len);
 }
+
+
+// void	render_minimap(t_data *data, char **map)
+// {
+// 	int	x;
+// 	int	y;
+// 	int	i;
+// 	int	j;
+
+// 	y = 0;
+// 	j = 0;
+// 	while (y < data->map_height * BLOCK_H)
+// 	{
+// 		x = 0;
+// 		i = 0;
+// 		while (x < data->map_width * BLOCK_H)
+// 		{
+// 			if (map[j][i] == '1')
+// 				render_square(&data->img, (t_square){x, y, BLOCK_W,
+// 					WHITE_PIXEL});
+// 			else if (map[j][i] == 'D')
+// 			{
+// 				render_square(&data->img, (t_square){x, y, BLOCK_W,
+// 					YELLOW_PIXEL});
+// 				if (j == data->door.y && i == data->door.x && data->door.progress > 0)
+// 					render_square(&data->img, (t_square){x, y, BLOCK_W, BLOCK_H,
+// 						gradient(YELLOW_PIXEL, GREEN_PIXEL, 100, data->door.progress * 100)});
+// 			}
+// 			x += BLOCK_W;
+// 			i++;
+// 		}
+// 		y += BLOCK_H;
+// 		j++;
+// 	}
+// 	render_grid_lines(&data->img, data->map_width * BLOCK_H, data->map_height
+// 		* BLOCK_H);
+// 	render_player(data, data->player);
+// }
+			// else
+			// 	render_square(&data->img, (t_rect){x, y, BLOCK_W, BLOCK_H,
+			// 		data->tex.ceiling_color});

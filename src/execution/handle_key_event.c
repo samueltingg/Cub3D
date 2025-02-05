@@ -6,11 +6,37 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:31:06 by sting             #+#    #+#             */
-/*   Updated: 2025/02/04 09:43:58 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/05 12:50:57 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+// If a door is already active, the keystroke is ignored and the
+// function will immediately return.
+void	handle_door(int keycode, t_data *data)
+{
+	t_ray	ray;
+
+	if (keycode == KEY_E)
+	{
+		if (detect_door(data, &ray))
+		{
+			printf("Door detected\n");
+			if (data->door.is_open == 0)
+			{
+				data->door.x = ray.map_x;
+				data->door.y = ray.map_y;
+				data->door.is_open = 1;
+			}
+			else if (ray.map_x == data->door.x && ray.map_y == data->door.y
+				&& data->door.progress == 1)
+				data->door.is_open = -1;
+		}
+		else
+			printf("No door here\n");
+	}
+}
 
 int	handle_key_press(int keycode, void *param)
 {
@@ -31,6 +57,7 @@ int	handle_key_press(int keycode, void *param)
 		data->keys[LEFT_ARR] = TRUE;
 	else if (keycode == KEY_RIGHT)
 		data->keys[RIGHT_ARR] = TRUE;
+	handle_door(keycode, data);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 16:46:05 by etien             #+#    #+#             */
-/*   Updated: 2025/01/12 17:04:32 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/27 12:33:19 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,18 @@ void	skip_whitespace(char **s)
 void	del(void *content)
 {
 	free(content);
+}
+
+// This function will return the time difference between frames to
+// increment door_progress and animate the sliding movement of the door.
+double	get_delta_time(t_data	*data)
+{
+	struct timeval	current_time;
+	double			delta_time;
+
+	gettimeofday(&current_time, NULL);
+	delta_time = (current_time.tv_sec - data->last_time.tv_sec)
+		+ (current_time.tv_usec - data->last_time.tv_usec) / 1e6;
+	data->last_time = current_time;
+	return (delta_time);
 }

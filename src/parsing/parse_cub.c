@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:48:19 by etien             #+#    #+#             */
-/*   Updated: 2025/01/17 17:02:04 by etien            ###   ########.fr       */
+/*   Updated: 2025/01/24 16:26:51 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	parse_line(char *line, t_data *data, bool *map_detected, t_list **tmp)
 		return ;
 	else if (!(ft_strncmp(s, "NO", 2) && ft_strncmp(s, "SO", 2)
 			&& ft_strncmp(s, "WE", 2) && ft_strncmp(s, "EA", 2)))
-		parse_texture(s, data);
+		parse_texture(s, line, data);
 	else if (*s == 'F' || *s == 'C')
 		parse_color(s, line, data);
 	else if (detect_map(data, line, map_detected) || *map_detected)
@@ -60,7 +60,7 @@ void	parse_line(char *line, t_data *data, bool *map_detected, t_list **tmp)
 }
 
 // This function will store the texture paths in their corresponding fields.
-void	parse_texture(char *s, t_data *data)
+void	parse_texture(char *s, char *line, t_data *data)
 {
 	char	*id;
 	char	*path_start;
@@ -79,14 +79,24 @@ void	parse_texture(char *s, t_data *data)
 		s++;
 	len = s - path_start;
 	trimmed_path = ft_strtrim_mod(ft_substr(path_start, 0, len), WHITESPACE);
-	if (!ft_strncmp(id, "NO", 2) && !data->tex.north_texture)
-		data->tex.north_texture = trimmed_path;
-	else if (!ft_strncmp(id, "SO", 2) && !data->tex.south_texture)
-		data->tex.south_texture = trimmed_path;
-	else if (!ft_strncmp(id, "WE", 2) && !data->tex.west_texture)
-		data->tex.west_texture = trimmed_path;
-	else if (!ft_strncmp(id, "EA", 2) && !data->tex.east_texture)
-		data->tex.east_texture = trimmed_path;
+	if (!check_file_extension(trimmed_path, ".xpm"))
+	{
+		free(trimmed_path);
+		err_free_exit(XPM_EXTENSION_ERR, data, line);
+	}
+	assign_texture(id, trimmed_path, data);
+}
+
+void	assign_texture(char *id, char *trimmed_path, t_data *data)
+{
+	if (!ft_strncmp(id, "NO", 2) && !data->tex.path[0])
+		data->tex.path[0] = trimmed_path;
+	else if (!ft_strncmp(id, "SO", 2) && !data->tex.path[1])
+		data->tex.path[1] = trimmed_path;
+	else if (!ft_strncmp(id, "WE", 2) && !data->tex.path[2])
+		data->tex.path[2] = trimmed_path;
+	else if (!ft_strncmp(id, "EA", 2) && !data->tex.path[3])
+		data->tex.path[3] = trimmed_path;
 }
 
 // This function will store the floor and ceiling colors in their

@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:12:33 by sting             #+#    #+#             */
-/*   Updated: 2025/02/04 12:03:28 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/05 13:01:18 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,14 @@ typedef struct s_vars
 	double	plane_x;
 	double	plane_y;
 
-}			t_vars;
+}						t_vars;
+
+typedef enum e_raycasting_mode
+{
+	NORMAL,
+	DOOR_DETECTION,
+	OPEN_DOOR
+}	t_raycasting_mode;
 
 // * RENDERING
 void		img_pix_put(t_img *img, int x, int y, int color);
@@ -128,11 +135,27 @@ void		render_line_bresenham(t_img *img, t_line_cord cord);
 void		render_line_low(t_img *img, t_line_cord line);
 
 // Handle Key Event
-int			close_window(void *params);
-int			handle_key_press(int keycode, void *param);
-int			handle_key_release(int keycode, void *param);
-void		player_movement(t_data *data, bool *keys, t_player *player);
+int		close_window(void *params);
+int	handle_key_release(int keycode, void *param);
+int	handle_key_press(int keycode, void *param);
+void	player_movement(t_data *data, bool *keys, t_player *player);
 
-void		raycasting(t_data *data);
+
+// RAYCASTING
+void	init_raycasting_info(int x, t_ray *ray, t_player player);
+void	dda_setup(t_ray *ray, t_player player);
+void	perform_dda(t_ray *ray, t_data *data, int raycasting_mode);
+void	calc_line_height(t_ray *ray);
+void	raycasting(t_data *data);
+
+// DOOR
+bool	detect_door(t_data *data, t_ray *ray);
+void	update_door_variables(t_data *data, t_door *door, double delta_time);
+void	close_door_automatically(t_data *data, t_door *door);
+void	add_door_offset(t_data *data, t_ray *ray, t_texture *tex, double step);
+void	open_door_raycasting(t_data *data);
+
+// GRADIENT
+int	gradient(int startcolor, int endcolor, int len, int position);
 
 #endif

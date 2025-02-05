@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 10:25:29 by etien             #+#    #+#             */
-/*   Updated: 2025/01/20 15:40:17 by sting            ###   ########.fr       */
+/*   Updated: 2025/01/26 12:16:53 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	validate_map(t_data *data)
 {
 	validate_player(data);
 	validate_boundaries(data);
+	validate_textures(data);
+	set_up_door(data);
 }
 
 // This function will validate the player.
@@ -38,58 +40,6 @@ void	validate_player(t_data *data)
 		err_free_exit(PLAYER_MISSING_ERR, data, NULL);
 }
 
-// This function will ensure that there is only one player
-// in the map and store the player's direction and position.
-void	store_player(t_data *data, int y, int x, int *player_count)
-{
-	if (ft_strchr(DIRECTIONS, data->map[y][x]))
-	{
-		if (*player_count == 0)
-		{
-			store_dir_vector(&data->player, data->map[y][x]);
-			data->player.pos_x = x;
-			data->player.pos_y = y;
-			(*player_count)++;
-		}
-		else
-			err_free_exit(PLAYER_COUNT_ERR, data, NULL);
-	}
-}
-
-// This function will translate the player's starting direction
-// to its x and y direction vectors.
-void	store_dir_vector(t_player *player, char c)
-{
-	if (c == 'N')
-	{
-		player->dir_x = 0;
-		player->dir_y = -1;
-		player->plane_x = 0.66;
-		player->plane_y = 0;
-	}
-	else if (c == 'S')
-	{
-		player->dir_x = 0;
-		player->dir_y = 1;
-		player->plane_x = -0.66;
-		player->plane_y = 0;
-	}
-	else if (c == 'W')
-	{
-		player->dir_x = -1;
-		player->dir_y = 0;
-		player->plane_x = 0;
-		player->plane_y = -0.66;
-	}
-	else if (c == 'E')
-	{
-		player->dir_x = 1;
-		player->dir_y = 0;
-		player->plane_x = 0;
-		player->plane_y = 0.66;
-	}
-}
-
 // A minimum valid map would have to be at least 3x3.
 void	validate_boundaries(t_data *data)
 {
@@ -97,4 +47,14 @@ void	validate_boundaries(t_data *data)
 		err_free_exit(MAP_BOUNDARIES_ERR, data, NULL);
 	if (!check_horizontal_edges(data) || !check_vertical_edges(data))
 		err_free_exit(MAP_BOUNDARIES_ERR, data, NULL);
+}
+
+// This function ensures that the texture files can be opened.
+void	validate_textures(t_data *data)
+{
+	if (!texture_is_accessible(data->tex.path[0])
+		|| !texture_is_accessible(data->tex.path[1])
+		|| !texture_is_accessible(data->tex.path[2])
+		|| !texture_is_accessible(data->tex.path[3]))
+		err_free_exit(TEXTURE_OPEN_ERR, data, NULL);
 }
