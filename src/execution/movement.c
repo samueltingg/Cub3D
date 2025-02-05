@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 14:50:16 by sting             #+#    #+#             */
-/*   Updated: 2025/02/04 10:27:37 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/05 11:42:26 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	translate_player(int key, t_data *data, t_player *player)
 	}
 	else
 		return ;
-	buffer = 0.0;
+	buffer = 0.3;
 	// Normalize the movement vector to apply buffer correctly
 	length = sqrt(tx * tx + ty * ty);
 	gap_x = (tx / length) * buffer;

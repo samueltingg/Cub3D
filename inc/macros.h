@@ -6,15 +6,15 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:52:30 by etien             #+#    #+#             */
-/*   Updated: 2025/02/04 11:59:46 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/05 11:33:15 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MACROS_H
 # define MACROS_H
 
-# define WINDOW_WIDTH 1920
-# define WINDOW_HEIGHT 1080
+# define WINDOW_WIDTH 2560 
+# define WINDOW_HEIGHT 1440
 # define MLX_ERROR 1
 # define TRUE 1
 # define FALSE 0
@@ -104,7 +104,7 @@
 
 # define DARKEN_COLOR_MASK 0b011111110111111101111111
 
-# define MINIMAP_MAX_H 280
+# define MINIMAP_MAX_H WINDOW_HEIGHT*2/6
 
 // #define MINIMAP_WIDTH 400   // Fixed width of the minimap in pixels
 // #define MINIMAP_HEIGHT 320  // Fixed height of the minimap in pixels
