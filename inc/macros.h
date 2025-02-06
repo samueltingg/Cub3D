@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:52:30 by etien             #+#    #+#             */
-/*   Updated: 2025/02/06 11:58:12 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/06 15:34:25 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@
 // Player
 # define P_WIDTH 12
 # define P_HEIGHT 12
+# define P_MOVE_SPEED 0.1
 
 // Wall Side
 # define EW 0
@@ -110,11 +111,7 @@
 
 # define DARKEN_COLOR_MASK 0b011111110111111101111111
 
-# define MINIMAP_MAX_H (WINDOW_HEIGHT * 2 / 6)
-
-// #define MINIMAP_WIDTH 400   // Fixed width of the minimap in pixels
-// #define MINIMAP_HEIGHT 320  // Fixed height of the minimap in pixels
-// #define MINIMAP_SCALE 20
-// How much to scale the map tiles (adjust for zoom)
+// DOOR
+# define FULLY_OPEN 1
 
 #endif

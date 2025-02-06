@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:35:23 by sting             #+#    #+#             */
-/*   Updated: 2025/02/06 11:52:57 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/06 15:28:24 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 # include "../libft/libft/libft.h"
 # include "execution.h"
 # include "macros.h"
-# ifdef __APPLE__ 
-#   include "../minilibx/minilibx-macOS/mlx.h"
+# ifdef __APPLE__
+#  include "../minilibx/minilibx-macOS/mlx.h"
 # elif __linux__
-#   include "../minilibx/minilibx-linux/mlx.h"
+#  include "../minilibx/minilibx-linux/mlx.h"
 # else
 #  error Unsupported operating system
 # endif
