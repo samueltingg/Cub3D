@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 13:03:57 by sting             #+#    #+#             */
-/*   Updated: 2025/02/05 12:51:46 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/06 15:26:50 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,15 @@ void	dda_setup(t_ray *ray, t_player player)
 	}
 }
 
+/*
+
+First 2 if statements:
+	jump to next map square, either in x-direction, or in y-direction
+*/
 void	perform_dda(t_ray *ray, t_data *data, int raycasting_mode)
 {
 	while (1)
 	{
-		// jump to next map square, either in x-direction, or in y-direction
 		if (ray->side_dist_x < ray->side_dist_y)
 		{
 			ray->side_dist_x += ray->delta_dist_x;
@@ -80,20 +84,20 @@ void	perform_dda(t_ray *ray, t_data *data, int raycasting_mode)
 			ray->side = NS;
 		}
 		if (raycasting_mode == NORMAL)
-			// Under normal raycasting, scenes behind open doors will
-			// continue to be rendered.
 			if (ray->map_y == data->door.y && ray->map_x == data->door.x
 				&& data->door.progress > 0)
 				continue ;
-		// Check if ray has hit a wall
 		if (ft_strchr(OBSTACLE, data->map[ray->map_y][ray->map_x]))
 			break ;
 	}
 }
 
 /*
-Calculate distance projected on camera direction 
+Calculate distance projected on camera direction
 (Euclidean distance would give fisheye effect!)
+
+"1e-6" is a safe lower bound for 'perp_wall_dist',
+	to prevent int overflow in ray->line_height
 */
 void	calc_line_height(t_ray *ray)
 {
@@ -101,9 +105,8 @@ void	calc_line_height(t_ray *ray)
 		ray->perp_wall_dist = (ray->side_dist_x - ray->delta_dist_x);
 	else if (ray->side == NS)
 		ray->perp_wall_dist = (ray->side_dist_y - ray->delta_dist_y);
-	// Prevent division by zero or very small values
-	if (ray->perp_wall_dist < 1e-4)
-		ray->perp_wall_dist = 1e-4;
+	if (ray->perp_wall_dist < 1e-6)
+		ray->perp_wall_dist = 1e-6;
 	ray->line_height = (int)(WINDOW_HEIGHT / ray->perp_wall_dist);
 	ray->draw_start = -(ray->line_height) / 2 + WINDOW_HEIGHT / 2;
 	if (ray->draw_start < 0)
@@ -128,5 +131,5 @@ void	raycasting(t_data *data)
 		render_textures(data, ray, data->tex, win_x);
 	}
 }
-		// render_line_bresenham(&data->img, (t_line_cord){win_x, ray.draw_start, win_x,
-		// 	ray.draw_end, L_GREY_PIXEL, L_GREY_PIXEL});
+// render_line_bresenham(&data->img, (t_line_cord){win_x, ray.draw_start, win_x,
+// 	ray.draw_end, L_GREY_PIXEL, L_GREY_PIXEL});
