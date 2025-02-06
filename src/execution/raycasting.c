@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 13:03:57 by sting             #+#    #+#             */
-/*   Updated: 2025/01/27 11:27:48 by etien            ###   ########.fr       */
+/*   Updated: 2025/02/05 12:51:46 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
 /*
 	"ray->delta_dist_x = 1e30; ""
 	avoid division of 0, hence set to high value
@@ -90,16 +91,19 @@ void	perform_dda(t_ray *ray, t_data *data, int raycasting_mode)
 	}
 }
 
-// Calculate distance projected on camera direction (Euclidean distance would give fisheye effect!)
+/*
+Calculate distance projected on camera direction 
+(Euclidean distance would give fisheye effect!)
+*/
 void	calc_line_height(t_ray *ray)
 {
 	if (ray->side == EW)
 		ray->perp_wall_dist = (ray->side_dist_x - ray->delta_dist_x);
 	else if (ray->side == NS)
 		ray->perp_wall_dist = (ray->side_dist_y - ray->delta_dist_y);
-	if (ray->perp_wall_dist < (double)1)
-		// to avoid division of close to 0 number during calc of line_height
-		ray->perp_wall_dist = 1;
+	// Prevent division by zero or very small values
+	if (ray->perp_wall_dist < 1e-4)
+		ray->perp_wall_dist = 1e-4;
 	ray->line_height = (int)(WINDOW_HEIGHT / ray->perp_wall_dist);
 	ray->draw_start = -(ray->line_height) / 2 + WINDOW_HEIGHT / 2;
 	if (ray->draw_start < 0)
@@ -124,5 +128,5 @@ void	raycasting(t_data *data)
 		render_textures(data, ray, data->tex, win_x);
 	}
 }
-// render_line_bresenham(&data->img, (t_line_cord){win_x, ray.draw_start, win_x,
-// 	ray.draw_end, color, color});
+		// render_line_bresenham(&data->img, (t_line_cord){win_x, ray.draw_start, win_x,
+		// 	ray.draw_end, L_GREY_PIXEL, L_GREY_PIXEL});

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:43:32 by sting             #+#    #+#             */
-/*   Updated: 2025/01/27 12:36:57 by etien            ###   ########.fr       */
+/*   Updated: 2025/02/06 11:50:09 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	render(void *param)
 	delta_time = get_delta_time(data);
 	if (data->win_ptr == NULL)
 		return (1);
+	player_movement(data, data->keys, &data->player);
 	ft_bzero(data->img.addr, WINDOW_HEIGHT * WINDOW_WIDTH
 		* (data->img.bits_per_pixel / 8));
 	render_ceiling_n_floor(&data->img, data->tex);

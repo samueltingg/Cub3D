@@ -7,5 +7,4 @@ a.out.dSYM/
 a.out
 objs/
 cub3D
-minilibx-linux/test/mlx-test
-sample_map
+minilibx/minilibx-linux/test/mlx-test

@@ -6,22 +6,22 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 09:38:32 by sting             #+#    #+#             */
-/*   Updated: 2025/01/27 11:28:31 by etien            ###   ########.fr       */
+/*   Updated: 2025/02/05 16:46:40 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	render_square(t_img *img, t_rect rect)
+void	render_square(t_img *img, t_square rect)
 {
 	int	x;
 	int	y;
 
 	y = rect.y;
-	while (y <= rect.height + rect.y)
+	while (y <= rect.len + rect.y)
 	{
 		x = rect.x;
-		while (x <= rect.width + rect.x)
+		while (x <= rect.len + rect.x)
 		{
 			img_pix_put(img, x, y, rect.color);
 			x++;
@@ -30,87 +30,120 @@ void	render_square(t_img *img, t_rect rect)
 	}
 }
 
-void	render_player(t_data *data, t_player player)
+void	render_player(t_data *data, t_player player, int block_len)
 {
 	int	start_x;
 	int	start_y;
+	int	player_len;
 
-	start_x = player.pos_x * BLOCK_W - P_WIDTH / 2;
-	start_y = player.pos_y * BLOCK_H - P_HEIGHT / 2;
-	render_square(&data->img, (t_rect){start_x, start_y, P_WIDTH, P_HEIGHT,
+	player_len = block_len * 3 / 5;
+	start_x = player.pos_x * block_len - player_len / 2;
+	start_y = player.pos_y * block_len - player_len / 2;
+	render_square(&data->img, (t_square){start_x, start_y, player_len,
 		RED_PIXEL});
-	render_line_bresenham(&data->img, (t_line_cord){player.pos_x * BLOCK_W,
-		player.pos_y * BLOCK_H, player.dir_x * BLOCK_W + player.pos_x * BLOCK_W,
-		player.dir_y * BLOCK_H + player.pos_y * BLOCK_H, RED_PIXEL, RED_PIXEL});
+	render_line_bresenham(&data->img, (t_line_cord){player.pos_x * block_len,
+		player.pos_y * block_len, player.dir_x * block_len + player.pos_x
+		* block_len, player.dir_y * block_len + player.pos_y * block_len,
+		RED_PIXEL, RED_PIXEL});
 }
 
-void	render_grid_lines(t_img *img, int map_width, int map_height)
+void	render_grid_lines(t_img *img, int map_width, int map_height,
+		int block_len)
 {
 	int	x;
 	int	y;
 
-	// Draw vertical lines
-	x = BLOCK_W;
+	x = block_len;
 	while (x < map_width)
 	{
 		y = 0;
 		while (y < map_height)
 		{
-			img_pix_put(img, x, y, 0xA1A1A1); // Black grid line
+			img_pix_put(img, x, y, L_GREY_PIXEL);
 			y++;
 		}
-		x += BLOCK_W;
+		x += block_len;
 	}
-	// Draw horizontal lines
-	y = BLOCK_H;
+	y = block_len;
 	while (y < map_height)
 	{
 		x = 0;
 		while (x < map_width)
 		{
-			img_pix_put(img, x, y, 0xA1A1A1); // Black grid line
+			img_pix_put(img, x, y, L_GREY_PIXEL);
 			x++;
 		}
-		y += BLOCK_H;
+		y += block_len;
 	}
 }
 
 void	render_minimap(t_data *data, char **map)
 {
-	int	x;
-	int	y;
 	int	i;
 	int	j;
+	int	block_len;
 
-	y = 0;
-	j = 0;
-	while (y < data->map_height * BLOCK_H)
+	block_len = MINIMAP_MAX_H / data->map_height;
+	j = -1;
+	while (++j < data->map_height)
 	{
-		x = 0;
-		i = 0;
-		while (x < data->map_width * BLOCK_H)
+		i = -1;
+		while (++i < data->map_width)
 		{
 			if (map[j][i] == '1')
-				render_square(&data->img, (t_rect){x, y, BLOCK_W, BLOCK_H,
-					WHITE_PIXEL});
+				render_square(&data->img, (t_square){i * block_len, j
+					* block_len, block_len, WHITE_PIXEL});
 			else if (map[j][i] == 'D')
 			{
-				render_square(&data->img, (t_rect){x, y, BLOCK_W, BLOCK_H,
+				render_square(&data->img, (t_square){i * block_len, j * block_len, block_len,
 					YELLOW_PIXEL});
 				if (j == data->door.y && i == data->door.x && data->door.progress > 0)
-					render_square(&data->img, (t_rect){x, y, BLOCK_W, BLOCK_H,
+					render_square(&data->img, (t_square){i * block_len, j * block_len, block_len,
 						gradient(YELLOW_PIXEL, GREEN_PIXEL, 100, data->door.progress * 100)});
 			}
-			x += BLOCK_W;
-			i++;
 		}
-		y += BLOCK_H;
-		j++;
 	}
-	render_grid_lines(&data->img, data->map_width * BLOCK_H, data->map_height
-		* BLOCK_H);
-	render_player(data, data->player);
+	render_grid_lines(&data->img, data->map_width * block_len, data->map_height
+		* block_len, block_len);
+	render_player(data, data->player, block_len);
 }
+
+// void	render_minimap(t_data *data, char **map)
+// {
+// 	int	x;
+// 	int	y;
+// 	int	i;
+// 	int	j;
+
+// 	y = 0;
+// 	j = 0;
+// 	while (y < data->map_height * BLOCK_H)
+// 	{
+// 		x = 0;
+// 		i = 0;
+// 		while (x < data->map_width * BLOCK_H)
+// 		{
+// 			if (map[j][i] == '1')
+// 				render_square(&data->img, (t_square){x, y, BLOCK_W,
+// 					WHITE_PIXEL});
+// 			else if (map[j][i] == 'D')
+// 			{
+// 				render_square(&data->img, (t_square){x, y, BLOCK_W,
+// 					YELLOW_PIXEL});
+// 				if (j == data->door.y && i == data->door.x && data->door.progress > 0)
+// 					render_square(&data->img, (t_square){x, y, BLOCK_W, BLOCK_H,
+// 						gradient(YELLOW_PIXEL, GREEN_PIXEL, 100, data->door.progress * 100)});
+// 			}
+// 			x += BLOCK_W;
+// 			i++;
+// 		}
+// 		y += BLOCK_H;
+// 		j++;
+// 	}
+// 	render_grid_lines(&data->img, data->map_width * BLOCK_H, data->map_height
+// 		* BLOCK_H);
+// 	render_player(data, data->player);
+// }
 			// else
 			// 	render_square(&data->img, (t_rect){x, y, BLOCK_W, BLOCK_H,
 			// 		data->tex.ceiling_color});

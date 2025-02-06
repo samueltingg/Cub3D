@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 13:33:42 by sting             #+#    #+#             */
-/*   Updated: 2025/01/27 12:25:28 by etien            ###   ########.fr       */
+/*   Updated: 2025/02/05 12:57:43 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	render_textures(t_data *data, t_ray ray, t_texture tex, int win_x)
 	tex.dir = find_dir(ray.side, ray.dir_x, ray.dir_y);
 	tex.x = calc_tex_x(wall_x, tex);
 	step = 1.0 * tex.img[tex.dir].height / ray.line_height;
-	// starting texture coordinate
 	tex.pos = (ray.draw_start - WINDOW_HEIGHT / 2 + ray.line_height / 2) * step;
 	add_door_offset(data, &ray, &tex, step);
 	win_y = ray.draw_start;

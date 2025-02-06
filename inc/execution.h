@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:12:33 by sting             #+#    #+#             */
-/*   Updated: 2025/01/27 12:37:26 by etien            ###   ########.fr       */
+/*   Updated: 2025/02/06 11:49:18 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,57 +15,68 @@
 
 # include "parsing.h"
 
+enum
+{
+	W,
+	A,
+	S,
+	D,
+	LEFT_ARR,
+	RIGHT_ARR,
+	MOUSE_MOVE_LEFT,
+	MOUSE_MOVE_RIGHT,
+};
+
 typedef struct s_cord
 {
-	double				x;
-	double				y;
-	double				z;
-	int					color;
-}						t_cord;
+	double	x;
+	double	y;
+	double	z;
+	int		color;
+}			t_cord;
 
 typedef struct s_line_cord
 {
-	int					x1;
-	int					y1;
-	int					x2;
-	int					y2;
-	int					color1;
-	int					color2;
-}						t_line_cord;
+	int		x1;
+	int		y1;
+	int		x2;
+	int		y2;
+	int		color1;
+	int		color2;
+}			t_line_cord;
 
 typedef struct s_line_var
 {
-	int					dx;
-	int					dy;
-	int					d;
-	int					x;
-	int					y;
-	int					xi;
-	int					yi;
-}						t_line_var;
+	int		dx;
+	int		dy;
+	int		d;
+	int		x;
+	int		y;
+	int		xi;
+	int		yi;
+}			t_line_var;
 
 typedef struct s_angle
 {
-	double				x;
-	double				y;
-	double				z;
-}						t_angle;
+	double	x;
+	double	y;
+	double	z;
+}			t_angle;
 
 // -------Newly added--------
 
-typedef struct s_rect
+typedef struct t_square
 {
-	double				x; // origin (top left)
-	double				y; // origin (top left)
-	double				width;
-	double				height;
-	int					color;
-}						t_rect;
+	double x; // origin (top left)
+	double y; // origin (top left)
+	double	len;
+	int		color;
+}			t_square;
 //---------------------------
 
 typedef struct s_ray
 {
-	int		win_x; // x cord of window
+	int win_x; // x cord of window
 	double	camera_x;
 	double	dir_x;
 	double	dir_y;
@@ -82,68 +93,75 @@ typedef struct s_ray
 	int		line_height;
 	int		draw_start;
 	int		draw_end;
-}	t_ray;
+}			t_ray;
 
 typedef struct s_vars
 {
-	char				**map;
-	void				*mlx_ptr;
-	void				*win_ptr;
-	t_img				img;
+	char	**map;
+	void	*mlx_ptr;
+	void	*win_ptr;
+	t_img	img;
 
 	// coordinate of player
-	double				p_x;
-	double				p_y;
+	double	p_x;
+	double	p_y;
 
 	// raycasting section
-	double				dir_x;
-	double				dir_y;
-	double				p_angle;
-	double				plane_x;
-	double				plane_y;
+	double	dir_x;
+	double	dir_y;
+	double	p_angle;
+	double	plane_x;
+	double	plane_y;
 
-}						t_vars;
+}			t_vars;
 
 typedef enum e_raycasting_mode
 {
 	NORMAL,
 	DOOR_DETECTION,
 	OPEN_DOOR
-}	t_raycasting_mode;
+}			t_raycasting_mode;
 
 // * RENDERING
-void	img_pix_put(t_img *img, int x, int y, int color);
-int		render(void *param);
-void	render_square(t_img *img, t_rect rect);
-void	render_minimap(t_data *data, char **map);
-void	render_grid_lines(t_img *img, int map_width, int map_height);
+void		img_pix_put(t_img *img, int x, int y, int color);
+int			render(void *param);
+void		render_square(t_img *img, t_square rect);
+void		render_minimap(t_data *data, char **map);
+void		render_grid_lines(t_img *img, int map_width, int map_height,
+				int block_len);
 
 // * TEXTURES
-void	render_textures(t_data *data, t_ray ray, t_texture tex, int x);
+void		render_textures(t_data *data, t_ray ray, t_texture tex, int x);
 
 // BRESENHAM'S LINE ALGO
-void	render_line_bresenham(t_img *img, t_line_cord cord);
-void	render_line_low(t_img *img, t_line_cord line);
-
-// * COLOR
-int		gradient(int startcolor, int endcolor, int len, int pix);
+void		render_line_bresenham(t_img *img, t_line_cord cord);
+void		render_line_low(t_img *img, t_line_cord line);
 
 // Handle Key Event
-int		close_window(void *params);
-int		handle_key_event(int keycode, void *param);
+int			close_window(void *params);
+int			handle_key_release(int keycode, void *param);
+int			handle_key_press(int keycode, void *param);
+void		player_movement(t_data *data, bool *keys, t_player *player);
+int			mouse_hook(int x, int y, void *param);
+void		rotate_player(int key, t_player *player, int rotate_amt);
 
 // RAYCASTING
-void	init_raycasting_info(int x, t_ray *ray, t_player player);
-void	dda_setup(t_ray *ray, t_player player);
-void	perform_dda(t_ray *ray, t_data *data, int raycasting_mode);
-void	calc_line_height(t_ray *ray);
-void	raycasting(t_data *data);
+void		init_raycasting_info(int x, t_ray *ray, t_player player);
+void		dda_setup(t_ray *ray, t_player player);
+void		perform_dda(t_ray *ray, t_data *data, int raycasting_mode);
+void		calc_line_height(t_ray *ray);
+void		raycasting(t_data *data);
 
 // DOOR
-bool	detect_door(t_data *data, t_ray *ray);
-void	update_door_variables(t_data *data, t_door *door, double delta_time);
-void	close_door_automatically(t_data *data, t_door *door);
-void	add_door_offset(t_data *data, t_ray *ray, t_texture *tex, double step);
-void	open_door_raycasting(t_data *data);
+bool		detect_door(t_data *data, t_ray *ray);
+void		update_door_variables(t_data *data, t_door *door,
+				double delta_time);
+void		close_door_automatically(t_data *data, t_door *door);
+void		add_door_offset(t_data *data, t_ray *ray, t_texture *tex,
+				double step);
+void		open_door_raycasting(t_data *data);
+
+// GRADIENT
+int			gradient(int start_color, int end_color, int len, int position);
 
 #endif

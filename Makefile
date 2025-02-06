@@ -1,6 +1,6 @@
 # Compiler and flags
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror $(INCLUDES) -fsanitize=address -g #-std=c99
+CFLAGS = -Wall -Wextra -Werror $(INCLUDES) -fsanitize=address -g -O3 #-std=c99
 INCLUDES = -Iinc -I$(LIBFT_DIR) -I$(MINILIBX_DIR)
 
 # Output executable
@@ -17,15 +17,16 @@ SRCDIR = src/
 
 SRCS_FIL = \
 			main.c \
-			execution/gradient.c \
 			execution/bresenham.c \
 			execution/render.c \
-			execution/handle_key_event.c \
+			execution/handle_events.c \
 			execution/raycasting.c \
 			execution/render_minimap.c \
 			execution/textures.c \
 			execution/img_pix_put.c \
+			execution/movement.c \
 			execution/door.c \
+			execution/gradient.c \
 			$(addprefix parsing/, \
 			error.c init.c  \
 			parse_cub_utils.c parse_cub.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   img_pix_put.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 14:20:23 by sting             #+#    #+#             */
-/*   Updated: 2025/01/27 11:24:20 by etien            ###   ########.fr       */
+/*   Updated: 2025/02/06 10:32:18 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	img_pix_put(t_img *img, int x, int y, int color)
 {
 	int	pixel;
 
+	if (x < 0 || x >= WINDOW_WIDTH || y < 0 || y >= WINDOW_HEIGHT)
+		return ;
 	pixel = y * (img->line_len / 4) + x;
 	img->addr[pixel] = color;
 }

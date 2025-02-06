@@ -3,31 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   macros.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:52:30 by etien             #+#    #+#             */
-/*   Updated: 2025/01/26 23:02:11 by etien            ###   ########.fr       */
+/*   Updated: 2025/02/06 11:58:12 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MACROS_H
 # define MACROS_H
 
-# define WINDOW_WIDTH 1920
-# define WINDOW_HEIGHT 1080
+# define WINDOW_WIDTH 2560
+# define WINDOW_HEIGHT 1440
 # define MLX_ERROR 1
 # define TRUE 1
 # define FALSE 0
 # define PI 3.14159
 
-// EVENT CODES
-# define ON_KEYDOWN 2 // mac only :()
-# define ON_KEYUP 3
+// EVENT CODE
+# define ON_KEYPRESS 2
+# define ON_KEYRELEASE 3
 # define ON_MOUSEDOWN 4
 # define ON_MOUSEUP 5
 # define ON_MOUSEMOVE 6
 # define ON_EXPOSE 12
 # define ON_DESTROY 17
+
+// EVENT MASK
+# define KEYPRESS_MASK 1
+# define KEYRELEASE_MASK 2
 
 // KEYCODES
 # ifdef __APPLE__ // MacOS
@@ -89,12 +93,9 @@
 # define PURPLE_PIXEL 0x9900FF
 # define YELLOW_PIXEL 0xFFFF00
 # define ORANGE_PIXEL 0xFFA500
+# define L_GREY_PIXEL 0xA1A1A1
 
-# define RADIAN(angle_degrees) ((angle_degrees)*PI / 180)
-# define R(a) (a) >> 16
-# define G(a) ((a) >> 8) & 0xFF
-# define B(a) (a) & 0xFF
-# define RGB(r, g, b) ((r) << 16) + ((g) << 8) + (b)
+// # define RADIAN(angle_degrees) ((angle_degrees)*PI / 180)
 
 // Player
 # define P_WIDTH 12
@@ -104,9 +105,16 @@
 # define EW 0
 # define NS 1
 
-#define BLOCK_W 20
-#define BLOCK_H 20
+# define BLOCK_W 20
+# define BLOCK_H 20
 
-#define DARKEN_COLOR_MASK 0b011111110111111101111111
+# define DARKEN_COLOR_MASK 0b011111110111111101111111
+
+# define MINIMAP_MAX_H (WINDOW_HEIGHT * 2 / 6)
+
+// #define MINIMAP_WIDTH 400   // Fixed width of the minimap in pixels
+// #define MINIMAP_HEIGHT 320  // Fixed height of the minimap in pixels
+// #define MINIMAP_SCALE 20
+// How much to scale the map tiles (adjust for zoom)
 
 #endif

@@ -6,27 +6,27 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 16:12:37 by sting             #+#    #+#             */
-/*   Updated: 2025/01/27 11:30:01 by etien            ###   ########.fr       */
+/*   Updated: 2025/02/05 16:41:03 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	gradient(int startcolor, int endcolor, int len, int position)
+int	gradient(int start_color, int end_color, int len, int position)
 {
 	double	increment[3];
 	int		new[3];
-	int		newcolor;
+	int		new_color;
 
-	increment[0] = (double)((R(endcolor)) - (R(startcolor)))
+	increment[0] = (double)((end_color >> 16) - (start_color >> 16))
 		/ (double)len;
-	increment[1] = (double)((G(endcolor)) - (G(startcolor)))
+	increment[1] = (double)(((end_color >> 8) & 0xFF)
+			- ((start_color >> 8) & 0xFF)) / (double)len;
+	increment[2] = (double)((end_color & 0xFF) - (start_color & 0xFF))
 		/ (double)len;
-	increment[2] = (double)((B(endcolor)) - (B(startcolor)))
-		/ (double)len;
-	new[0] = (R(startcolor)) + round(position * increment[0]);
-	new[1] = (G(startcolor)) + round(position * increment[1]);
-	new[2] = (B(startcolor)) + round(position * increment[2]);
-	newcolor = RGB(new[0], new[1], new[2]);
-	return (newcolor);
+	new[0] = (start_color >> 16) + round(position * increment[0]);
+	new[1] = ((start_color >> 8) & 0xFF) + round(position * increment[1]);
+	new[2] = (start_color & 0xFF) + round(position * increment[2]);
+	new_color = (new[0] << 16) + (new[1] << 8) + new[2];
+	return (new_color);
 }
