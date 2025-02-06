@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:48:19 by etien             #+#    #+#             */
-/*   Updated: 2025/01/24 16:26:51 by etien            ###   ########.fr       */
+/*   Updated: 2025/02/06 15:00:23 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	parse_line(char *line, t_data *data, bool *map_detected, t_list **tmp)
 	skip_whitespace(&s);
 	if (!*s && !(*map_detected))
 		return ;
+	else if (!ft_strchr(DATA_ELEMENTS, *s))
+		err_free_exit(INVALID_LINE_ERR, data, line);
 	else if (!(ft_strncmp(s, "NO", 2) && ft_strncmp(s, "SO", 2)
 			&& ft_strncmp(s, "WE", 2) && ft_strncmp(s, "EA", 2)))
 		parse_texture(s, line, data);
@@ -84,10 +86,10 @@ void	parse_texture(char *s, char *line, t_data *data)
 		free(trimmed_path);
 		err_free_exit(XPM_EXTENSION_ERR, data, line);
 	}
-	assign_texture(id, trimmed_path, data);
+	assign_texture(id, trimmed_path, line, data);
 }
 
-void	assign_texture(char *id, char *trimmed_path, t_data *data)
+void	assign_texture(char *id, char *trimmed_path, char *line, t_data *data)
 {
 	if (!ft_strncmp(id, "NO", 2) && !data->tex.path[0])
 		data->tex.path[0] = trimmed_path;
@@ -97,6 +99,11 @@ void	assign_texture(char *id, char *trimmed_path, t_data *data)
 		data->tex.path[2] = trimmed_path;
 	else if (!ft_strncmp(id, "EA", 2) && !data->tex.path[3])
 		data->tex.path[3] = trimmed_path;
+	else
+	{
+		free(trimmed_path);
+		err_free_exit(DUPLICATE_TEXTURE_ERR, data, line);
+	}
 }
 
 // This function will store the floor and ceiling colors in their
@@ -124,5 +131,8 @@ void	parse_color(char *s, char *line, t_data *data)
 		data->tex.floor_color = color_str_to_int(trimmed_color, line, data);
 	else if (id == 'C' && data->tex.ceiling_color < 0)
 		data->tex.ceiling_color = color_str_to_int(trimmed_color, line, data);
+	else
+		return (free(trimmed_color),
+			err_free_exit(DUPLICATE_COLOR_ERR, data, line));
 	free(trimmed_color);
 }

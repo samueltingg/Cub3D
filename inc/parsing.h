@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:24 by etien             #+#    #+#             */
-/*   Updated: 2025/02/06 11:46:13 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/06 14:59:36 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 # define DIRECTIONS "NSEW"
 # define EMPTY_SPACE "0 NSEW"
+# define DATA_ELEMENTS "01NSEWFC"
 # define MAP_ELEMENTS "01NSEW "
 # define OBSTACLE "1D"
 # define WHITESPACE " \t\n"
@@ -25,10 +26,13 @@
 // error messages
 # define ARGS_ERR "Incorrect number of arguments."
 # define COLOR_ERR "Invalid color."
-# define EMPTY_FILE_ERR "File is empty."
 # define CUB_EXTENSION_ERR "File name should end with .cub extension."
+# define DUPLICATE_COLOR_ERR "Color field repeated."
+# define DUPLICATE_TEXTURE_ERR "Texture field repeated."
+# define EMPTY_FILE_ERR "File is empty."
 # define FILE_OPEN_ERR "File could not be opened."
 # define INCOMPLETE_FIELD_ERR "Incomplete fields."
+# define INVALID_LINE_ERR "Invalid line in file."
 # define MAP_ARR_MALLOC_ERR "Map array malloc failure."
 # define MAP_BOUNDARIES_ERR "Map boundaries are unclosed."
 # define MAP_ELEMENT_ERR "Invalid map element."
@@ -161,7 +165,7 @@ void	parse_cub(char *map_file, t_data *data);
 void	parse_line(char *line, t_data *data, bool *map_detected,
 			t_list **tmp);
 void	parse_texture(char *s, char *line, t_data *data);
-void	assign_texture(char *id, char *trimmed_path, t_data *data);
+void	assign_texture(char *id, char *trimmed_path, char *line, t_data *data);
 void	parse_color(char *s, char *line, t_data *data);
 
 int		open_file(char *map_file);
