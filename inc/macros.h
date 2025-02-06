@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   macros.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:52:30 by etien             #+#    #+#             */
-/*   Updated: 2025/02/05 16:24:19 by etien            ###   ########.fr       */
+/*   Updated: 2025/02/06 11:58:12 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@
 # define ON_MOUSEMOVE 6
 # define ON_EXPOSE 12
 # define ON_DESTROY 17
+
+// EVENT MASK
+# define KEYPRESS_MASK 1
+# define KEYRELEASE_MASK 2
 
 // KEYCODES
 # ifdef __APPLE__ // MacOS
@@ -91,7 +95,7 @@
 # define ORANGE_PIXEL 0xFFA500
 # define L_GREY_PIXEL 0xA1A1A1
 
-# define RADIAN(angle_degrees) ((angle_degrees)*PI / 180)
+// # define RADIAN(angle_degrees) ((angle_degrees)*PI / 180)
 
 // Player
 # define P_WIDTH 12
@@ -106,11 +110,11 @@
 
 # define DARKEN_COLOR_MASK 0b011111110111111101111111
 
-# define MINIMAP_MAX_H WINDOW_HEIGHT*2/6
+# define MINIMAP_MAX_H (WINDOW_HEIGHT * 2 / 6)
 
 // #define MINIMAP_WIDTH 400   // Fixed width of the minimap in pixels
 // #define MINIMAP_HEIGHT 320  // Fixed height of the minimap in pixels
 // #define MINIMAP_SCALE 20
-	// How much to scale the map tiles (adjust for zoom)
+// How much to scale the map tiles (adjust for zoom)
 
 #endif

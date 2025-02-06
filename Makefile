@@ -19,7 +19,7 @@ SRCS_FIL = \
 			main.c \
 			execution/bresenham.c \
 			execution/render.c \
-			execution/handle_key_event.c \
+			execution/handle_events.c \
 			execution/raycasting.c \
 			execution/render_minimap.c \
 			execution/textures.c \

@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 14:50:16 by sting             #+#    #+#             */
-/*   Updated: 2025/02/05 16:44:36 by etien            ###   ########.fr       */
+/*   Updated: 2025/02/06 11:58:01 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+double radian(double angle_degrees) {
+    return (angle_degrees * PI / 180.0);
+}
 
 void	translate_player(int key, t_data *data, t_player *player)
 {
@@ -75,12 +79,17 @@ void	multiply_vectors_to_rot_matrix(t_player *player, double rot_amt)
 		* cos(rot_amt);
 }
 
-void	rotate_player(int key, t_player *player)
+void	rotate_player(int key, t_player *player, int rotate_amt)
 {
 	if (key == LEFT_ARR)
-		multiply_vectors_to_rot_matrix(player, RADIAN(-2));
+		multiply_vectors_to_rot_matrix(player, radian(-rotate_amt));
 	else if (key == RIGHT_ARR)
-		multiply_vectors_to_rot_matrix(player, RADIAN(2));
+		multiply_vectors_to_rot_matrix(player, radian(rotate_amt));
+	else if (key == MOUSE_MOVE_LEFT)
+		multiply_vectors_to_rot_matrix(player, radian(-rotate_amt));
+	else if (key == MOUSE_MOVE_RIGHT)
+		multiply_vectors_to_rot_matrix(player, radian(rotate_amt));
+
 }
 
 void	player_movement(t_data *data, bool *keys, t_player *player)
@@ -93,7 +102,7 @@ void	player_movement(t_data *data, bool *keys, t_player *player)
 		if (keys[i] == TRUE)
 		{
 			if (i > 3)
-				rotate_player(i, player);
+				rotate_player(i, player, 2);
 			else
 				translate_player(i, data, player);
 		}

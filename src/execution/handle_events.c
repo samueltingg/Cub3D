@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_key_event.c                                 :+:      :+:    :+:   */
+/*   handle_events.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:31:06 by sting             #+#    #+#             */
-/*   Updated: 2025/02/05 16:45:48 by etien            ###   ########.fr       */
+/*   Updated: 2025/02/06 11:59:30 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,25 @@ int	handle_key_release(int keycode, void *param)
 		data->keys[LEFT_ARR] = FALSE;
 	else if (keycode == KEY_RIGHT)
 		data->keys[RIGHT_ARR] = FALSE;
+	return (0);
+}
+
+
+int mouse_hook(int x,int y,void *param)
+{
+	t_data	*data;
+	int delta_x;
+	int mouse_speed;
+
+	(void)y;
+	data = (t_data *)param;
+	mouse_speed = 30;
+	delta_x = x - (WINDOW_WIDTH / 2);
+	if (delta_x > 0)
+		rotate_player(MOUSE_MOVE_RIGHT, &data->player, abs(delta_x) / mouse_speed);
+	else if (delta_x < 0)
+		rotate_player(MOUSE_MOVE_LEFT, &data->player, abs(delta_x) / mouse_speed);
+
+	mlx_mouse_move(data->mlx_ptr, data->win_ptr, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
 	return (0);
 }
