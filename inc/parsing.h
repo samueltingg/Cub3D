@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:24 by etien             #+#    #+#             */
-/*   Updated: 2025/02/06 18:06:07 by etien            ###   ########.fr       */
+/*   Updated: 2025/02/06 19:20:15 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,6 @@ void	door_init(t_door *door);
 
 void	print_map_data(t_data *data);
 void	print_map(char **map);
-void	print_unclosed_map(char **map, int y, int x, int edge_dir);
 
 void	err_free_exit(char *err_msg, t_data *data, char *line);
 void	free_data(t_data *data);

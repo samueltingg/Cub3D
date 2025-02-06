@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 16:46:05 by etien             #+#    #+#             */
-/*   Updated: 2025/02/06 18:01:49 by etien            ###   ########.fr       */
+/*   Updated: 2025/02/06 19:15:09 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ char	*trim_map_spaces(char *content, int min_leading_spaces)
 		len--;
 	if (min_leading_spaces == 0 && (len == ft_strlen(content)))
 		return (content);
-	trimmed_content = ft_substr(content, min_leading_spaces, len);
+	trimmed_content = ft_substr(content, min_leading_spaces,
+			len - min_leading_spaces);
 	free(content);
 	return (trimmed_content);
 }
