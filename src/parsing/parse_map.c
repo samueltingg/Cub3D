@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 11:08:29 by etien             #+#    #+#             */
-/*   Updated: 2025/02/06 18:12:23 by etien            ###   ########.fr       */
+/*   Updated: 2025/02/06 18:46:56 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ void	parse_map(t_list **tmp, t_data *data)
 	max_width = -1;
 	while (current)
 	{
-		current->content = trim_map_spaces(current->content, min_leading_spaces);
+		current->content = trim_map_spaces(current->content,
+				min_leading_spaces);
 		if ((int)ft_strlen(current->content) > max_width)
 			max_width = (int)ft_strlen(current->content);
 		current = current->next;
