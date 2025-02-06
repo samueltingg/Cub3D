@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:24 by etien             #+#    #+#             */
-/*   Updated: 2025/02/06 14:59:36 by etien            ###   ########.fr       */
+/*   Updated: 2025/02/06 18:06:07 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,7 @@ bool	check_completeness(t_data *data, int check_all);
 
 void	parse_map_line(char *line, t_list **tmp);
 void	parse_map(t_list **tmp, t_data *data);
+int		get_min_leading_spaces(t_list *current);
 void	store_map(t_list **tmp, t_data *data);
 void	pad_map(t_data *data, t_list *current, int i);
 
@@ -184,7 +185,7 @@ bool	detect_map(t_data *data, char *line, bool *map_detected);
 bool	line_is_empty(char *s);
 void	remove_trailing_empty_lines(t_list *tmp);
 bool	check_empty_lines(t_list *tmp);
-bool	check_map_elements(char *s);
+bool	check_map_elements(t_list *tmp);
 
 void	validate_map(t_data *data);
 void	validate_player(t_data *data);
@@ -224,6 +225,7 @@ void	mark_outside_boundary(t_data *data);
 void	flood_fill(t_data *data, int y, int x);
 
 char	*ft_strtrim_mod(char *s1, char const *set);
+char	*trim_map_spaces(char *content, int min_leading_spaces);
 void	skip_whitespace(char **s);
 void	del(void *content);
 double	get_delta_time(t_data *data);

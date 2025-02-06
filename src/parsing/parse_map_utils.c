@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 11:08:26 by etien             #+#    #+#             */
-/*   Updated: 2025/01/17 13:54:58 by etien            ###   ########.fr       */
+/*   Updated: 2025/02/06 18:05:43 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,15 +93,24 @@ bool	check_empty_lines(t_list *tmp)
 	return (false);
 }
 
-// This function will check that the map elements in a line
-// are all valid.
-bool	check_map_elements(char *s)
+// This function will check that all the map elements in the
+// linked list are valid.
+bool	check_map_elements(t_list *tmp)
 {
-	while (*s)
+	t_list	*current;
+	char	*s;
+
+	current = tmp;
+	while (current)
 	{
-		if (!ft_strchr(MAP_ELEMENTS, *s))
-			return (false);
-		s++;
+		s = current->content;
+		while (*s)
+		{
+			if (!ft_strchr(MAP_ELEMENTS, *s))
+				return (false);
+			s++;
+		}
+		current = current->next;
 	}
 	return (true);
 }
