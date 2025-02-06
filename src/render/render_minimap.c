@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 09:38:32 by sting             #+#    #+#             */
-/*   Updated: 2025/02/06 15:33:35 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/06 15:53:17 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,17 @@ void	render_grid_lines(t_img *img, int map_width, int map_height,
 	}
 }
 
+void	render_minimap_door_block(t_data *data, int i, int j, int block_len)
+{
+	render_square(&data->img, (t_square){i * block_len, j
+		* block_len, block_len, YELLOW_PIXEL});
+	if (j == data->door.y && i == data->door.x
+		&& data->door.progress > 0)
+		render_square(&data->img, (t_square){i * block_len, j
+			* block_len, block_len, gradient(YELLOW_PIXEL,
+				GREEN_PIXEL, 100, data->door.progress * 100)});
+}
+
 // Dynamic minimap size: "WINDOW_HEIGHT * O.3"
 void	render_minimap(t_data *data, char **map)
 {
@@ -95,15 +106,7 @@ void	render_minimap(t_data *data, char **map)
 				render_square(&data->img, (t_square){i * block_len, j
 					* block_len, block_len, WHITE_PIXEL});
 			else if (map[j][i] == 'D')
-			{
-				render_square(&data->img, (t_square){i * block_len, j
-					* block_len, block_len, YELLOW_PIXEL});
-				if (j == data->door.y && i == data->door.x
-					&& data->door.progress > 0)
-					render_square(&data->img, (t_square){i * block_len, j
-						* block_len, block_len, gradient(YELLOW_PIXEL,
-							GREEN_PIXEL, 100, data->door.progress * 100)});
-			}
+				render_minimap_door_block(data, i, j, block_len);
 		}
 	}
 	render_grid_lines(&data->img, data->map_width * block_len, data->map_height

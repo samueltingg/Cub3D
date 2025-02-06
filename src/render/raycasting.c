@@ -6,21 +6,16 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 13:03:57 by sting             #+#    #+#             */
-/*   Updated: 2025/02/06 15:26:50 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/06 15:47:46 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-/*
-	"ray->delta_dist_x = 1e30; ""
-	avoid division of 0, hence set to high value
-*/
+// calculate ray position & direction based on x cordinate of screen
 void	init_raycasting_info(int x, t_ray *ray, t_player player)
 {
-	// calculate ray position & direction based on x cordinate of screen
 	ray->camera_x = 2 * x / (double)WINDOW_WIDTH - 1;
-	// x-coordinate in camera space
 	ray->dir_x = player.dir_x + (player.plane_x * ray->camera_x);
 	ray->dir_y = player.dir_y + (player.plane_y * ray->camera_x);
 	ray->map_x = (int)player.pos_x;
@@ -34,6 +29,10 @@ void	init_raycasting_info(int x, t_ray *ray, t_player player)
 	else
 		ray->delta_dist_y = fabs(1 / ray->dir_y);
 }
+/*
+"ray->delta_dist_x = 1e30;" 
+	- avoid division of 0, hence set to high value
+*/
 
 // calculate step & initial side dist
 void	dda_setup(t_ray *ray, t_player player)
