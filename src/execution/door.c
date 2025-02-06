@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 16:04:56 by etien             #+#    #+#             */
-/*   Updated: 2025/02/05 16:45:35 by etien            ###   ########.fr       */
+/*   Updated: 2025/02/06 10:57:11 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ void	add_door_offset(t_data *data, t_ray *ray, t_texture *tex, double step)
 		ray->draw_start = 0;
 	if (ray->draw_start >= WINDOW_HEIGHT)
 		ray->draw_start = WINDOW_HEIGHT - 1;
+	if (ray->draw_end >= WINDOW_HEIGHT)
+		ray->draw_end = WINDOW_HEIGHT - 1;
 	tex->pos = (ray->draw_start - horizon + ray->line_height / 2) * step;
 	tex->pos += tex->img[tex->dir].height * progress;
 }
