@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 11:08:29 by etien             #+#    #+#             */
-/*   Updated: 2025/02/06 18:46:56 by etien            ###   ########.fr       */
+/*   Updated: 2025/02/07 15:05:29 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	parse_map_line(char *line, t_list **tmp)
 {
 	t_list	*node;
 
-	line[ft_strlen(line) - 1] = 0;
+	if (line[ft_strlen(line) - 1] == '\n')
+		line[ft_strlen(line) - 1] = 0;
 	node = malloc(sizeof(t_list));
 	node->content = ft_strdup(line);
 	node->next = NULL;
