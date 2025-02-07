@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:52:30 by etien             #+#    #+#             */
-/*   Updated: 2025/02/06 15:34:25 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/07 16:07:15 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,9 @@
 # else
 #  error Unsupported operating system
 # endif
+
+// MOUSE
+# define MOUSE_CLICK 1
 
 // COLORS
 # define WHITE_PIXEL 0xFFFFFF
