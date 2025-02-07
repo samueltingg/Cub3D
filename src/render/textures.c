@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 13:33:42 by sting             #+#    #+#             */
-/*   Updated: 2025/02/06 15:57:09 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/07 15:13:51 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ double	calc_wall_x(t_ray ray, t_player player)
 	return (wall_x);
 }
 
-// tex_x = tex.img[tex.dir].width - tex_x - 1; //! ??
+/*
+"tex_x = tex.img[tex.dir].width - tex_x - 1;"
+	- flips horizontal rendering direction
+*/
 int	calc_tex_x(double wall_x, t_texture tex)
 {
 	int	tex_x;
@@ -52,7 +55,7 @@ wall_x:
   - relative position / ratio of where the ray hits the wall,
   - value is a fractional part along  wall axis, normalized to range [0,1]
 
-tex_x: x cord on texture
+tex_x: scaled up version of wall_x to match actual texture coordinate
 
 step: vertical increment in texture space for each pixel in the column
 */
@@ -81,4 +84,9 @@ void	render_textures(t_data *data, t_ray ray, t_texture tex, int win_x)
 		win_y++;
 	}
 }
-//	tex.y = (int)tex.pos & (tex.img[tex.dir].height - 1); //! ?
+/*
+"tex.y = (int)tex.pos & (tex.img[tex.dir].height - 1);"
+- keeps tex.y in range of texture height
+- if tex.y exceed tex height, it wraps back to 0
+- prevent segfault when tex.y exceeds valid texture height when tex.pos >= height
+*/
