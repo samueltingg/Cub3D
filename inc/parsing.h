@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:24 by etien             #+#    #+#             */
-/*   Updated: 2025/02/07 14:39:10 by etien            ###   ########.fr       */
+/*   Updated: 2025/02/07 15:58:18 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ typedef struct s_data
 	char			**map;
 	struct timeval	last_time;
 	bool			keys[6];
+	bool			mouse_movement_flag;
 }					t_data;
 
 typedef struct s_map_copy
