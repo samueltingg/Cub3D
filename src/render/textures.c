@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 13:33:42 by sting             #+#    #+#             */
-/*   Updated: 2025/02/05 12:57:43 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/06 15:57:09 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,14 @@ double	calc_wall_x(t_ray ray, t_player player)
 	return (wall_x);
 }
 
+// tex_x = tex.img[tex.dir].width - tex_x - 1; //! ??
 int	calc_tex_x(double wall_x, t_texture tex)
 {
 	int	tex_x;
 
 	tex_x = (int)(wall_x * (double)tex.img[tex.dir].width);
 	if (tex.dir == WEST || tex.dir == SOUTH)
-		tex_x = tex.img[tex.dir].width - tex_x - 1; //! ??
+		tex_x = tex.img[tex.dir].width - tex_x - 1;
 	return (tex_x);
 }
 
@@ -71,12 +72,13 @@ void	render_textures(t_data *data, t_ray ray, t_texture tex, int win_x)
 	win_y = ray.draw_start;
 	while (win_y < ray.draw_end)
 	{
-		tex.y = (int)tex.pos & (tex.img[tex.dir].height - 1); //! ?
+		tex.y = (int)tex.pos & (tex.img[tex.dir].height - 1);
 		tex.pos += step;
 		color = tex.img[tex.dir].addr[(tex.y * tex.img[tex.dir].width) + tex.x];
 		if (ray.side == EW)
-			color = (color >> 1) & DARKEN_COLOR_MASK; //! ?
+			color = (color >> 1) & DARKEN_COLOR_MASK;
 		img_pix_put(&data->img, win_x, win_y, color);
 		win_y++;
 	}
 }
+//	tex.y = (int)tex.pos & (tex.img[tex.dir].height - 1); //! ?

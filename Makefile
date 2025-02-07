@@ -17,16 +17,18 @@ SRCDIR = src/
 
 SRCS_FIL = \
 			main.c \
-			execution/bresenham.c \
-			execution/render.c \
-			execution/handle_events.c \
-			execution/raycasting.c \
-			execution/render_minimap.c \
-			execution/textures.c \
-			execution/img_pix_put.c \
-			execution/movement.c \
-			execution/door.c \
-			execution/gradient.c \
+			handle_events.c \
+			render/bresenham.c \
+			render/render.c \
+			render/raycasting.c \
+			render/render_minimap.c \
+			render/textures.c \
+			render/img_pix_put.c \
+			render/door.c \
+			render/gradient.c \
+			movement/movement.c \
+			movement/translation.c \
+			movement/rotation.c \
 			$(addprefix parsing/, \
 			error.c init.c  \
 			parse_cub_utils.c parse_cub.c \

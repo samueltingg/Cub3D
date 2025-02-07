@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:35:23 by sting             #+#    #+#             */
-/*   Updated: 2025/02/06 18:48:05 by etien            ###   ########.fr       */
+/*   Updated: 2025/02/07 09:06:00 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "../libft/libft/libft.h"
 # include "execution.h"
 # include "macros.h"
-# ifdef __APPLE__ 
+# ifdef __APPLE__
 #  include "../minilibx/minilibx-macOS/mlx.h"
 # elif __linux__
 #  include "../minilibx/minilibx-linux/mlx.h"

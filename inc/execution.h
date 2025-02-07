@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:12:33 by sting             #+#    #+#             */
-/*   Updated: 2025/02/06 11:49:18 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/06 15:30:41 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,20 +63,18 @@ typedef struct s_angle
 	double	z;
 }			t_angle;
 
-// -------Newly added--------
-
+// x & y is the origin(top left) coordinatesd of the square
 typedef struct t_square
 {
-	double x; // origin (top left)
-	double y; // origin (top left)
+	double	x;
+	double	y;
 	double	len;
 	int		color;
 }			t_square;
-//---------------------------
 
 typedef struct s_ray
 {
-	int win_x; // x cord of window
+	int		win_x;
 	double	camera_x;
 	double	dir_x;
 	double	dir_y;
@@ -102,11 +100,9 @@ typedef struct s_vars
 	void	*win_ptr;
 	t_img	img;
 
-	// coordinate of player
 	double	p_x;
 	double	p_y;
 
-	// raycasting section
 	double	dir_x;
 	double	dir_y;
 	double	p_angle;
@@ -144,6 +140,7 @@ int			handle_key_press(int keycode, void *param);
 void		player_movement(t_data *data, bool *keys, t_player *player);
 int			mouse_hook(int x, int y, void *param);
 void		rotate_player(int key, t_player *player, int rotate_amt);
+void		translate_player(int key, t_data *data, t_player *player);
 
 // RAYCASTING
 void		init_raycasting_info(int x, t_ray *ray, t_player player);
