@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 15:59:41 by etien             #+#    #+#             */
-/*   Updated: 2025/01/27 08:51:29 by etien            ###   ########.fr       */
+/*   Updated: 2025/02/07 14:35:50 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	set_up_door(t_data	*data)
 }
 
 // This function will store valid door candidates in the candidates array.
+// Door candidates are chosen from the middle rows/columns.
 void	get_door_candidates(t_data *data, t_coords *candidates)
 {
 	int	candidate_count;
@@ -42,20 +43,22 @@ void	get_door_candidates(t_data *data, t_coords *candidates)
 	int	x;
 
 	candidate_count = 0;
-	y = -1;
-	while (data->map[++y])
+	y = 1;
+	while (y < data->map_height - 1)
 	{
-		x = -1;
-		while (data->map[y][++x])
+		x = 1;
+		while (x < data->map_width - 1)
 		{
-			if (is_a_wall(data, y, x) && !on_map_boundary(data, y, x)
+			if (data->map[y][x] == '1' && !on_map_boundary(data, y, x)
 				&& valid_door_candidate(data, y, x))
 			{
 				candidates[candidate_count].y = y;
 				candidates[candidate_count].x = x;
 				candidate_count++;
 			}
+			x++;
 		}
+		y++;
 	}
 	data->door.door_count = candidate_count;
 }
@@ -68,16 +71,16 @@ void	get_door_candidates(t_data *data, t_coords *candidates)
 bool	valid_door_candidate(t_data *data, int y, int x)
 {
 	if ((data->map[y - 1][x] == '1' && data->map[y + 1][x] == '1'
-		&& ft_strchr(EMPTY_SPACE, data->map[y][x - 1])
-		&& ft_strchr(EMPTY_SPACE, data->map[y][x + 1]))
-		|| (ft_strchr(EMPTY_SPACE, data->map[y - 1][x])
-		&& ft_strchr(EMPTY_SPACE, data->map[y + 1][x])
+		&& ft_strchr(DOOR_EMPTY_SPACE, data->map[y][x - 1])
+		&& ft_strchr(DOOR_EMPTY_SPACE, data->map[y][x + 1]))
+		|| (ft_strchr(DOOR_EMPTY_SPACE, data->map[y - 1][x])
+		&& ft_strchr(DOOR_EMPTY_SPACE, data->map[y + 1][x])
 		&& data->map[y][x - 1] == '1' && data->map[y][x + 1] == '1'))
 		return (true);
 	return (false);
 }
 
-// This function will call flood_fill to mark all whitespace
+// This function will call flood_fill to mark all empty space
 // coordinates outside the map boundaries with an 'X'.
 void	mark_outside_boundary(t_data *data)
 {
@@ -88,16 +91,16 @@ void	mark_outside_boundary(t_data *data)
 	x = -1;
 	while (++y < data->map_height)
 	{
-		if (data->map[y][0] == ' ')
+		if (ft_strchr(EMPTY_SPACE, data->map[y][0]))
 			flood_fill(data, y, 0);
-		if (data->map[y][data->map_width - 1] == ' ')
+		if (ft_strchr(EMPTY_SPACE, data->map[y][data->map_width - 1]))
 			flood_fill(data, y, data->map_width - 1);
 	}
 	while (++x < data->map_width)
 	{
-		if (data->map[0][x] == ' ')
+		if (ft_strchr(EMPTY_SPACE, data->map[0][x]))
 			flood_fill(data, 0, x);
-		if (data->map[data->map_height - 1][x] == ' ')
+		if (ft_strchr(EMPTY_SPACE, data->map[data->map_height - 1][x]))
 			flood_fill(data, data->map_height - 1, x);
 	}
 }
@@ -106,7 +109,7 @@ void	flood_fill(t_data *data, int y, int x)
 {
 	if (y < 0 || y >= data->map_height
 		|| x < 0 || x >= data->map_width
-		|| data->map[y][x] != ' ')
+		|| !ft_strchr(EMPTY_SPACE, data->map[y][x]))
 		return ;
 	data->map[y][x] = 'X';
 	flood_fill(data, y - 1, x);
