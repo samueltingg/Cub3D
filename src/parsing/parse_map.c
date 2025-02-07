@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 11:08:29 by etien             #+#    #+#             */
-/*   Updated: 2025/02/07 15:05:29 by etien            ###   ########.fr       */
+/*   Updated: 2025/02/07 16:14:08 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,8 @@ void	store_map(t_list **tmp, t_data *data)
 		if (!data->map[y])
 			tmp_exit(MAP_ARR_MALLOC_ERR, data, tmp);
 		data->map[y][data->map_width] = 0;
-		strcpy(data->map[y], current->content);
+		ft_strlcpy(data->map[y], current->content,
+			ft_strlen(current->content) + 1);
 		pad_map(data, current, y);
 		current = current->next;
 	}
