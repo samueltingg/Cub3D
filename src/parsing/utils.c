@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 16:46:05 by etien             #+#    #+#             */
-/*   Updated: 2025/01/27 12:33:19 by etien            ###   ########.fr       */
+/*   Updated: 2025/02/06 19:15:09 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,26 @@ char	*ft_strtrim_mod(char *s1, char const *set)
 	trimmed_str = ft_strtrim(s1, set);
 	free(s1);
 	return (trimmed_str);
+}
+
+// This helper function is called in parse_map to trim leading and trailing
+// spaces in the map lines while preserving their alignment.
+char	*trim_map_spaces(char *content, int min_leading_spaces)
+{
+	char	*trimmed_content;
+	size_t	len;
+
+	if (!content)
+		return (NULL);
+	len = ft_strlen(content);
+	while (len > 0 && content[len - 1] == ' ')
+		len--;
+	if (min_leading_spaces == 0 && (len == ft_strlen(content)))
+		return (content);
+	trimmed_content = ft_substr(content, min_leading_spaces,
+			len - min_leading_spaces);
+	free(content);
+	return (trimmed_content);
 }
 
 // A helper function for skipping over leading whitespace.

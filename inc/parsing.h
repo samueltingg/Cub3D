@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:24 by etien             #+#    #+#             */
-/*   Updated: 2025/02/06 11:46:13 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/06 19:20:15 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 # define DIRECTIONS "NSEW"
 # define EMPTY_SPACE "0 NSEW"
+# define DATA_ELEMENTS "01NSEWFC"
 # define MAP_ELEMENTS "01NSEW "
 # define OBSTACLE "1D"
 # define WHITESPACE " \t\n"
@@ -25,10 +26,13 @@
 // error messages
 # define ARGS_ERR "Incorrect number of arguments."
 # define COLOR_ERR "Invalid color."
-# define EMPTY_FILE_ERR "File is empty."
 # define CUB_EXTENSION_ERR "File name should end with .cub extension."
+# define DUPLICATE_COLOR_ERR "Color field repeated."
+# define DUPLICATE_TEXTURE_ERR "Texture field repeated."
+# define EMPTY_FILE_ERR "File is empty."
 # define FILE_OPEN_ERR "File could not be opened."
 # define INCOMPLETE_FIELD_ERR "Incomplete fields."
+# define INVALID_LINE_ERR "Invalid line in file."
 # define MAP_ARR_MALLOC_ERR "Map array malloc failure."
 # define MAP_BOUNDARIES_ERR "Map boundaries are unclosed."
 # define MAP_ELEMENT_ERR "Invalid map element."
@@ -150,7 +154,6 @@ void	door_init(t_door *door);
 
 void	print_map_data(t_data *data);
 void	print_map(char **map);
-void	print_unclosed_map(char **map, int y, int x, int edge_dir);
 
 void	err_free_exit(char *err_msg, t_data *data, char *line);
 void	free_data(t_data *data);
@@ -161,7 +164,7 @@ void	parse_cub(char *map_file, t_data *data);
 void	parse_line(char *line, t_data *data, bool *map_detected,
 			t_list **tmp);
 void	parse_texture(char *s, char *line, t_data *data);
-void	assign_texture(char *id, char *trimmed_path, t_data *data);
+void	assign_texture(char *id, char *trimmed_path, char *line, t_data *data);
 void	parse_color(char *s, char *line, t_data *data);
 
 int		open_file(char *map_file);
@@ -173,6 +176,7 @@ bool	check_completeness(t_data *data, int check_all);
 
 void	parse_map_line(char *line, t_list **tmp);
 void	parse_map(t_list **tmp, t_data *data);
+int		get_min_leading_spaces(t_list *current);
 void	store_map(t_list **tmp, t_data *data);
 void	pad_map(t_data *data, t_list *current, int i);
 
@@ -180,7 +184,7 @@ bool	detect_map(t_data *data, char *line, bool *map_detected);
 bool	line_is_empty(char *s);
 void	remove_trailing_empty_lines(t_list *tmp);
 bool	check_empty_lines(t_list *tmp);
-bool	check_map_elements(char *s);
+bool	check_map_elements(t_list *tmp);
 
 void	validate_map(t_data *data);
 void	validate_player(t_data *data);
@@ -220,6 +224,7 @@ void	mark_outside_boundary(t_data *data);
 void	flood_fill(t_data *data, int y, int x);
 
 char	*ft_strtrim_mod(char *s1, char const *set);
+char	*trim_map_spaces(char *content, int min_leading_spaces);
 void	skip_whitespace(char **s);
 void	del(void *content);
 double	get_delta_time(t_data *data);

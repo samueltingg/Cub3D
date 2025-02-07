@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 11:08:29 by etien             #+#    #+#             */
-/*   Updated: 2025/01/17 13:58:44 by etien            ###   ########.fr       */
+/*   Updated: 2025/02/06 18:46:56 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,30 +31,58 @@ void	parse_map_line(char *line, t_list **tmp)
 // The workflow is:
 // - remove trailing empty lines from the linked list
 // - check that the linked list does not have empty lines in between
+// - check that the linked list does not have invalid map elements
 // - extract map height
+// - trim leading and trailing spaces in the map lines
 // - extract map width
-// - iterate through each line and check for invalid map elements
 void	parse_map(t_list **tmp, t_data *data)
 {
 	t_list	*current;
 	int		max_width;
+	int		min_leading_spaces;
 
 	remove_trailing_empty_lines(*tmp);
 	if (check_empty_lines(*tmp))
 		tmp_exit(MAP_EMPTY_LINE_ERR, data, tmp);
+	if (!check_map_elements(*tmp))
+		tmp_exit(MAP_ELEMENT_ERR, data, tmp);
 	data->map_height = ft_lstsize(*tmp);
+	min_leading_spaces = get_min_leading_spaces(*tmp);
 	current = *tmp;
 	max_width = -1;
 	while (current)
 	{
-		if (!check_map_elements(current->content))
-			tmp_exit(MAP_ELEMENT_ERR, data, tmp);
+		current->content = trim_map_spaces(current->content,
+				min_leading_spaces);
 		if ((int)ft_strlen(current->content) > max_width)
 			max_width = (int)ft_strlen(current->content);
 		current = current->next;
 	}
 	data->map_width = max_width;
 	store_map(tmp, data);
+}
+
+// This function will return the minimum leading spaces after checking
+// through all the map lines in the linked list so that all lines can
+// have their leading whitespace trimmed uniformly.
+int	get_min_leading_spaces(t_list *current)
+{
+	int		min_leading_spaces;
+	int		leading_spaces;
+	char	*line_content;
+
+	min_leading_spaces = -1;
+	while (current)
+	{
+		leading_spaces = 0;
+		line_content = (char *)current->content;
+		while (line_content[leading_spaces] == ' ')
+			leading_spaces++;
+		if (min_leading_spaces == -1 || leading_spaces < min_leading_spaces)
+			min_leading_spaces = leading_spaces;
+		current = current->next;
+	}
+	return (min_leading_spaces);
 }
 
 // This function will malloc a 2D array to store the map from

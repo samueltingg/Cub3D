@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 18:31:22 by etien             #+#    #+#             */
-/*   Updated: 2025/01/24 16:25:48 by etien            ###   ########.fr       */
+/*   Updated: 2025/02/06 19:20:04 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,4 @@ void	print_map(char **map)
 			y++;
 		}
 	}
-}
-
-void	print_unclosed_map(char **map, int y, int x, int edge_dir)
-{
-	const char	*edge_dir_name[] = {"LEFT", "RIGHT", "TOP", "BOTTOM"};
-
-	map[y][x] = 'X';
-	print_map(map);
-	printf("Unclosed map at %s edge: (y: %d, x: %d)\n",
-		edge_dir_name[edge_dir], y, x);
 }
