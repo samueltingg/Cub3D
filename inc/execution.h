@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:12:33 by sting             #+#    #+#             */
-/*   Updated: 2025/02/06 15:30:41 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/07 15:49:22 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,6 @@ typedef struct s_line_var
 	int		yi;
 }			t_line_var;
 
-typedef struct s_angle
-{
-	double	x;
-	double	y;
-	double	z;
-}			t_angle;
-
 // x & y is the origin(top left) coordinatesd of the square
 typedef struct t_square
 {
@@ -92,24 +85,6 @@ typedef struct s_ray
 	int		draw_start;
 	int		draw_end;
 }			t_ray;
-
-typedef struct s_vars
-{
-	char	**map;
-	void	*mlx_ptr;
-	void	*win_ptr;
-	t_img	img;
-
-	double	p_x;
-	double	p_y;
-
-	double	dir_x;
-	double	dir_y;
-	double	p_angle;
-	double	plane_x;
-	double	plane_y;
-
-}			t_vars;
 
 typedef enum e_raycasting_mode
 {
