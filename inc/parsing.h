@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 13:47:24 by etien             #+#    #+#             */
-/*   Updated: 2025/02/06 19:20:15 by etien            ###   ########.fr       */
+/*   Updated: 2025/02/07 14:39:10 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 # include <time.h>
 
 # define DIRECTIONS "NSEW"
-# define EMPTY_SPACE "0 NSEW"
+# define DOOR_EMPTY_SPACE "0 NSEW"
+# define EMPTY_SPACE "0 "
 # define DATA_ELEMENTS "01NSEWFC"
 # define MAP_ELEMENTS "01NSEW "
 # define OBSTACLE "1D"
@@ -106,6 +107,13 @@ typedef struct s_data
 	bool			keys[6];
 }					t_data;
 
+typedef struct s_map_copy
+{
+	int		height;
+	int		width;
+	char	**map;
+}	t_map_copy;
+
 typedef enum e_completeness_check
 {
 	MAP_IS_LAST,
@@ -120,113 +128,78 @@ typedef enum e_direction
 	EAST
 }	t_direction;
 
-typedef enum e_edge_dir
-{
-	LEFT,
-	RIGHT,
-	TOP,
-	BOTTOM
-}	t_edge_dir;
-
-typedef struct s_vertical_neighbour
-{
-	bool	top;
-	bool	bottom;
-}			t_vertical_neighbour;
-
-typedef struct s_horizontal_neighbour
-{
-	bool	left;
-	bool	right;
-}			t_horizontal_neighbour;
-
 typedef struct s_coords
 {
 	int	y;
 	int	x;
 }		t_coords;
 
-void	data_init(t_data *data);
-void	img_init(t_img *img);
-void	player_init(t_player *player);
-void	texture_init(t_texture *texture);
-void	door_init(t_door *door);
+void		data_init(t_data *data);
+void		img_init(t_img *img);
+void		player_init(t_player *player);
+void		texture_init(t_texture *texture);
+void		door_init(t_door *door);
 
-void	print_map_data(t_data *data);
-void	print_map(char **map);
+void		print_map_data(t_data *data);
+void		print_map(char **map);
 
-void	err_free_exit(char *err_msg, t_data *data, char *line);
-void	free_data(t_data *data);
-void	free_double_arr(char **arr);
-void	tmp_exit(char *err_msg, t_data *data, t_list **tmp);
+void		err_free_exit(char *err_msg, t_data *data, char *line);
+void		free_data(t_data *data);
+void		free_double_arr(char **arr);
+void		tmp_exit(char *err_msg, t_data *data, t_list **tmp);
 
-void	parse_cub(char *map_file, t_data *data);
-void	parse_line(char *line, t_data *data, bool *map_detected,
-			t_list **tmp);
-void	parse_texture(char *s, char *line, t_data *data);
-void	assign_texture(char *id, char *trimmed_path, char *line, t_data *data);
-void	parse_color(char *s, char *line, t_data *data);
+void		parse_cub(char *map_file, t_data *data);
+void		parse_line(char *line, t_data *data, bool *map_detected,
+				t_list **tmp);
+void		parse_texture(char *s, char *line, t_data *data);
+void		assign_texture(char *id, char *trimmed_path, char *line,
+				t_data *data);
+void		parse_color(char *s, char *line, t_data *data);
 
-int		open_file(char *map_file);
-bool	check_file_extension(const char *filename,
-			const char *extension);
-int		color_str_to_int(char *color_str, char *line, t_data *data);
-bool	check_color_format(char **color_arr);
-bool	check_completeness(t_data *data, int check_all);
+int			open_file(char *map_file);
+bool		check_file_extension(const char *filename,
+				const char *extension);
+int			color_str_to_int(char *color_str, char *line, t_data *data);
+bool		check_color_format(char **color_arr);
+bool		check_completeness(t_data *data, int check_all);
 
-void	parse_map_line(char *line, t_list **tmp);
-void	parse_map(t_list **tmp, t_data *data);
-int		get_min_leading_spaces(t_list *current);
-void	store_map(t_list **tmp, t_data *data);
-void	pad_map(t_data *data, t_list *current, int i);
+void		parse_map_line(char *line, t_list **tmp);
+void		parse_map(t_list **tmp, t_data *data);
+int			get_min_leading_spaces(t_list *current);
+void		store_map(t_list **tmp, t_data *data);
+void		pad_map(t_data *data, t_list *current, int i);
 
-bool	detect_map(t_data *data, char *line, bool *map_detected);
-bool	line_is_empty(char *s);
-void	remove_trailing_empty_lines(t_list *tmp);
-bool	check_empty_lines(t_list *tmp);
-bool	check_map_elements(t_list *tmp);
+bool		detect_map(t_data *data, char *line, bool *map_detected);
+bool		line_is_empty(char *s);
+void		remove_trailing_empty_lines(t_list *tmp);
+bool		check_empty_lines(t_list *tmp);
+bool		check_map_elements(t_list *tmp);
 
-void	validate_map(t_data *data);
-void	validate_player(t_data *data);
-void	validate_boundaries(t_data *data);
-void	validate_textures(t_data *data);
+void		validate_map(t_data *data);
+void		validate_player(t_data *data);
+void		validate_boundaries(t_data *data);
+void		validate_textures(t_data *data);
 
-void	store_player(t_data *data, int y, int x, int *player_count);
-void	store_vectors(t_player *player, char c);
-void	store_dir(t_player *player, double dir_x, double dir_y);
-void	store_plane(t_player *player, double plane_x, double plane_y);
-bool	texture_is_accessible(const char *path);
+void		store_player(t_data *data, int y, int x, int *player_count);
+void		store_vectors(t_player *player, char c);
+void		store_dir(t_player *player, double dir_x, double dir_y);
+void		store_plane(t_player *player, double plane_x, double plane_y);
+bool		texture_is_accessible(const char *path);
 
-bool	is_a_wall(t_data *data, int y, int x);
-int		is_a_corner(t_data *data, int y, int x, int edge_dir);
-bool	on_map_boundary(t_data *data, int y, int x);
+t_map_copy	copy_map(char **map, int height, int width);
+bool		check_unclosed_walls(t_map_copy *map_copy, int y, int x);
+bool		on_map_boundary(t_data *data, int y, int x);
 
-bool	check_horizontal_edges(t_data *data);
-bool	valid_horizontal_edge(t_data *data, int y, int x, int edge_dir);
-int		get_horizontal_edge(t_data *data, int y, int x, int edge_dir);
-bool	check_vertical_neighbours(t_data *data, int y, int x,
-			int edge_dir);
-void	valid_vertical_neighbours(t_data *data, int y, int x,
-			t_vertical_neighbour *valid_neighbour);
+void		set_up_door(t_data	*data);
+void		get_door_candidates(t_data *data, t_coords *candidates);
+bool		valid_door_candidate(t_data *data, int y, int x);
+void		mark_outside_boundary(t_data *data);
+void		flood_fill(t_data *data, int y, int x);
 
-bool	check_vertical_edges(t_data *data);
-bool	valid_vertical_edge(t_data *data, int y, int x, int edge_dir);
-int		get_vertical_edge(t_data *data, int y, int x, int edge_dir);
-bool	check_horizontal_neighbours(t_data *data, int y, int x,
-			int edge_dir);
-void	valid_horizontal_neighbours(t_data *data, int y, int x,
-			t_horizontal_neighbour *valid_neighbour);
-
-void	set_up_door(t_data	*data);
-void	get_door_candidates(t_data *data, t_coords *candidates);
-bool	valid_door_candidate(t_data *data, int y, int x);
-void	mark_outside_boundary(t_data *data);
-void	flood_fill(t_data *data, int y, int x);
-
-char	*ft_strtrim_mod(char *s1, char const *set);
-char	*trim_map_spaces(char *content, int min_leading_spaces);
-void	skip_whitespace(char **s);
-void	del(void *content);
-double	get_delta_time(t_data *data);
+char		*ft_strtrim_mod(char *s1, char const *set);
+char		*trim_map_spaces(char *content, int min_leading_spaces);
+void		skip_whitespace(char **s);
+void		del(void *content);
+double		get_delta_time(t_data *data);
 
 #endif

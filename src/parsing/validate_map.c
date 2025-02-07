@@ -6,7 +6,7 @@
 /*   By: etien <etien@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 10:25:29 by etien             #+#    #+#             */
-/*   Updated: 2025/01/26 12:16:53 by etien            ###   ########.fr       */
+/*   Updated: 2025/02/07 14:32:15 by etien            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,21 @@ void	validate_player(t_data *data)
 		err_free_exit(PLAYER_MISSING_ERR, data, NULL);
 }
 
-// A minimum valid map would have to be at least 3x3.
+// This function validates the map boundaries by checking that the 
+// map is at least 3x3 and does not have unclosed walls.
 void	validate_boundaries(t_data *data)
 {
+	t_map_copy	map_copy;
+
 	if (data->map_width < 3 || data->map_height < 3)
 		err_free_exit(MAP_BOUNDARIES_ERR, data, NULL);
-	if (!check_horizontal_edges(data) || !check_vertical_edges(data))
+	map_copy = copy_map(data->map, data->map_height, data->map_width);
+	if (check_unclosed_walls(&map_copy, data->player.pos_y, data->player.pos_x))
+	{
+		free_double_arr(map_copy.map);
 		err_free_exit(MAP_BOUNDARIES_ERR, data, NULL);
+	}
+	free_double_arr(map_copy.map);
 }
 
 // This function ensures that the texture files can be opened.
