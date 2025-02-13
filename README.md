@@ -4,6 +4,8 @@
 cub3D is a 3D graphics project inspired by the classic game Wolfenstein 3D. It serves as an introduction to raycasting and graphics rendering in C using the MiniLibX library. The project renders a first-person view of a maze-like environment and allows player movement and rotation.
 
 ### Compilation
+> Note: This program is only compatible with Linux.   
+
 To build the program, navigate to the project directory and run:
 ```sh
 make
