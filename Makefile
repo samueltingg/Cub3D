@@ -1,8 +1,8 @@
 # Compiler and flags
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror $(INCLUDES) #-fsanitize=address -g #-std=c99
+CFLAGS = -Wall -Wextra -Werror $(INCLUDES) -fsanitize=address -g -O3 #-std=c99
 INCLUDES = -Iinc -I$(LIBFT_DIR) -I$(MINILIBX_DIR)
- 
+
 # Output executable
 NAME = cub3D
 
@@ -16,8 +16,27 @@ ORANGE = \033[0;38;5;166m
 SRCDIR = src/
 
 SRCS_FIL = \
-			main.c
-			\
+			main.c \
+			handle_events.c \
+			render/bresenham.c \
+			render/render.c \
+			render/raycasting.c \
+			render/render_minimap.c \
+			render/textures.c \
+			render/img_pix_put.c \
+			render/door.c \
+			render/gradient.c \
+			movement/movement.c \
+			movement/translation.c \
+			movement/rotation.c \
+			$(addprefix parsing/, \
+			error.c init.c  \
+			parse_cub_utils.c parse_cub.c \
+			parse_map_utils.c parse_map.c \
+			print.c utils.c \
+			validate_boundaries.c \
+			validate_map_utils.c validate_map.c \
+			door.c)
 
 SRCS = $(addprefix $(SRCDIR), $(SRCS_FIL))
 
@@ -30,9 +49,20 @@ LIBFT_DIR = libft/
 LIBFT_A = $(LIBFT_DIR)libft.a
 
 
-MINILIBX_DIR = minilibx-linux/
-LIBRARIES = -L$(LIBFT_DIR) -lft -lm -L$(MINILIBX_DIR) -lmlx_Linux -lXext -lX11 -lm -lz
+# MINILIBX_DIR = minilibx-linux/
+# LIBRARIES = -L$(LIBFT_DIR) -lft -lm -L$(MINILIBX_DIR) -lmlx_Linux -lXext -lX11 -lm -lz
 
+# Set MINILIBX_DIR based on the operating system
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S), Darwin)  # macOS
+    MINILIBX_DIR = minilibx/minilibx-macOS/
+	LIBRARIES = -L$(LIBFT_DIR) -lft -lm -L$(MINILIBX_DIR) -lmlx -framework OpenGL -framework AppKit
+else ifeq ($(UNAME_S), Linux)  # Linux
+    MINILIBX_DIR = minilibx/minilibx-linux/
+	LIBRARIES = -L$(LIBFT_DIR) -lft -lm -L$(MINILIBX_DIR) -lmlx_Linux -lXext -lX11 -lm -lz
+else
+    $(error Unsupported operating system)
+endif
 
 # Build targets
 all: $(OBJDIR) $(NAME)
@@ -45,7 +75,7 @@ $(OBJDIR):
 $(NAME): $(OBJS)
 	@make -C $(LIBFT_DIR)
 	@make -C $(MINILIBX_DIR)
-	@$(CC) $(LIBFT_A) $(CFLAGS) $(OBJS) -o $(NAME) -L$(LIBFT_DIR) -lft && echo "$(GREEN)$(NAME) was created$(RESET)"
+	@$(CC) $(LIBFT_A) $(CFLAGS) $(OBJS) -o $(NAME) $(LIBRARIES) && echo "$(GREEN)$(NAME) was created$(RESET)"
 
 $(OBJDIR)%.o: $(SRCDIR)%.c
 	@$(CC) $(CFLAGS) -c $< -o $@ && echo "$(GREEN)object files were created$(RESET)"
