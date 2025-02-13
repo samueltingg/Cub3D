@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: samuelting <samuelting@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:12:33 by sting             #+#    #+#             */
-/*   Updated: 2025/02/07 16:21:33 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/13 18:21:50 by samuelting       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ typedef enum e_raycasting_mode
 	OPEN_DOOR
 }			t_raycasting_mode;
 
+void	mlx(t_data *data);
+
 // * RENDERING
 void		img_pix_put(t_img *img, int x, int y, int color);
 int			render(void *param);
@@ -102,6 +104,7 @@ void		render_grid_lines(t_img *img, int map_width, int map_height,
 				int block_len);
 
 // * TEXTURES
+void	init_textures(t_data *data, t_texture *tex);
 void		render_textures(t_data *data, t_ray ray, t_texture tex, int x);
 
 // BRESENHAM'S LINE ALGO

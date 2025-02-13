@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   macros.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: samuelting <samuelting@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:52:30 by etien             #+#    #+#             */
-/*   Updated: 2025/02/07 16:07:15 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/13 18:30:35 by samuelting       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MACROS_H
 # define MACROS_H
 
-# define WINDOW_WIDTH 2560
-# define WINDOW_HEIGHT 1440
+# define WINDOW_WIDTH 1500
+# define WINDOW_HEIGHT 900
 # define MLX_ERROR 1
 # define TRUE 1
 # define FALSE 0

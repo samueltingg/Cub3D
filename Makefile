@@ -17,7 +17,7 @@ SRCDIR = src/
 
 SRCS_FIL = \
 			main.c \
-			handle_events.c \
+			handle_events/handle_key_events.c \
 			render/bresenham.c \
 			render/render.c \
 			render/raycasting.c \
@@ -37,6 +37,17 @@ SRCS_FIL = \
 			validate_boundaries.c \
 			validate_map_utils.c validate_map.c \
 			door.c)
+
+# Append the correct mouse handling file based on the OS
+ifeq ($(UNAME), Linux)
+    SRCS_FIL += \
+				mlx_linux.c \
+				handle_events/handle_mouse_events_linux.c
+else
+    SRCS_FIL += \
+				mlx_macos.c \
+				handle_events/handle_mouse_events_macos.c
+endif
 
 SRCS = $(addprefix $(SRCDIR), $(SRCS_FIL))
 
