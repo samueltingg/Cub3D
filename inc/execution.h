@@ -6,7 +6,7 @@
 /*   By: samuelting <samuelting@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:12:33 by sting             #+#    #+#             */
-/*   Updated: 2025/02/13 18:21:50 by samuelting       ###   ########.fr       */
+/*   Updated: 2025/02/14 09:12:27 by samuelting       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int			handle_key_press(int keycode, void *param);
 void		player_movement(t_data *data, bool *keys, t_player *player);
 int			mouse_hook(int x, int y, void *param);
 int			handle_mouse_click(int keycode, int x, int y, void *param);
-void		rotate_player(int key, t_player *player, int rotate_amt);
+void		rotate_player(int key, t_player *player, double rotate_amt);
 void		translate_player(int key, t_data *data, t_player *player);
 
 // RAYCASTING

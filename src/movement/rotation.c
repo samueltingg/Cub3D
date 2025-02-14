@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rotation.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: samuelting <samuelting@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 15:02:32 by sting             #+#    #+#             */
-/*   Updated: 2025/02/06 15:04:41 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/14 09:12:17 by samuelting       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	multiply_vectors_to_rot_matrix(t_player *player, double rot_amt)
 		* cos(rot_amt);
 }
 
-void	rotate_player(int key, t_player *player, int rotate_amt)
+void	rotate_player(int key, t_player *player, double rotate_amt)
 {
 	if (key == LEFT_ARR)
 		multiply_vectors_to_rot_matrix(player, radian(-rotate_amt));
