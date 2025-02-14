@@ -39,14 +39,17 @@ SRCS_FIL = \
 			door.c)
 
 # Append the correct mouse handling file based on the OS
-ifeq ($(UNAME), Linux)
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S), Linux)
     SRCS_FIL += \
 				mlx_linux.c \
 				handle_events/handle_mouse_events_linux.c
-else
+else ifeq ($(UNAME_S), Darwin)  # macOS 
     SRCS_FIL += \
 				mlx_macos.c \
 				handle_events/handle_mouse_events_macos.c
+else
+    $(error Unsupported operating system)
 endif
 
 SRCS = $(addprefix $(SRCDIR), $(SRCS_FIL))
@@ -59,12 +62,7 @@ OBJS = $(patsubst $(SRCDIR)%.c, $(OBJDIR)%.o, $(SRCS))
 LIBFT_DIR = libft/
 LIBFT_A = $(LIBFT_DIR)libft.a
 
-
-# MINILIBX_DIR = minilibx-linux/
-# LIBRARIES = -L$(LIBFT_DIR) -lft -lm -L$(MINILIBX_DIR) -lmlx_Linux -lXext -lX11 -lm -lz
-
 # Set MINILIBX_DIR based on the operating system
-UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S), Darwin)  # macOS
     MINILIBX_DIR = minilibx/minilibx-macOS/
 	LIBRARIES = -L$(LIBFT_DIR) -lft -lm -L$(MINILIBX_DIR) -lmlx -framework OpenGL -framework AppKit
