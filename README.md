@@ -27,6 +27,7 @@ Replace `maps/map.cub` with the actual path to your map file.
 - `A` - Move left
 - `S` - Move backward
 - `D` - Move right
+- `E` - Open Door
 
 ### Rotation
 - `Left Arrow` - Rotate left
@@ -42,4 +43,5 @@ Replace `maps/map.cub` with the actual path to your map file.
 - Smooth player movement and rotation
 - Basic texture rendering (walls, floors, ceilings)
 - Configurable map system
+- Doors
 
