@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 15:00:34 by sting             #+#    #+#             */
-/*   Updated: 2025/02/06 15:04:33 by sting            ###   ########.fr       */
+/*   Updated: 2025/02/14 09:08:33 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,30 @@
 void	get_translation_vector(int key, t_player *player, double *tx,
 		double *ty)
 {
+	double	move_speed;
+
+	move_speed = 0.05;
 	*tx = 0;
 	*ty = 0;
 	if (key == D)
 	{
-		*tx = -(0.1 * player->dir_y);
-		*ty = (0.1 * player->dir_x);
+		*tx = -(move_speed * player->dir_y);
+		*ty = (move_speed * player->dir_x);
 	}
 	else if (key == A)
 	{
-		*tx = (0.1 * player->dir_y);
-		*ty = -(0.1 * player->dir_x);
+		*tx = (move_speed * player->dir_y);
+		*ty = -(move_speed * player->dir_x);
 	}
 	else if (key == W)
 	{
-		*tx = (0.1 * player->dir_x);
-		*ty = (0.1 * player->dir_y);
+		*tx = (move_speed * player->dir_x);
+		*ty = (move_speed * player->dir_y);
 	}
 	else if (key == S)
 	{
-		*tx = -(0.1 * player->dir_x);
-		*ty = -(0.1 * player->dir_y);
+		*tx = -(move_speed * player->dir_x);
+		*ty = -(move_speed * player->dir_y);
 	}
 }
 
