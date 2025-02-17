@@ -6,7 +6,7 @@ cub3D is a 3D graphics project inspired by the classic game Wolfenstein 3D. It s
 <img width="700" alt="Image" src="https://github.com/user-attachments/assets/8ea13e1e-3ba2-4e50-a9cb-abfdce12cb98" />
 
 ### Compilation
-> Note: This program is only compatible with Linux.   
+> Note: This program is only compatible with Linux & MacOS.   
 
 To build the program, navigate to the project directory and run:
 ```sh
